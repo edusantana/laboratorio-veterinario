@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  match '/', to: 'laboratorio#show', constraints: { subdomain: /.+/ }, via: [:get, :post, :put, :patch, :delete]
+
+
   devise_for :users
   root to: "home#index"
 

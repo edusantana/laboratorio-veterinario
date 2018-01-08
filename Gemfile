@@ -39,9 +39,12 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'rspec-rails', '~> 3.6'
   gem 'factory_bot_rails'
+  gem 'capybara'
   # pretty prints Ruby objects in full color exposing their internal structure with proper indentation 
   # https://github.com/awesome-print/awesome_print
   gem "awesome_print" 
+
+
 end
 
 group :development do

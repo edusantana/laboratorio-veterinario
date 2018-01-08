@@ -8,9 +8,9 @@ default: &default
 development:
   <<: *default
   database: <%= ENV['RDS_DB_NAME'] %>
-  username: <%= ENV['RDS_USERNAME'] %>
-  password: <%= ENV['RDS_PASSWORD'] %>
-  host: <%= ENV['RDS_HOSTNAME'] %>
+  #username: <%= ENV['RDS_USERNAME'] %>
+  #password: <%= ENV['RDS_PASSWORD'] %>
+  #host: <%= ENV['RDS_HOSTNAME'] %>
   port: <%= ENV['RDS_PORT'] %>
 
 # Warning: The database defined as "test" will be erased and
