@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe LaboratorioController, type: :controller do
+RSpec.describe LaboratoriosController, type: :controller do
 
   describe "GET #show" do
     it "returns http success" do

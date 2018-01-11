@@ -23,6 +23,7 @@ require 'rspec/rails'
 # Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 require 'support/factory_bot'
+require 'support/users_helper'
 require 'support/subdomains'
 
 # Checks for pending migrations and applies them before tests are run.

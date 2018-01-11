@@ -1,0 +1,49 @@
+<h1>Requisição de exame</h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Proprietario:</strong>
+  <%= @exame_requisicao.proprietario %>
+</p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @exame_requisicao.nome %>
+</p>
+
+<p>
+  <strong>Idade:</strong>
+  <%= @exame_requisicao.idade %>
+</p>
+
+<p>
+  <strong>Especie:</strong>
+  <%= @exame_requisicao.especie %>
+</p>
+
+<p>
+  <strong>Raca:</strong>
+  <%= @exame_requisicao.raca %>
+</p>
+
+<p>
+  <strong>Observacoes:</strong>
+  <%= @exame_requisicao.observacoes %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  Aguardando envio da coleta
+</p>
+
+<h2 class="instrucoes">Instruções para entrega da coleta</h2>
+
+
+<ul>
+  <li>Escreva no recipiente da coleta o número do protocolo e o nome do animal: <strong>#<%=@exame_requisicao.id%> - <%=@exame_requisicao.nome%></strong></li>
+</ul>
+
+
+<%= link_to 'Editar', edit_exame_requisicao_path(@exame_requisicao) %> |
+<%= link_to 'Voltar', exame_requisicoes_path %>

@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   
-  match '/', to: 'laboratorio#show', constraints: { subdomain: /.+/ }, via: [:get, :post, :put, :patch, :delete]
+  
+  constraints(subdomain: /.+/) do
+    resources :exame_requisicoes, only: [:new, :create, :show, :edit, :index]
+  end
+  
+  match '/', to: 'laboratorios#show', constraints: { subdomain: /.+/ }, via: [:get, :post, :put, :patch, :delete]
+#  match '/', to: 'exame_requisicao#show', constraints: { subdomain: /.+/ }, via: [:get, :post, :put, :patch, :delete]
+
 
 
   devise_for :users

@@ -1,0 +1,47 @@
+<%= form_with(model: exame_requisicao, local: true) do |form| %>
+  <% if exame_requisicao.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(exame_requisicao.errors.count, "error") %> prohibited this exame_requisicao from being saved:</h2>
+
+      <ul>
+      <% exame_requisicao.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :proprietario %>
+    <%= form.text_field :proprietario, id: :exame_requisicao_proprietario %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nome %>
+    <%= form.text_field :nome, id: :exame_requisicao_nome %>
+  </div>
+
+  <div class="field">
+    <%= form.label :idade %>
+    <%= form.text_field :idade, id: :exame_requisicao_idade %>
+  </div>
+
+  <div class="field">
+    <%= form.label :especie %>
+    <%= form.text_field :especie, id: :exame_requisicao_especie %>
+  </div>
+
+  <div class="field">
+    <%= form.label :raca %>
+    <%= form.text_field :raca, id: :exame_requisicao_raca %>
+  </div>
+
+  <div class="field">
+    <%= form.label :observacoes %>
+    <%= form.text_field :observacoes, id: :exame_requisicao_observacoes %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit yield(:button_text) %>
+  </div>
+<% end %>

@@ -6,4 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Laboratorio.create(nome: "Laboratório Estrela", subdomain: 'star')
+proprietario=User.create(email: 'proprietario@gmail.com', password: 'ruby123')
+veterinario=User.create(email: 'veterinario@gmail.com', password: 'ruby123')
+
+lupa = Laboratorio.create(nome: "Laboratório Lupa", subdomain: 'lupa')
+citopatologico = ExameTipo.create(laboratorio: lupa, nome: "Citopatológico", campos: "Local da lezão,Descrição da lezão")
+

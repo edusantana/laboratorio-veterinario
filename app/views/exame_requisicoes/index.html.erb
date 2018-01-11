@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Requisições de exames</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Protocolo</th>
+      <th>Proprietário</th>
+      <th>Nome do animal</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @exame_requisicoes.each do |exame_requisicao| %>
+      <tr>
+        <td><%= l exame_requisicao.created_at %></td>
+        <td><%= link_to exame_requisicao.id, exame_requisicao %></td>
+        <td><%= exame_requisicao.proprietario %></td>
+        <td><%= exame_requisicao.nome %></td>
+        <td><%= link_to 'Edit', edit_exame_requisicao_path(exame_requisicao) %></td>
+        <td><%= link_to 'Destroy', exame_requisicao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Voltar', root_path %>
