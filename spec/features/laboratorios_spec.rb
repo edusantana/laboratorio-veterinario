@@ -8,6 +8,11 @@ RSpec.feature "Laboratorios", type: :feature do
     entao_pagina_inicial_do_laboratorio_eh_exibida
   end
 
+  scenario "Acessando laboratório inexistente" do
+    pending "Apresentar erro e sugestão de laboratório ou navegação"
+  end
+
+
   def dado_existe_um_laboratorio
     @lab = create(:laboratorio)
   end

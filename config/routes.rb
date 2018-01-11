@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   
   constraints(subdomain: /.+/) do
-    resources :exame_requisicoes, only: [:new, :create, :show, :edit, :index]
+    resources :exame_requisicoes
   end
   
   match '/', to: 'laboratorios#show', constraints: { subdomain: /.+/ }, via: [:get, :post, :put, :patch, :delete]

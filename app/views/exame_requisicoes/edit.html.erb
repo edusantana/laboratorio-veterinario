@@ -1,0 +1,7 @@
+<% provide(:title, 'Requisição de exame') %>
+<% provide(:button_text, 'Salvar') %>
+<h1>Editando requisição de exame</h1>
+
+<%= render 'form', exame_requisicao: @exame_requisicao %>
+
+<%= link_to 'Voltar', root_path %>

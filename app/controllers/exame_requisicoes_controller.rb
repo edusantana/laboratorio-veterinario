@@ -10,19 +10,16 @@ class ExameRequisicoesController < ApplicationController
   def edit
   end
 
-  def update
-  end
-
+  
   def new
     @exame_requisicao = ExameRequisicao.new
   end
-
+  
   def index
     @exame_requisicoes = ExameRequisicao.where(requisitante: current_user)
   end
 
-  def create
-    
+  def create    
     @exame_requisicao = ExameRequisicao.new(exame_requisicao_params)
     @exame_requisicao.laboratorio = @lab
     @exame_requisicao.requisitante = current_user
@@ -34,6 +31,22 @@ class ExameRequisicoesController < ApplicationController
       render :new
     end
   end
+
+  # PATCH/PUT /exame_requisicoes/1
+  def update
+    if @exame_requisicao.update(exame_requisicao_params)
+      redirect_to @exame_requisicao, notice: 'Exame requisicao was successfully updated.'
+    else
+      render :edit
+    end
+
+  end
+
+  def destroy
+    @exame_requisicao.destroy
+    redirect_to exame_requisicoes_url, notice: 'Requisição de exame foi excluída com sucesso.'    
+  end
+
   
   private
   # Use callbacks to share common setup or constraints between actions.
