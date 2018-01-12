@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
   private
 
   def get_laboratorio
-    @lab = Laboratorio.where(subdomain: request.subdomain).take
+    subdomain = request.subdomain.end_with?(".labvet.us-east-1") ? request.subdomain[0..-18] : request.subdomain
+    @lab = Laboratorio.where(subdomain: subdomain).take
   end
 
 end

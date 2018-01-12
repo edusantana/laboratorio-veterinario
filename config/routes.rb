@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   
-  constraints(subdomain: /^(?!labvet).*/) do
+  constraints(subdomain: /^(?!labvet).+/) do
     resources :exame_requisicoes
     match '/', to: 'laboratorios#show', via: [:get, :post, :put, :patch, :delete]
   end
