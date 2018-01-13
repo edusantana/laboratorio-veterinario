@@ -43,8 +43,6 @@ group :development, :test do
   # pretty prints Ruby objects in full color exposing their internal structure with proper indentation 
   # https://github.com/awesome-print/awesome_print
   gem "awesome_print" 
-
-
 end
 
 group :development do
@@ -61,3 +59,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 gem 'devise-i18n'
+gem 'aasm' # Possibilitar status: https://github.com/aasm/aasm

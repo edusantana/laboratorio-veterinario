@@ -23,7 +23,7 @@ class ExameRequisicoesController < ApplicationController
     @exame_requisicao = ExameRequisicao.new(exame_requisicao_params)
     @exame_requisicao.laboratorio = @lab
     @exame_requisicao.requisitante = current_user
-    @exame_requisicao.tipo = ExameTipo.last
+    @exame_requisicao.tipo = ExameTipo.last # FIXME
 
     if @exame_requisicao.save
       redirect_to @exame_requisicao, notice: 'Exame requisicao was successfully created.'

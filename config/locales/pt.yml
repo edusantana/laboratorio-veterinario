@@ -44,3 +44,8 @@ pt:
   time:
     formats:
       default: "%d/%m/%Y %H:%M"
+  aguardando_envio: "Aguardando envio"
+  aguardando_resultado: "Aguardando resultado"
+  resultado_disponivel: "Resultado disponível"
+  arquivado: "Arquivado"
+

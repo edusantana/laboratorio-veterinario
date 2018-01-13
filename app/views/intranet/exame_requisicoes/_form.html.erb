@@ -1,0 +1,53 @@
+<%= form_with(model: exame_requisicao, local: true) do |f| %>
+  <% if exame_requisicao.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(exame_requisicao.errors.count, "error") %> prohibited this exame_requisicao from being saved:</h2>
+
+      <ul>
+      <% exame_requisicao.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :tipo, "Tipo do exame" %>
+    <%= f.collection_select(:tipo_id, @lab.exame_tipos, :id, :nome) %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :proprietario, "Nome do proprietário" %>
+    <%= f.text_field :proprietario, id: :exame_requisicao_proprietario %>
+  </div>
+
+  <div class="field">
+    <%= f.label :nome, "Nome do animal" %>
+    <%= f.text_field :nome, id: :exame_requisicao_nome %>
+  </div>
+
+  <div class="field">
+    <%= f.label :idade %>
+    <%= f.text_field :idade, id: :exame_requisicao_idade %>
+  </div>
+
+  <div class="field">
+    <%= f.label :especie, "Espécie" %>
+    <%= f.text_field :especie, id: :exame_requisicao_especie %>
+  </div>
+
+  <div class="field">
+    <%= f.label :raca, "Raça" %>
+    <%= f.text_field :raca, id: :exame_requisicao_raca %>
+  </div>
+
+  <div class="field">
+    <%= f.label :observacoes, "Observações" %>
+    <%= f.text_area :observacoes, id: :exame_requisicao_observacoes %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit yield(:button_text) %>
+  </div>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180111130405) do
+ActiveRecord::Schema.define(version: 20180112215632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20180111130405) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "laboratorio_id", null: false
+    t.string "aasm_state"
     t.index ["laboratorio_id"], name: "index_exame_requisicoes_on_laboratorio_id"
     t.index ["requisitante_id"], name: "index_exame_requisicoes_on_requisitante_id"
     t.index ["tipo_id"], name: "index_exame_requisicoes_on_tipo_id"
@@ -46,6 +47,8 @@ ActiveRecord::Schema.define(version: 20180111130405) do
     t.string "subdomain", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "dono_id"
+    t.index ["dono_id"], name: "index_laboratorios_on_dono_id"
     t.index ["subdomain"], name: "index_laboratorios_on_subdomain", unique: true
   end
 
@@ -70,4 +73,5 @@ ActiveRecord::Schema.define(version: 20180111130405) do
   add_foreign_key "exame_requisicoes", "laboratorios"
   add_foreign_key "exame_requisicoes", "users", column: "requisitante_id"
   add_foreign_key "exame_tipos", "laboratorios"
+  add_foreign_key "laboratorios", "users", column: "dono_id"
 end

@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.feature "Exames", type: :feature do
 
+  before(:example) do
+    usando_main_domain
+  end
+
   scenario "Veterinário solicitando um exame" do
     dado_existe_um_laboratorio
     e_dois_tipo_de_exames_cadastrados_no_laboratorio
@@ -32,6 +36,22 @@ RSpec.feature "Exames", type: :feature do
     entao_estamos_na_pagina_de_lista_de_resultados
   end
 
+  scenario "Dono do laboratório confirma recebimento de amostra de exame solicitado" do
+    dado_existe_um_laboratorio
+    e_uma_solicitacao_de_exame
+    e_o_dono_do_laboratorio_estiver_logado
+    quando_acessar_pagina_inicial_do_laboratorio
+    e_clicar_em_intranet
+    entao_estamos_na_intranet_do_laboratorio
+    quando_clicar_em_solicitacoes_de_exames
+    entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
+    e_posso_ver_os_principais_dados_da_solicitacao
+    quando_clicar_em_confirmar_recebimento_na_solicitacao
+    entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
+    e_o_status_da_solicitacao_mudou_para_aguardando_resultado
+  end
+
+
   def dado_existe_um_laboratorio
     @lab = create(:laboratorio)
   end
@@ -58,6 +78,11 @@ RSpec.feature "Exames", type: :feature do
     login(@veterinario)
   end
 
+  def e_o_dono_do_laboratorio_estiver_logado
+    @dono = @lab.dono
+    login(@dono)
+  end
+
   def quando_acessar_pagina_inicial_do_laboratorio
     usando_labdomain(@lab)
     visit root_path
@@ -71,6 +96,10 @@ RSpec.feature "Exames", type: :feature do
     click_on("Resultados dos exames")
   end
 
+  def e_clicar_em_intranet
+    click_on("Intranet")
+  end
+
   def entao_estamos_na_pagina_de_requisicao_de_exame
     expect(page).to have_current_path(new_exame_requisicao_path)
   end
@@ -78,6 +107,14 @@ RSpec.feature "Exames", type: :feature do
   def entao_estamos_na_pagina_de_vizualizacao_de_exame
     # https://stackoverflow.com/questions/5228371/how-to-get-current-path-with-query-string-using-capybara
     expect(page).to have_current_path(/exame_requisicoes\/.+/)
+  end
+
+  def entao_estamos_na_intranet_do_laboratorio
+    expect(page).to have_current_path(intranet_path)
+  end
+
+  def entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
+    expect(page).to have_current_path(intranet_exame_requisicoes_path)
   end
 
   def quando_preencher_os_dados_da_requisicao_de_exame
@@ -110,6 +147,10 @@ RSpec.feature "Exames", type: :feature do
     # FIXME incluir status
   end
 
+  def e_o_status_da_solicitacao_mudou_para_aguardando_resultado
+    expect(page).to have_content("Aguardando resultado")
+  end
+
   def quando_clicar_no_numero_do_protocolo
     click_on(@exame_requisicao.id)
   end
@@ -117,5 +158,15 @@ RSpec.feature "Exames", type: :feature do
   def quando_clicar_em_voltar
     click_on("Voltar")
   end
+
+  def quando_clicar_em_solicitacoes_de_exames
+    click_on("Solicitações de exames")
+  end
+
+  def quando_clicar_em_confirmar_recebimento_na_solicitacao
+    #click_on( confirmar_recebimento")
+    find("#exame_requisicao#{@exame_requisicao.id}").find("#confirmar_recebimento").click
+  end
+
 
 end
