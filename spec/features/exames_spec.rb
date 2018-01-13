@@ -51,6 +51,43 @@ RSpec.feature "Exames", type: :feature do
     e_o_status_da_solicitacao_mudou_para_aguardando_resultado
   end
 
+  scenario "Quem não for dono do laboratório não poderá acessar a intranet" do
+    pending "Falta implementar"
+  end
+
+  scenario "Dono do laboratório ver dados da solicitação do exame para realizá-lo" do
+    dado_existe_um_laboratorio
+    e_uma_solicitacao_de_exame_com_status_aguardando_resultado
+    e_o_dono_do_laboratorio_estiver_logado
+    quando_acessar_pagina_inicial_do_laboratorio
+    e_clicar_em_intranet
+    entao_estamos_na_intranet_do_laboratorio
+    quando_clicar_em_solicitacoes_de_exames
+    entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
+    e_posso_ver_os_principais_dados_da_solicitacao
+    quando_clicar_no_numero_do_protocolo
+    entao_estamos_na_intranet_vendo_os_detalhes_da_requisicao_de_exame
+  end
+
+  scenario "Dono do laboratório anexa resultado de um exame", :wip do
+    dado_existe_um_laboratorio
+    e_uma_solicitacao_de_exame_com_status_aguardando_resultado
+    e_o_dono_do_laboratorio_estiver_logado
+    quando_acessar_pagina_inicial_do_laboratorio
+    e_clicar_em_intranet
+    entao_estamos_na_intranet_do_laboratorio
+    quando_clicar_em_solicitacoes_de_exames
+    entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
+    e_posso_ver_os_principais_dados_da_solicitacao
+    quando_clicar_no_numero_do_protocolo
+    entao_estamos_na_intranet_vendo_os_detalhes_da_requisicao_de_exame
+    quando_dono_anexar_resultado
+    e_clicar_em_exame_realizado
+    entao_estamos_na_intranet_vendo_os_detalhes_da_requisicao_de_exame
+    e_estamos_vendo_o_status_resultado_disponivel
+
+  end
+
 
   def dado_existe_um_laboratorio
     @lab = create(:laboratorio)
@@ -58,6 +95,10 @@ RSpec.feature "Exames", type: :feature do
 
   def e_uma_solicitacao_de_exame
     @exame_requisicao = create(:exame_requisicao, laboratorio: @lab)
+  end
+
+  def e_uma_solicitacao_de_exame_com_status_aguardando_resultado
+    @exame_requisicao = create(:exame_requisicao_aguardando_resultado, laboratorio: @lab)
   end
 
   def e_o_veterinario_que_solicitou_o_exame_estiver_logado
@@ -109,6 +150,10 @@ RSpec.feature "Exames", type: :feature do
     expect(page).to have_current_path(/exame_requisicoes\/.+/)
   end
 
+  def entao_estamos_na_pagina_de_lista_de_resultados
+    expect(page).to have_current_path(exame_requisicoes_path)
+  end
+
   def entao_estamos_na_intranet_do_laboratorio
     expect(page).to have_current_path(intranet_path)
   end
@@ -116,6 +161,11 @@ RSpec.feature "Exames", type: :feature do
   def entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
     expect(page).to have_current_path(intranet_exame_requisicoes_path)
   end
+
+  def entao_estamos_na_intranet_vendo_os_detalhes_da_requisicao_de_exame
+    expect(page).to have_current_path(intranet_exame_requisicao_path(@exame_requisicao))
+  end
+
 
   def quando_preencher_os_dados_da_requisicao_de_exame
     observacoes = "Localização da lezão: Perna traseira direita\nDescrição da lezão: Corte profundo, não infecionado"
@@ -134,9 +184,6 @@ RSpec.feature "Exames", type: :feature do
     expect(page).to have_content(/\#[0-9]+ \- #{@requisicao_dados[:nome]}/)
   end
 
-  def entao_estamos_na_pagina_de_lista_de_resultados
-    expect(page).to have_current_path(exame_requisicoes_path)
-  end
 
   def e_posso_ver_os_principais_dados_da_solicitacao
     expect(page).to have_content("Requisições de exames")
@@ -168,5 +215,8 @@ RSpec.feature "Exames", type: :feature do
     find("#exame_requisicao#{@exame_requisicao.id}").find("#confirmar_recebimento").click
   end
 
+  def quando_dono_anexar_resultado
+    
+  end
 
 end

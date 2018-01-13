@@ -8,5 +8,10 @@ FactoryBot.define do
     raca "Raça1"
     laboratorio
     association :tipo, factory: :exame_tipo
+
+      factory :exame_requisicao_aguardando_resultado do
+        after(:build) { |requisicao| requisicao.confirmar_recebimento }
+      end
+
   end
 end
