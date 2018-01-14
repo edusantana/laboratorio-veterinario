@@ -30,10 +30,23 @@ RSpec.feature "Exames", type: :feature do
     e_clicar_em_exames_solicitados
     entao_estamos_na_pagina_de_lista_de_resultados
     e_posso_ver_os_principais_dados_da_solicitacao
+    e_posso_ver_o_status_aguardando_envio
     quando_clicar_no_numero_do_protocolo
     entao_estamos_na_pagina_de_vizualizacao_de_exame
     quando_clicar_em_voltar
     entao_estamos_na_pagina_de_lista_de_resultados
+  end
+
+  scenario "Veterinário verificando status de exame após recebido pelo laboratório" do
+    dado_existe_um_laboratorio
+    e_uma_solicitacao_de_exame_com_status_aguardando_resultado
+    e_o_veterinario_que_solicitou_o_exame_estiver_logado
+    quando_acessar_pagina_inicial_do_laboratorio
+    e_clicar_em_exames_solicitados
+    entao_estamos_na_pagina_de_lista_de_resultados
+    quando_clicar_no_numero_do_protocolo
+    entao_estamos_na_pagina_de_vizualizacao_de_exame
+    e_posso_ver_o_status_aguardando_resultado
   end
 
   scenario "Dono do laboratório confirma recebimento de amostra de exame solicitado" do
@@ -48,7 +61,20 @@ RSpec.feature "Exames", type: :feature do
     e_posso_ver_os_principais_dados_da_solicitacao
     quando_clicar_em_confirmar_recebimento_na_solicitacao
     entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
+    e_posso_ver_o_status_aguardando_resultado
     e_o_status_da_solicitacao_mudou_para_aguardando_resultado
+  end
+
+  scenario "Veterinário verificando resultado do exame anexado" do
+    dado_existe_um_laboratorio
+    e_uma_solicitacao_de_exame_com_status_aguardando_resultado
+    e_o_veterinario_que_solicitou_o_exame_estiver_logado
+    quando_acessar_pagina_inicial_do_laboratorio
+    e_clicar_em_exames_solicitados
+    entao_estamos_na_pagina_de_lista_de_resultados
+    quando_clicar_no_numero_do_protocolo
+    entao_estamos_na_pagina_de_vizualizacao_de_exame
+    e_posso_ver_o_status_aguardando_resultado
   end
 
   scenario "Quem não for dono do laboratório não poderá acessar a intranet" do
@@ -199,6 +225,14 @@ RSpec.feature "Exames", type: :feature do
 
   def e_estamos_vendo_o_status_resultado_disponivel
     expect(page).to have_content("Resultado disponível")
+  end
+
+  def e_posso_ver_o_status_aguardando_resultado
+    expect(page).to have_content("Aguardando resultado")
+  end
+
+  def e_posso_ver_o_status_aguardando_envio
+    expect(page).to have_content("Aguardando envio da coleta")
   end
 
   def quando_clicar_no_numero_do_protocolo

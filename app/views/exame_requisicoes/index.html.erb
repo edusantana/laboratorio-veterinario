@@ -9,6 +9,7 @@
       <th>Protocolo</th>
       <th>Proprietário</th>
       <th>Nome do animal</th>
+      <th>Status</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -20,6 +21,7 @@
         <td><%= link_to exame_requisicao.id, exame_requisicao %></td>
         <td><%= exame_requisicao.proprietario %></td>
         <td><%= exame_requisicao.nome %></td>
+        <td><%= t exame_requisicao.aasm_state %></td>
         <td><%= link_to 'Editar', edit_exame_requisicao_path(exame_requisicao) %></td>
         <td><%= link_to 'Excluir', exame_requisicao, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
       </tr>
