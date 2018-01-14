@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180112215632) do
+ActiveRecord::Schema.define(version: 20180114125129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "exame_anexos", force: :cascade do |t|
+    t.bigint "resultado_id"
+    t.string "anexo_file_name"
+    t.string "anexo_content_type"
+    t.integer "anexo_file_size"
+    t.datetime "anexo_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resultado_id"], name: "index_exame_anexos_on_resultado_id"
+  end
 
   create_table "exame_requisicoes", force: :cascade do |t|
     t.bigint "tipo_id", null: false
@@ -31,6 +42,15 @@ ActiveRecord::Schema.define(version: 20180112215632) do
     t.index ["laboratorio_id"], name: "index_exame_requisicoes_on_laboratorio_id"
     t.index ["requisitante_id"], name: "index_exame_requisicoes_on_requisitante_id"
     t.index ["tipo_id"], name: "index_exame_requisicoes_on_tipo_id"
+  end
+
+  create_table "exame_resultados", force: :cascade do |t|
+    t.bigint "requisicao_id"
+    t.bigint "tecnico_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["requisicao_id"], name: "index_exame_resultados_on_requisicao_id"
+    t.index ["tecnico_id"], name: "index_exame_resultados_on_tecnico_id"
   end
 
   create_table "exame_tipos", force: :cascade do |t|
@@ -69,9 +89,12 @@ ActiveRecord::Schema.define(version: 20180112215632) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "exame_anexos", "exame_resultados", column: "resultado_id"
   add_foreign_key "exame_requisicoes", "exame_tipos", column: "tipo_id"
   add_foreign_key "exame_requisicoes", "laboratorios"
   add_foreign_key "exame_requisicoes", "users", column: "requisitante_id"
+  add_foreign_key "exame_resultados", "exame_requisicoes", column: "requisicao_id"
+  add_foreign_key "exame_resultados", "users", column: "tecnico_id"
   add_foreign_key "exame_tipos", "laboratorios"
   add_foreign_key "laboratorios", "users", column: "dono_id"
 end

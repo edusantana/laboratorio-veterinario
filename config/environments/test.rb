@@ -39,4 +39,8 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # paperclip will store files at tmp on tests
+  Paperclip::Attachment.default_options[:path] = "#{Rails.root}/tmp/paperclip/:class/:id_partition/:style.:extension"
+
 end

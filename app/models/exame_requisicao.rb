@@ -2,6 +2,8 @@ class ExameRequisicao < ApplicationRecord
   belongs_to :requisitante, class_name: "User"
   belongs_to :tipo, class_name: "ExameTipo"
   belongs_to :laboratorio
+  has_one :resultado, class_name: "ExameResultado", foreign_key: "requisicao_id"
+
 
   include AASM
 
@@ -16,7 +18,7 @@ class ExameRequisicao < ApplicationRecord
       transitions :from => :aguardando_envio, :to => :aguardando_resultado
     end
 
-    event :anexar_resultado do
+    event :resultado_inserido do
       transitions :from => :aguardando_resultado, :to => :resultado_disponivel
     end
 

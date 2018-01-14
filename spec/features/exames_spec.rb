@@ -27,7 +27,7 @@ RSpec.feature "Exames", type: :feature do
     e_uma_solicitacao_de_exame
     e_o_veterinario_que_solicitou_o_exame_estiver_logado
     quando_acessar_pagina_inicial_do_laboratorio
-    e_clicar_em_resultados_dos_exames
+    e_clicar_em_exames_solicitados
     entao_estamos_na_pagina_de_lista_de_resultados
     e_posso_ver_os_principais_dados_da_solicitacao
     quando_clicar_no_numero_do_protocolo
@@ -66,7 +66,7 @@ RSpec.feature "Exames", type: :feature do
     entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
     e_posso_ver_os_principais_dados_da_solicitacao
     quando_clicar_no_numero_do_protocolo
-    entao_estamos_na_intranet_vendo_os_detalhes_da_requisicao_de_exame
+    entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
   end
 
   scenario "Dono do laboratório anexa resultado de um exame", :wip do
@@ -80,12 +80,11 @@ RSpec.feature "Exames", type: :feature do
     entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
     e_posso_ver_os_principais_dados_da_solicitacao
     quando_clicar_no_numero_do_protocolo
-    entao_estamos_na_intranet_vendo_os_detalhes_da_requisicao_de_exame
-    quando_dono_anexar_resultado
-    e_clicar_em_exame_realizado
-    entao_estamos_na_intranet_vendo_os_detalhes_da_requisicao_de_exame
+    entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
+    quando_anexar_um_documento_como_resultado
+    e_clicar_em_anexar_ao_resultado
+    entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
     e_estamos_vendo_o_status_resultado_disponivel
-
   end
 
 
@@ -133,8 +132,8 @@ RSpec.feature "Exames", type: :feature do
     click_on("Solicitar exame")
   end
 
-  def e_clicar_em_resultados_dos_exames
-    click_on("Resultados dos exames")
+  def e_clicar_em_exames_solicitados
+    click_on("Exames solicitados")
   end
 
   def e_clicar_em_intranet
@@ -162,8 +161,8 @@ RSpec.feature "Exames", type: :feature do
     expect(page).to have_current_path(intranet_exame_requisicoes_path)
   end
 
-  def entao_estamos_na_intranet_vendo_os_detalhes_da_requisicao_de_exame
-    expect(page).to have_current_path(intranet_exame_requisicao_path(@exame_requisicao))
+  def entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
+    expect(page).to have_current_path(edit_intranet_exame_requisicao_path(@exame_requisicao))
   end
 
 
@@ -198,6 +197,10 @@ RSpec.feature "Exames", type: :feature do
     expect(page).to have_content("Aguardando resultado")
   end
 
+  def e_estamos_vendo_o_status_resultado_disponivel
+    expect(page).to have_content("Resultado disponível")
+  end
+
   def quando_clicar_no_numero_do_protocolo
     click_on(@exame_requisicao.id)
   end
@@ -215,8 +218,16 @@ RSpec.feature "Exames", type: :feature do
     find("#exame_requisicao#{@exame_requisicao.id}").find("#confirmar_recebimento").click
   end
 
-  def quando_dono_anexar_resultado
-    
+  def quando_clicar_em_inserir_resultado
+    click_on("Inserir resultado")
+  end
+
+  def e_clicar_em_anexar_ao_resultado
+    click_on("Anexar ao resultado")
+  end
+
+  def quando_anexar_um_documento_como_resultado
+    attach_file('anexo', "spec/samples/exame_anexos/exame-citopatologico1.doc")    
   end
 
 end

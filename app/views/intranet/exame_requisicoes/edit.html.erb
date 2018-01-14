@@ -1,7 +1,46 @@
-<% provide(:title, 'Requisição de exame') %>
-<% provide(:button_text, 'Salvar') %>
-<h1>Editando requisição de exame</h1>
+<h1>Resultado</h1>
+<div id="menu">
+  <%= form_tag({action: :anexar_resultado}, multipart: true) do %>
+    <%= file_field_tag 'anexo' %>
+    <%= submit_tag 'Anexar ao resultado', class: 'btn btn-default' %>
+  <% end %>
+</div>
 
-<%= render 'form', exame_requisicao: @exame_requisicao %>
+<h1>Requisição de exame</h1>
 
-<%= link_to 'Voltar', root_path %>
+<p>
+  <strong>Proprietario:</strong>
+  <%= @exame_requisicao.proprietario %>
+</p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @exame_requisicao.nome %>
+</p>
+
+<p>
+  <strong>Idade:</strong>
+  <%= @exame_requisicao.idade %>
+</p>
+
+<p>
+  <strong>Especie:</strong>
+  <%= @exame_requisicao.especie %>
+</p>
+
+<p>
+  <strong>Raca:</strong>
+  <%= @exame_requisicao.raca %>
+</p>
+
+<p>
+  <strong>Observacoes:</strong>
+  <%= @exame_requisicao.observacoes %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= t @exame_requisicao.aasm_state %>
+</p>
+
+<%= link_to 'Voltar', intranet_exame_requisicoes_path %>

@@ -14,7 +14,6 @@ RSpec.feature "Laboratorios", type: :feature do
     entao_pagina_de_laboratorio_inexistente_eh_exibida
   end
 
-
   def dado_existe_um_laboratorio
     @lab = create(:laboratorio)
   end
