@@ -52,3 +52,6 @@ pt:
   pundit:
     laboratorio_policy:
       show?: "Você não tem permissão para acessar a intranet deste laboratório."
+    exame_requisicao_policy:
+      show?: "Você não em permissão para acessar este exame."
+      edit?: "Você não em permissão para acessar este exame."

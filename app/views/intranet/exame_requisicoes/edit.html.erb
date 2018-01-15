@@ -1,10 +1,28 @@
 <h1>Resultado</h1>
 <div id="menu">
+<!--
   <%= form_tag({action: :anexar_resultado}, multipart: true) do %>
     <%= file_field_tag 'anexo' %>
     <%= submit_tag 'Anexar ao resultado', class: 'btn btn-default' %>
   <% end %>
+-->
+
+  <%= form_for ExameAnexo.new, url: anexar_resultado_intranet_exame_requisicao_path(@exame_requisicao), html: { multipart: true } do |f| %>
+    <%= f.file_field :anexo %>
+    <%= f.submit 'Anexar ao resultado 2', class: 'btn btn-default' %>
+  <% end %>
+
 </div>
+
+<% if @exame_requisicao.resultado %>
+  <div id="anexos">
+    <ul>
+      <% @exame_requisicao.resultado.anexos.each do |anexo| %>
+        <li><%= link_to "Resultado-#{l anexo.created_at}", anexo.anexo.url %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <h1>Requisição de exame</h1>
 

@@ -5,9 +5,11 @@ class ExameRequisicoesController < ApplicationController
 
 
   def show
+    authorize @exame_requisicao
   end
 
   def edit
+    authorize @exame_requisicao
   end
 
   
@@ -35,6 +37,7 @@ class ExameRequisicoesController < ApplicationController
   # PATCH/PUT /exame_requisicoes/1
   def update
     if @exame_requisicao.update(exame_requisicao_params)
+      authorize @exame_requisicao
       redirect_to @exame_requisicao, notice: 'Exame requisicao was successfully updated.'
     else
       render :edit

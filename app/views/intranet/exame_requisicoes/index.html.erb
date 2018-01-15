@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Data</th>
+      <th>Requisitante</th>
       <th>Protocolo</th>
       <th>Proprietário</th>
       <th>Nome do animal</th>
@@ -18,6 +19,7 @@
     <% @exame_requisicoes.each do |exame_requisicao| %>
       <tr id="exame_requisicao<%=exame_requisicao.id%>">
         <td><%= l exame_requisicao.created_at %></td>
+        <td><%= link_to exame_requisicao.requisitante.email, edit_intranet_exame_requisicao_path(exame_requisicao)%></td>
         <td><%= link_to exame_requisicao.id, edit_intranet_exame_requisicao_path(exame_requisicao) %></td>
         <td><%= link_to exame_requisicao.proprietario, edit_intranet_exame_requisicao_path(exame_requisicao) %></td>
         <td><%= link_to exame_requisicao.nome, edit_intranet_exame_requisicao_path(exame_requisicao) %></td>

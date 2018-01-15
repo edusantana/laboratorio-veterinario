@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Exames", type: :feature do
 
-  before(:example) do
+  before(:each) do
     usando_main_domain
   end
 
@@ -37,6 +37,23 @@ RSpec.feature "Exames", type: :feature do
     entao_estamos_na_pagina_de_lista_de_resultados
   end
 
+  scenario "Cliente não tem acesso a verificar o exame de outro cliente" do
+    dado_existe_um_laboratorio
+    e_uma_solicitacao_de_exame
+    e_o_outro_cliente_logado
+    quando_tentar_acessar_o_exame
+    entao_vemos_uma_mensagem_que_nao_temos_permissao_para_acessar_o_exame
+  end
+
+  scenario "Cliente não tem acesso para editar o exame de outro cliente" do
+    dado_existe_um_laboratorio
+    e_uma_solicitacao_de_exame
+    e_o_outro_cliente_logado
+    quando_tentar_editar_o_exame
+    entao_vemos_uma_mensagem_que_nao_temos_permissao_para_acessar_o_exame
+  end
+
+
   scenario "Veterinário verificando status de exame após recebido pelo laboratório" do
     dado_existe_um_laboratorio
     e_uma_solicitacao_de_exame_com_status_aguardando_resultado
@@ -49,10 +66,10 @@ RSpec.feature "Exames", type: :feature do
     e_posso_ver_o_status_aguardando_resultado
   end
 
-  scenario "Dono do laboratório confirma recebimento de amostra de exame solicitado" do
-    dado_existe_um_laboratorio
+  scenario "Secretario do laboratório confirma recebimento de amostra de exame solicitado" do
+    dado_um_laboratorio_com_funcionarios
     e_uma_solicitacao_de_exame
-    e_o_dono_do_laboratorio_estiver_logado
+    e_o_secretario_estiver_logado
     quando_acessar_pagina_inicial_do_laboratorio
     e_clicar_em_intranet
     entao_estamos_na_intranet_do_laboratorio
@@ -65,8 +82,8 @@ RSpec.feature "Exames", type: :feature do
     e_o_status_da_solicitacao_mudou_para_aguardando_resultado
   end
 
-  scenario "Veterinário verificando resultado do exame anexado" do
-    dado_existe_um_laboratorio
+  scenario "Cliente verificando resultado do exame anexado" do
+    dado_um_laboratorio_com_funcionarios
     e_uma_solicitacao_de_exame_com_status_aguardando_resultado
     e_o_veterinario_que_solicitou_o_exame_estiver_logado
     quando_acessar_pagina_inicial_do_laboratorio
@@ -78,7 +95,7 @@ RSpec.feature "Exames", type: :feature do
   end
 
   scenario "Dono do laboratório ver dados da solicitação do exame para realizá-lo" do
-    dado_existe_um_laboratorio
+    dado_um_laboratorio_com_funcionarios
     e_uma_solicitacao_de_exame_com_status_aguardando_resultado
     e_o_dono_do_laboratorio_estiver_logado
     quando_acessar_pagina_inicial_do_laboratorio
@@ -91,10 +108,10 @@ RSpec.feature "Exames", type: :feature do
     entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
   end
 
-  scenario "Dono do laboratório anexa resultado de um exame" do
-    dado_existe_um_laboratorio
+  scenario "Tecnico do laboratório anexa resultado de um exame", :wip do
+    dado_um_laboratorio_com_funcionarios
     e_uma_solicitacao_de_exame_com_status_aguardando_resultado
-    e_o_dono_do_laboratorio_estiver_logado
+    e_o_tecnico_do_laboratorio_estiver_logado
     quando_acessar_pagina_inicial_do_laboratorio
     e_clicar_em_intranet
     entao_estamos_na_intranet_do_laboratorio
@@ -107,11 +124,19 @@ RSpec.feature "Exames", type: :feature do
     e_clicar_em_anexar_ao_resultado
     entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
     e_estamos_vendo_o_status_resultado_disponivel
+    e_vemos_um_link_para_acessar_o_resultado_anexado
   end
 
 
   def dado_existe_um_laboratorio
     @lab = create(:laboratorio)
+  end
+
+  def dado_um_laboratorio_com_funcionarios
+    @lab = create(:laboratorio_com_funcionarios)
+    @dono = User.with_role(:dono, @lab).take
+    @tecnico = User.with_role(:tecnico, @lab).take
+    @secretario = User.with_role(:secretario, @lab).take
   end
 
   def e_uma_solicitacao_de_exame
@@ -135,6 +160,10 @@ RSpec.feature "Exames", type: :feature do
     @tipos = [@tipo1, @tipo2]
   end
 
+  def e_o_outro_cliente_logado
+    e_um_veterinario_logado
+  end
+
   def e_um_veterinario_logado
     @veterinario = create(:veterinario)
     login(@veterinario)
@@ -142,7 +171,18 @@ RSpec.feature "Exames", type: :feature do
 
   def e_o_dono_do_laboratorio_estiver_logado
     @dono = @lab.dono
+    usando_labdomain(@lab)
     login(@dono)
+  end
+
+  def e_o_tecnico_do_laboratorio_estiver_logado
+    usando_labdomain(@lab)
+    login(@tecnico)
+  end
+
+  def e_o_secretario_estiver_logado
+    usando_labdomain(@lab)
+    login(@secretario)
   end
 
   def quando_acessar_pagina_inicial_do_laboratorio
@@ -150,6 +190,16 @@ RSpec.feature "Exames", type: :feature do
     visit root_path
   end
 
+  def quando_tentar_acessar_o_exame
+    usando_labdomain(@lab)
+    visit exame_requisicao_path(@exame_requisicao)
+  end
+
+  def quando_tentar_editar_o_exame
+    usando_labdomain(@lab)
+    visit edit_exame_requisicao_path(@exame_requisicao)    
+  end
+  
   def e_clicar_em_solicitar_exame
     click_on("Solicitar exame")
   end
@@ -257,7 +307,15 @@ RSpec.feature "Exames", type: :feature do
   end
 
   def quando_anexar_um_documento_como_resultado
-    attach_file('anexo', "spec/samples/exame_anexos/exame-citopatologico1.doc")    
+    attach_file('exame_anexo[anexo]', "spec/samples/exame_anexos/exame-citopatologico1.pdf")    
+  end
+
+  def entao_vemos_uma_mensagem_que_nao_temos_permissao_para_acessar_o_exame
+    expect(page).to have_content("Você não em permissão para acessar este exame.")    
+  end
+
+  def e_vemos_um_link_para_acessar_o_resultado_anexado
+    find("#anexos").find("a").click
   end
 
 end

@@ -13,8 +13,8 @@ module Intranet
         @exame_requisicao.resultado = ExameResultado.create(requisicao: @exame_requisicao, tecnico: current_user)
       end
 
-      anexo = @exame_requisicao.resultado.anexos.create
-      anexo.anexo = params[:anexo]
+      anexo = @exame_requisicao.resultado.anexos.create(anexo_params)
+
       @exame_requisicao.resultado_inserido! unless  @exame_requisicao.resultado_disponivel?
 
       redirect_to edit_intranet_exame_requisicao_path(@exame_requisicao), notice: 'Anexo adicionado.'
@@ -55,7 +55,9 @@ module Intranet
     end
 
     def anexo_params
-      params.require(:anexo)
+      #params.require(:anexo)
+      params.require(:exame_anexo).permit(:anexo)
+
     end
 
   end
