@@ -3,8 +3,15 @@ class IntranetController < ApplicationController
   before_action :authenticate_user!
   before_action :verifica_permissao_global
 
-
-  # FIXME verificar permissão de acessar a intranet
+  def pundit_user
+    def current_user.at_intranet?
+      true
+    end
+    def current_user.at_lab
+      @lab
+    end
+    current_user
+  end
 
   private 
   

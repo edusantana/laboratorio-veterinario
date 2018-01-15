@@ -49,3 +49,6 @@ pt:
   resultado_disponivel: "Resultado disponível"
   arquivado: "Arquivado"
 
+  pundit:
+    laboratorio_policy:
+      show?: "Você não tem permissão para acessar a intranet deste laboratório."

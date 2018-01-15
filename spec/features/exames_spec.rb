@@ -77,10 +77,6 @@ RSpec.feature "Exames", type: :feature do
     e_posso_ver_o_status_aguardando_resultado
   end
 
-  scenario "Quem não for dono do laboratório não poderá acessar a intranet" do
-    pending "Falta implementar"
-  end
-
   scenario "Dono do laboratório ver dados da solicitação do exame para realizá-lo" do
     dado_existe_um_laboratorio
     e_uma_solicitacao_de_exame_com_status_aguardando_resultado
@@ -95,7 +91,7 @@ RSpec.feature "Exames", type: :feature do
     entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
   end
 
-  scenario "Dono do laboratório anexa resultado de um exame", :wip do
+  scenario "Dono do laboratório anexa resultado de um exame" do
     dado_existe_um_laboratorio
     e_uma_solicitacao_de_exame_com_status_aguardando_resultado
     e_o_dono_do_laboratorio_estiver_logado
