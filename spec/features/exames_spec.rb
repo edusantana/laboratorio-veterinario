@@ -33,6 +33,7 @@ RSpec.feature "Exames", type: :feature do
     e_posso_ver_o_status_aguardando_envio
     quando_clicar_no_numero_do_protocolo
     entao_estamos_na_pagina_de_vizualizacao_de_exame
+    e_nao_ha_resultados_exibidos
     quando_clicar_em_voltar
     entao_estamos_na_pagina_de_lista_de_resultados
   end
@@ -132,7 +133,7 @@ RSpec.feature "Exames", type: :feature do
     entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
   end
 
-  scenario "Tecnico do laboratório anexa resultado de um exame", :wip do
+  scenario "Tecnico do laboratório anexa resultado de um exame" do
     dado_um_laboratorio_com_funcionarios
     e_uma_solicitacao_de_exame_com_status_aguardando_resultado
     e_o_tecnico_do_laboratorio_estiver_logado
@@ -270,6 +271,10 @@ RSpec.feature "Exames", type: :feature do
     observacoes = "Localização da lezão: Perna traseira direita\nDescrição da lezão: Corte profundo, não infecionado"
     @requisicao_dados = {"especie" => "Canino", "raca" => "Poodle", "idade" => 5, nome: "Lucas", "observacoes" => observacoes}
     @requisicao_dados.each {|k,v| fill_in("exame_requisicao_#{k}", with:v)}
+  end
+
+  def e_nao_ha_resultados_exibidos
+    expect(page).not_to have_content("Resultado")
   end
 
   def e_o_status_do_exame_aguardando_envio_da_coleta_eh_exibido

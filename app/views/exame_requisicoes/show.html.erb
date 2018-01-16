@@ -1,8 +1,8 @@
+<% if @exame_requisicao.resultado %>
 <h1>Resultado</h1>
 
 <p>O resultado do exame pode ser baixado através do(s) seguintes link(s):</p>
 
-<% if @exame_requisicao.resultado %>
   <div id="anexos">
     <ul>
       <% @exame_requisicao.resultado.anexos.each_with_index do |anexo,index| %>
