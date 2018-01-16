@@ -38,11 +38,6 @@ module Intranet
       end
     end
 
-    def destroy
-      @exame_requisicao.destroy
-      redirect_to exame_requisicoes_url, notice: 'Requisição de exame foi excluída com sucesso.'    
-    end
-
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_exame_requisicao

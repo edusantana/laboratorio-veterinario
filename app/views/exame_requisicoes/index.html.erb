@@ -19,11 +19,12 @@
       <tr>
         <td><%= l exame_requisicao.created_at %></td>
         <td><%= link_to exame_requisicao.id, exame_requisicao %></td>
-        <td><%= exame_requisicao.proprietario %></td>
-        <td><%= exame_requisicao.nome %></td>
-        <td><%= t exame_requisicao.aasm_state %></td>
-        <td><%= link_to 'Editar', edit_exame_requisicao_path(exame_requisicao) %></td>
-        <td><%= link_to 'Excluir', exame_requisicao, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
+        <td><%= link_to exame_requisicao.proprietario, exame_requisicao %></td>
+        <td><%= link_to exame_requisicao.nome, exame_requisicao %></td>
+        <td><%= link_to (t exame_requisicao.aasm_state), exame_requisicao %></td>
+        <% if policy(exame_requisicao).update? %>
+          <td><%= link_to 'Editar', edit_exame_requisicao_path(exame_requisicao) %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

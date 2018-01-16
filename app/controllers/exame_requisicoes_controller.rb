@@ -28,7 +28,7 @@ class ExameRequisicoesController < ApplicationController
     @exame_requisicao.tipo = ExameTipo.last # FIXME
 
     if @exame_requisicao.save
-      redirect_to @exame_requisicao, notice: 'Exame requisicao was successfully created.'
+      redirect_to @exame_requisicao, notice: 'Requisiçao de Exame criada com sucesso.'
     else
       render :new
     end
@@ -38,18 +38,12 @@ class ExameRequisicoesController < ApplicationController
   def update
     if @exame_requisicao.update(exame_requisicao_params)
       authorize @exame_requisicao
-      redirect_to @exame_requisicao, notice: 'Exame requisicao was successfully updated.'
+      redirect_to @exame_requisicao, notice: 'Requisiçao de Exame atualizada com sucesso.'
     else
       render :edit
     end
 
   end
-
-  def destroy
-    @exame_requisicao.destroy
-    redirect_to exame_requisicoes_url, notice: 'Requisição de exame foi excluída com sucesso.'    
-  end
-
   
   private
   # Use callbacks to share common setup or constraints between actions.

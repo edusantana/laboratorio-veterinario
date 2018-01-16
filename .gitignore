@@ -24,3 +24,5 @@
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 primeira-chave.pem
+public/system/exame_anexos/ public/system/test/
+public/system

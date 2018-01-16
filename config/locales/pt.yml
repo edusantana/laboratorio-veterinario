@@ -54,4 +54,8 @@ pt:
       show?: "Você não tem permissão para acessar a intranet deste laboratório."
     exame_requisicao_policy:
       show?: "Você não em permissão para acessar este exame."
-      edit?: "Você não em permissão para acessar este exame."
+      edit?: "Não é possível editar um exame após o recebimento ser confirmado."
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "Validação falhou: %{errors}"

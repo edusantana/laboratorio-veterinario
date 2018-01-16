@@ -17,8 +17,8 @@
 <% if @exame_requisicao.resultado %>
   <div id="anexos">
     <ul>
-      <% @exame_requisicao.resultado.anexos.each do |anexo| %>
-        <li><%= link_to "Resultado-#{l anexo.created_at}", anexo.anexo.url %></li>
+      <% @exame_requisicao.resultado.anexos.each_with_index do |anexo,index| %>
+        <li><%= link_to "Resultado-#{index}-#{l anexo.created_at}", anexo.anexo.url %></li>
       <% end %>
     </ul>
   </div>

@@ -1,6 +1,19 @@
-<h1>Requisição de exame</h1>
+<h1>Resultado</h1>
 
-<p id="notice"><%= notice %></p>
+<p>O resultado do exame pode ser baixado através do(s) seguintes link(s):</p>
+
+<% if @exame_requisicao.resultado %>
+  <div id="anexos">
+    <ul>
+      <% @exame_requisicao.resultado.anexos.each_with_index do |anexo,index| %>
+        <li><%= link_to "Resultado#{index+1}-#{l anexo.created_at}", anexo.anexo.url, id: "resultado-anexo#{index+1}" %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+<h1>Requisição de exame</h1>
 
 <p>
   <strong>Proprietario:</strong>
@@ -38,7 +51,6 @@
 </p>
 
 <h2 class="instrucoes">Instruções para entrega da coleta</h2>
-
 
 <ul>
   <li>Escreva no recipiente da coleta o número do protocolo e o nome do animal: <strong>#<%=@exame_requisicao.id%> - <%=@exame_requisicao.nome%></strong></li>

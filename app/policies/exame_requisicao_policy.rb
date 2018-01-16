@@ -17,7 +17,7 @@ class ExameRequisicaoPolicy < ApplicationPolicy
   end
 
   def update?
-    @requisicao.requisitante == @user
+    @requisicao.requisitante == @user && @requisicao.aguardando_envio?
   end
 
 end

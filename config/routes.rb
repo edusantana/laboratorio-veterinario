@@ -10,11 +10,11 @@ Rails.application.routes.draw do
   end
 
   constraints(subdomain: /^(?!labvet).+/) do
-    resources :exame_requisicoes
+    resources :exame_requisicoes, except: [:destroy]
     match '/', to: 'laboratorios#show', via: [:get]
 
     namespace :intranet do
-      resources :exame_requisicoes, except: [:new, :create, :show] do
+      resources :exame_requisicoes, except: [:new, :create, :show, :destroy] do
         get 'receber', on: :member
         post 'anexar_resultado', on: :member
         resources :exame_resultados, only: [:new, :create]
