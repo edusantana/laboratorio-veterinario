@@ -16,6 +16,11 @@
 <h1>Requisição de exame</h1>
 
 <p>
+  <strong>Protocolo:</strong>
+  <%= @exame_requisicao.id %>
+</p>
+
+<p>
   <strong>Proprietario:</strong>
   <%= @exame_requisicao.proprietario %>
 </p>
@@ -49,12 +54,6 @@
   <strong>Status:</strong>
   <%= t @exame_requisicao.aasm_state %>
 </p>
-
-<h2 class="instrucoes">Instruções para entrega da coleta</h2>
-
-<ul>
-  <li>Escreva no recipiente da coleta o número do protocolo e o nome do animal: <strong>#<%=@exame_requisicao.id%> - <%=@exame_requisicao.nome%></strong></li>
-</ul>
 
 <% if policy(@exame_requisicao).update? %>
   <%= link_to 'Editar', edit_exame_requisicao_path(@exame_requisicao) %> |

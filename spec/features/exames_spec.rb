@@ -17,8 +17,9 @@ RSpec.feature "Exames", type: :feature do
     quando_preencher_os_dados_da_requisicao_de_exame
     e_clicar_em_solicitar_exame
     entao_estamos_na_pagina_de_vizualizacao_de_exame
-    e_o_status_do_exame_aguardando_envio_da_coleta_eh_exibido
-    e_instrucoes_para_entrega_da_coleta_eh_exibido
+    # mudar amostra para amostra FIXME
+    e_o_status_do_exame_aguardando_envio_da_amostra_eh_exibido
+    #e_instrucoes_para_entrega_da_amostra_eh_exibido
     #e_endereco_telefone_horario_recebimento_eh_exibido
   end
 
@@ -277,14 +278,14 @@ RSpec.feature "Exames", type: :feature do
     expect(page).not_to have_content("Resultado")
   end
 
-  def e_o_status_do_exame_aguardando_envio_da_coleta_eh_exibido
+  def e_o_status_do_exame_aguardando_envio_da_amostra_eh_exibido
     expect(page).to have_content("Status")
-    expect(page).to have_content("Aguardando envio da coleta")
+    expect(page).to have_content("Aguardando envio da amostra")
   end
 
-  def e_instrucoes_para_entrega_da_coleta_eh_exibido
-    expect(page).to have_content("Instruções para entrega da coleta")
-    expect(page).to have_content("Escreva no recipiente da coleta o número do protocolo e o nome do animal:")
+  def e_instrucoes_para_entrega_da_amostra_eh_exibido
+    expect(page).to have_content("Instruções para entrega da amostra")
+    expect(page).to have_content("Escreva no recipiente da amostra o número do protocolo e o nome do animal:")
     expect(page).to have_content(/\#[0-9]+ \- #{@requisicao_dados[:nome]}/)
   end
 
@@ -311,7 +312,7 @@ RSpec.feature "Exames", type: :feature do
   end
 
   def e_posso_ver_o_status_aguardando_envio
-    expect(page).to have_content("Aguardando envio da coleta")
+    expect(page).to have_content("Aguardando envio da amostra")
   end
 
   def quando_clicar_no_numero_do_protocolo
