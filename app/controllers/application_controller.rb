@@ -23,12 +23,12 @@ class ApplicationController < ActionController::Base
     if ENV['RAILS_ENV'] == 'production'
       # Exemplo: lupa.labvet.sa-east-1.elasticbeanstalk.com/
       # subdomain <- lupa
-      subdomain = subdomain.split(/\.labvet\./)[-2]
+      @subdomain = subdomain.split(/\.labvet\./)[-2]
     else
-      subdomain = request.subdomain
+      @subdomain = request.subdomain
     end
     
-    @lab = Laboratorio.where(subdomain: subdomain).take
+    @lab = Laboratorio.where(subdomain: @subdomain).take
   end
 
   def user_not_authorized(exception)
