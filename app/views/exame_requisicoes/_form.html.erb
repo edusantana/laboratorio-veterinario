@@ -29,7 +29,9 @@
 
   <div class="field">
     <%= f.label :idade %>
-    <%= f.text_field :idade, id: :exame_requisicao_idade %>
+<!--    <%= f.text_field :idade, id: :exame_requisicao_idade %> -->
+    <%= f.number_field(:idade, in: 1..99, step: 1, id: :exame_requisicao_idade) %>
+
   </div>
 
   <div class="field">

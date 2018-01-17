@@ -26,7 +26,7 @@ module Intranet
     end
     
     def index
-      @exame_requisicoes = ExameRequisicao.where(laboratorio: @lab)
+      @exame_requisicoes = ExameRequisicao.where(laboratorio: @lab).order(:id).reverse_order
     end
 
     # PATCH/PUT /exame_requisicoes/1

@@ -18,7 +18,7 @@ class ExameRequisicoesController < ApplicationController
   end
   
   def index
-    @exame_requisicoes = ExameRequisicao.where(requisitante: current_user)
+    @exame_requisicoes = ExameRequisicao.where(requisitante: current_user).order(:id).reverse_order
   end
 
   def create    
