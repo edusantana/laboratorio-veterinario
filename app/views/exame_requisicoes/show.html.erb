@@ -56,6 +56,7 @@
   <li>Escreva no recipiente da coleta o número do protocolo e o nome do animal: <strong>#<%=@exame_requisicao.id%> - <%=@exame_requisicao.nome%></strong></li>
 </ul>
 
-
-<%= link_to 'Editar', edit_exame_requisicao_path(@exame_requisicao) %> |
+<% if policy(@exame_requisicao).update? %>
+  <%= link_to 'Editar', edit_exame_requisicao_path(@exame_requisicao) %> |
+<% end %>
 <%= link_to 'Voltar', exame_requisicoes_path %>

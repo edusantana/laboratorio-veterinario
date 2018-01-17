@@ -20,7 +20,14 @@ class ApplicationController < ActionController::Base
   private
 
   def get_laboratorio
-    subdomain = request.subdomain.end_with?(".labvet.us-east-1") ? request.subdomain[0..-18] : request.subdomain
+    if ENV['RAILS_ENV'] == 'production'
+      # Exemplo: lupa.labvet.sa-east-1.elasticbeanstalk.com/
+      # subdomain <- lupa
+      subdomain = subdomain.split(/\.labvet\./)[-2]
+    else
+      subdomain = request.subdomain
+    end
+    
     @lab = Laboratorio.where(subdomain: subdomain).take
   end
 
