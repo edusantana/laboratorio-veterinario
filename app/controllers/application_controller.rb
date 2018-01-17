@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     if ENV['RACK_ENV'] == 'production'
       # Exemplo: lupa.labvet.sa-east-1.elasticbeanstalk.com/
       # subdomain <- lupa
-      @subdomain = subdomain.split(/\.labvet\./)[-2]
+      @subdomain = request.subdomain.split(/\.labvet\./)[-2]
     else
       @subdomain = request.subdomain
     end
