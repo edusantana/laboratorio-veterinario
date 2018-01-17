@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   private
 
   def get_laboratorio
-    if ENV['RAILS_ENV'] == 'production'
+    if ENV['RACK_ENV'] == 'production'
       # Exemplo: lupa.labvet.sa-east-1.elasticbeanstalk.com/
       # subdomain <- lupa
       @subdomain = subdomain.split(/\.labvet\./)[-2]
