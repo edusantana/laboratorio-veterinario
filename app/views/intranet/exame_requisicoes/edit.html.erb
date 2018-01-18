@@ -27,29 +27,34 @@
 <h1>Requisição de exame</h1>
 
 <p>
-  <strong>Proprietario:</strong>
-  <%= @exame_requisicao.proprietario %>
+  <strong>Requisitante:</strong>
+  <%= @exame_requisicao.requisitante.nome %>
+
+  <strong>CRMV:</strong>
+  <%= @exame_requisicao.requisitante.crmv %>
+
+  <strong>Telefone:</strong>
+  <%= @exame_requisicao.requisitante.telefone %>
 </p>
 
+
 <p>
-  <strong>Nome:</strong>
+  <strong>Proprietario:</strong>
+  <%= @exame_requisicao.proprietario %>
+
+  <strong>Nome do animal:</strong>
   <%= @exame_requisicao.nome %>
 </p>
 
 <p>
   <strong>Idade:</strong>
   <%= @exame_requisicao.idade %>
-</p>
-
-<p>
   <strong>Especie:</strong>
   <%= @exame_requisicao.especie %>
-</p>
-
-<p>
   <strong>Raca:</strong>
   <%= @exame_requisicao.raca %>
 </p>
+
 
 <p>
   <strong>Observacoes:</strong>

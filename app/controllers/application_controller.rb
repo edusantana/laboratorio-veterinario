@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+
   def pundit_user
     def current_user.at_intranet?
       false
@@ -14,7 +17,14 @@ class ApplicationController < ActionController::Base
     end
     current_user
   end
-    
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:nome, :crmv, :cpf, :telefone, :endereco])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:nome, :crmv, :cpf, :telefone, :endereco])
+  end
+
   private
 
   def get_laboratorio

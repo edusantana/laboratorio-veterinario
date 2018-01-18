@@ -21,11 +21,13 @@ class ExameRequisicoesController < ApplicationController
     @exame_requisicoes = ExameRequisicao.where(requisitante: current_user).order(:id).reverse_order
   end
 
-  def create    
+  def create
+    byebug
     @exame_requisicao = ExameRequisicao.new(exame_requisicao_params)
     @exame_requisicao.laboratorio = @lab
     @exame_requisicao.requisitante = current_user
-    @exame_requisicao.tipo = ExameTipo.last # FIXME
+    @exame_requisicao.tipo = ExameTipo.find(params[:exame_requisicao][:tipo_id])
+
 
     if @exame_requisicao.save
       redirect_to @exame_requisicao, notice: 'Requisiçao de Exame criada com sucesso.'
@@ -53,7 +55,7 @@ class ExameRequisicoesController < ApplicationController
   
   # Never trust parameters from the scary internet, only allow the white list through.
   def exame_requisicao_params
-    params.require(:exame_requisicao).permit(:proprietario, :nome, :idade, :especie, :raca, :observacoes)
+    params.require(:exame_requisicao).permit(:proprietario, :nome, :idade, :especie, :raca, :observacoes, :tipo_id )
   end
 
 end

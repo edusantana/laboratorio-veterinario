@@ -4,13 +4,12 @@
 
 <h1>Requisições de exames</h1>
 
-
-
 <table>
   <thead>
     <tr>
       <th>Data</th>
       <th>Protocolo</th>
+      <th>Tipo</th>
       <th>Proprietário</th>
       <th>Nome do animal</th>
       <th>Status</th>
@@ -23,6 +22,9 @@
       <tr>
         <td><%= l exame_requisicao.created_at %></td>
         <td><%= link_to exame_requisicao.id, exame_requisicao %></td>
+        <td><%= exame_requisicao.tipo.nome %></td>
+
+
         <td><%= link_to exame_requisicao.proprietario, exame_requisicao %></td>
         <td><%= link_to exame_requisicao.nome, exame_requisicao %></td>
         <td><%= link_to (t exame_requisicao.aasm_state), exame_requisicao %></td>

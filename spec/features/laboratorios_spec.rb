@@ -41,6 +41,15 @@ RSpec.feature "Laboratorios", type: :feature do
     entao_estamos_na_intranet_do_laboratorio
   end
 
+  feature "Logotipo" do
+
+    scenario "O laboratório apresenta uma logo que corresponde ao gravatar do usuário dono" do
+      dado_um_laboratorio_com_funcionarios
+      quando_acessar_subdominio_do_laboratorio
+      entao_estamos_estamos_vendo_o_logo_do_gravatar_do_dono
+    end
+      
+  end
 
   def dado_um_laboratorio
     @lab = create(:laboratorio)
@@ -94,5 +103,8 @@ RSpec.feature "Laboratorios", type: :feature do
     expect(page).to have_current_path(intranet_path)
   end
 
+  def entao_estamos_estamos_vendo_o_logo_do_gravatar_do_dono
+    expect(page).to have_selector('#logo')
+  end
 
 end
