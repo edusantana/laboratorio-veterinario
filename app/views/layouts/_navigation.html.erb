@@ -1,0 +1,25 @@
+<%# navigation styled for Bootstrap 4.0 %>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+  <nav class="navbar navbar-light bg-light">
+    <%= link_to (image_tag @lab.dono.gravatar_url(:size => 120)), root_path, class: 'navbar-brand' %>
+  </nav>
+  <!-- h5 class="my-0 mr-md-auto font-weight-normal">< %= image_tag @lab.dono.gravatar_url(:size => 120) %><Laboratório Lupa></h5 -->
+
+  <nav class="my-2 my-md-0 mr-md-3">
+    <%= link_to('Início', root_path, class: "p-2 text-dark") %> | 
+    <%= link_to('Solicitar exame', new_exame_requisicao_path, class: "p-2 text-dark") %> | 
+    <%= link_to('Resultados', exame_requisicoes_path, class: "p-2 text-dark") %> <!--span class="badge badge-secondary">2</span--> |
+    <%= link_to "Intranet", intranet_path, class: "p-2 text-dark" %>
+    <!-- a class="p-2 text-dark" href="#">Contato</a -->
+    <% if user_signed_in? %>
+        <a class="nav-link dropdown-toggle" href="<%=edit_user_registration_path%>" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.email %></a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">
+          <%= link_to('Editar perfil', edit_user_registration_path, class: "dropdown-item") %>
+          <%= link_to('Sair', destroy_user_session_path, method: :delete, class: "dropdown-item") %>        
+        </div>
+    <% else %>
+      <%= link_to('Entrar', new_user_session_path, class: 'btn btn-outline-primary')  %> 
+      <!-- %= link_to('Novo usuário', new_user_registration_path, class: 'btn btn-outline-primary')  %-->
+    <% end %>
+  </nav>
+</div>

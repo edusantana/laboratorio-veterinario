@@ -1,16 +1,42 @@
-<div>
-  <img id="logo" src="https://pt.gravatar.com/userimage/40827440/18f053bd48f128c3cc9631c54b97a61e?size=200">
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <!--h1 class="display-5">Bem vindo(a)</h1-->
+  <p class="lead">Segue as principais opções disponíveis para você.</p>
 </div>
-<h1><%= @lab.nome %></h1>
-
-<ul>
-  <li><%= link_to "Solicitar exame", new_exame_requisicao_path %></li>
-  <li><%= link_to "Exames solicitados", exame_requisicoes_path %></li>
-</ul>
 
 
-<ul>
-  <li><%= link_to "Intranet", intranet_path %></li>
-</ul>
+<div class="container">
+  <div class="card-deck mb-3 text-center">
+    <div class="card mb-4 box-shadow">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Solicitar exame</h4>
+      </div>
+      <div class="card-body">
+        <p class="lead">Utilize essa opção se você deseja solicitar um novo exame.</p>
+        <%= link_to('Solicitar novo exame', new_exame_requisicao_path, class: "btn btn-lg btn-block btn-primary") %>
+      </div>
+    </div>
+    <div class="card mb-4 box-shadow">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Resultados</h4>
+      </div>
+      <div class="card-body">
+        <p class="lead">Utilize essa opção para verificar os resultados ou acompanhar os status dos exames solicitados previamente.</p>
+        <%= link_to('Resultados', exame_requisicoes_path, class: "btn btn-lg btn-block btn-primary") %>
+      </div>
+    </div>
+  </div>
+</div>
 
 
+
+<!--%= image_tag curent_user.gravatar_url %-->
+<div class="container">
+  <h1>Exames disponíveis</h1>
+
+  <ul class="list-group list-group-flush">
+    <% @lab.exame_tipos.each do |tipo| %>
+    <li class="list-group-item"><%= tipo.nome %></li>
+    <% end %>
+  </ul>
+</div>

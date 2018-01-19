@@ -66,3 +66,7 @@ gem "pundit"
 gem "paperclip", "~> 5.0.0"
 gem 'aws-sdk', '~> 2'
 
+# https://github.com/twbs/bootstrap-rubygem
+gem 'bootstrap', '~> 4.0.0.beta3'
+gem 'jquery-rails'
+gem 'gravtastic'

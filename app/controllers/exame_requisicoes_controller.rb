@@ -22,12 +22,10 @@ class ExameRequisicoesController < ApplicationController
   end
 
   def create
-    byebug
     @exame_requisicao = ExameRequisicao.new(exame_requisicao_params)
     @exame_requisicao.laboratorio = @lab
     @exame_requisicao.requisitante = current_user
     @exame_requisicao.tipo = ExameTipo.find(params[:exame_requisicao][:tipo_id])
-
 
     if @exame_requisicao.save
       redirect_to @exame_requisicao, notice: 'Requisiçao de Exame criada com sucesso.'
