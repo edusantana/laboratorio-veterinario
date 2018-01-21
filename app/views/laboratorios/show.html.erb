@@ -1,11 +1,12 @@
 
+
+
+
+<!--div class="container">
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-  <!--h1 class="display-5">Bem vindo(a)</h1-->
+  <h1 class="display-5">Bem vindo(a)</h1>
   <p class="lead">Segue as principais opções disponíveis para você.</p>
 </div>
-
-
-<div class="container">
   <div class="card-deck mb-3 text-center">
     <div class="card mb-4 box-shadow">
       <div class="card-header">
@@ -26,14 +27,28 @@
       </div>
     </div>
   </div>
-</div>
+</div -->
+
 
 
 
 <!--%= image_tag curent_user.gravatar_url %-->
 <div class="container">
-  <h1>Exames disponíveis</h1>
 
+
+<div class="jumbotron">
+  <h1 class="display-4"><%= @lab.nome %></h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <p class="lead">
+    <% if current_user.nil? %>
+    <hr class="m-y-2">
+    <p>Na primeira solicitação você precisará registra-se no sistema.</p>
+    <% end %>
+    <%= link_to('Solicitar exame »', new_exame_requisicao_path, class: "btn btn-primary btn-lg") %>
+  </p>
+</div>
+
+  <h1 id="tipos">Exames disponíveis</h1>
   <ul class="list-group list-group-flush">
     <% @lab.exame_tipos.each do |tipo| %>
     <li class="list-group-item"><%= tipo.nome %></li>

@@ -1,4 +1,4 @@
-<h1>Resultado</h1>
+<h1 id="resultado">Resultado</h1>
 <div id="menu">
 <!--
   <%= form_tag({action: :anexar_resultado}, multipart: true) do %>
@@ -9,7 +9,7 @@
 
   <%= form_for ExameAnexo.new, url: anexar_resultado_intranet_exame_requisicao_path(@exame_requisicao), html: { multipart: true } do |f| %>
     <%= f.file_field :anexo %>
-    <%= f.submit 'Anexar ao resultado 2', class: 'btn btn-default' %>
+    <%= f.submit 'Anexar ao resultado', class: 'btn btn-default' %>
   <% end %>
 
 </div>
@@ -18,13 +18,18 @@
   <div id="anexos">
     <ul>
       <% @exame_requisicao.resultado.anexos.each_with_index do |anexo,index| %>
-        <li><%= link_to "Resultado-#{index}-#{l anexo.created_at}", anexo.anexo.url %></li>
+        <li><%= link_to "Resultado-#{index+1}-#{l anexo.created_at}", anexo.anexo.url, id: "resultado-anexo#{index+1}"%></li>
       <% end %>
     </ul>
   </div>
 <% end %>
 
 <h1>Requisição de exame</h1>
+
+<p>
+  <strong>Protocolo:</strong>
+  <%= @exame_requisicao.id %>
+</p>
 
 <p>
   <strong>Requisitante:</strong>
@@ -55,9 +60,14 @@
   <%= @exame_requisicao.raca %>
 </p>
 
+<p>
+  <strong>Suspeita clínica:</strong>
+  <%= @exame_requisicao.suspeita_clinica %>
+</p>
+
 
 <p>
-  <strong>Observacoes:</strong>
+  <strong>Observações:</strong>
   <%= @exame_requisicao.observacoes %>
 </p>
 

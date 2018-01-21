@@ -51,6 +51,17 @@ RSpec.feature "Laboratorios", type: :feature do
       
   end
 
+  feature "Unidades" do
+    
+    scenario "O nome, telefone e endereço das unidades são apresentadas no rodapé" do
+      dado_um_laboratorio_com_uma_unidade
+      quando_acessar_subdominio_do_laboratorio
+      entao_nome_telefone_e_endereco_da_unidade_esta_no_rodape
+    end
+      
+  end
+
+
   def dado_um_laboratorio
     @lab = create(:laboratorio)
   end
@@ -59,6 +70,12 @@ RSpec.feature "Laboratorios", type: :feature do
     @lab = create(:laboratorio_com_funcionarios)
     @tecnico = User.with_role(:tecnico, @lab).take
     @secretario = User.with_role(:secretario, @lab).take
+  end
+
+  def dado_um_laboratorio_com_uma_unidade
+    dado_um_laboratorio
+    @unidade = create(:unidade, laboratorio: @lab)
+    @lab.unidades << @unidade
   end
 
   def e_um_usuario_logado
@@ -106,5 +123,13 @@ RSpec.feature "Laboratorios", type: :feature do
   def entao_estamos_estamos_vendo_o_logo_do_gravatar_do_dono
     expect(page).to have_selector('#logo')
   end
+
+  def entao_nome_telefone_e_endereco_da_unidade_esta_no_rodape
+    expect(find("#rodade")).to have_content(@unidade.nome)
+    expect(find("#rodade")).to have_content(@unidade.telefone)
+    expect(find("#rodade")).to have_content(@unidade.endereco)
+    
+  end
+
 
 end

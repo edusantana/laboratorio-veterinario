@@ -9,9 +9,15 @@ module Intranet
     end
 
     def anexar_resultado
-      unless @exame_requisicao.resultado
-        @exame_requisicao.resultado = ExameResultado.create(requisicao: @exame_requisicao, tecnico: current_user)
-      end
+
+      @exame_requisicao.resultado ||= ExameResultado.create(requisicao: @exame_requisicao, tecnico: current_user)
+
+      #byebug
+
+      #params[:exame_anexo][:anexo].each do |anexo|
+      #  @exame_requisicao.resultado.anexos.create(anexo)
+      #end
+      #params[:images].each { |image|  @gallery.pictures.create(image: image) }
 
       anexo = @exame_requisicao.resultado.anexos.create(anexo_params)
 

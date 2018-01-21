@@ -16,7 +16,6 @@
     <%= f.collection_select(:tipo_id, @lab.exame_tipos, :id, :nome) %>
   </div>
 
-
   <div class="field">
     <%= f.label :proprietario, "Nome do proprietário" %>
     <%= f.text_field :proprietario, id: :exame_requisicao_proprietario %>
@@ -42,6 +41,11 @@
   <div class="field">
     <%= f.label :raca, "Raça" %>
     <%= f.text_field :raca, id: :exame_requisicao_raca %>
+  </div>
+
+  <div class="field">
+    <%= f.label :suspeita_clinica, "Suspeita cliníca" %>
+    <%= f.text_field :suspeita_clinica, id: :exame_requisicao_suspeita_clinica %>
   </div>
 
   <div class="field">

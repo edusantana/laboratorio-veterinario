@@ -1,0 +1,31 @@
+<%# navigation styled for Bootstrap 4.0 %>
+<% if @lab %>
+  <footer class="container py-5" id="rodade">
+    <div class="row">
+      <div class="col-12 col-md">
+        <%= link_to (image_tag @lab.dono.gravatar_url(:size => 32)), root_path, class: 'navbar-brand', id: 'minilogo'%>
+        <ul class="list-unstyled text-small">
+          <li><small class="text-muted">&copy; <%= @lab.nome %></small></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Unidades</h5>
+        <ul class="list-unstyled text-small">
+          <% @lab.unidades.each do |unidade| %>
+            <li><span class="text-muted"><%= unidade.nome %></span></li>
+            <li><small class="text-muted"><%= unidade.endereco %>. Telefone: <%= unidade.telefone %></small></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Exames</h5>
+        <ul class="list-unstyled text-small">
+          <li><%= link_to('Tipos de exames', root_path(anchor: :tipos), class: "text-muted") %></li>
+          <li><%= link_to('Novo exame', new_exame_requisicao_path, class: "text-muted") %></li>
+          <li><%= link_to('Resultados', exame_requisicoes_path, class: "text-muted") %></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+<% end %>

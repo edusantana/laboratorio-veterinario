@@ -53,7 +53,7 @@ class ExameRequisicoesController < ApplicationController
   
   # Never trust parameters from the scary internet, only allow the white list through.
   def exame_requisicao_params
-    params.require(:exame_requisicao).permit(:proprietario, :nome, :idade, :especie, :raca, :observacoes, :tipo_id )
+    params.require(:exame_requisicao).permit(:proprietario, :nome, :idade, :especie, :raca, :observacoes, :tipo_id, :suspeita_clinica )
   end
 
 end

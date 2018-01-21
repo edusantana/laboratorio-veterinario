@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180117212804) do
+ActiveRecord::Schema.define(version: 20180119132817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20180117212804) do
     t.datetime "updated_at", null: false
     t.bigint "laboratorio_id", null: false
     t.string "aasm_state"
+    t.string "suspeita_clinica"
     t.index ["laboratorio_id"], name: "index_exame_requisicoes_on_laboratorio_id"
     t.index ["requisitante_id"], name: "index_exame_requisicoes_on_requisitante_id"
     t.index ["tipo_id"], name: "index_exame_requisicoes_on_tipo_id"
@@ -82,6 +83,16 @@ ActiveRecord::Schema.define(version: 20180117212804) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
+  create_table "unidades", force: :cascade do |t|
+    t.string "nome", null: false
+    t.bigint "laboratorio_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "endereco"
+    t.string "telefone"
+    t.index ["laboratorio_id"], name: "index_unidades_on_laboratorio_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -120,4 +131,5 @@ ActiveRecord::Schema.define(version: 20180117212804) do
   add_foreign_key "exame_resultados", "users", column: "tecnico_id"
   add_foreign_key "exame_tipos", "laboratorios"
   add_foreign_key "laboratorios", "users", column: "dono_id"
+  add_foreign_key "unidades", "laboratorios"
 end

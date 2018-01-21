@@ -15,7 +15,7 @@ RSpec.feature "Exames", type: :feature do
     entao_estamos_na_pagina_de_requisicao_de_exame
     # e_vemos_um_link_instrucoes_para_solicitar_esse_exame
     quando_preencher_os_dados_da_requisicao_de_exame
-    e_clicar_em_solicitar_exame
+    e_clicar_no_botao_solicitar_exame
     entao_estamos_na_pagina_de_vizualizacao_de_exame
     e_o_status_do_exame_aguardando_envio_da_amostra_eh_exibido
     #e_instrucoes_para_entrega_da_amostra_eh_exibido
@@ -27,7 +27,7 @@ RSpec.feature "Exames", type: :feature do
     e_uma_solicitacao_de_exame
     e_o_veterinario_que_solicitou_o_exame_estiver_logado
     quando_acessar_pagina_inicial_do_laboratorio
-    e_clicar_em_exames_solicitados
+    e_clicar_em_resultados
     entao_estamos_na_pagina_de_lista_de_resultados
     e_posso_ver_os_principais_dados_da_solicitacao
     e_posso_ver_o_status_aguardando_envio
@@ -43,7 +43,7 @@ RSpec.feature "Exames", type: :feature do
     e_uma_solicitacao_de_exame_com_resultado_disponivel
     e_o_veterinario_que_solicitou_o_exame_estiver_logado
     quando_acessar_pagina_inicial_do_laboratorio
-    e_clicar_em_exames_solicitados
+    e_clicar_em_resultados
     entao_estamos_na_pagina_de_lista_de_resultados
     quando_clicar_no_numero_do_protocolo
     entao_estamos_na_pagina_de_vizualizacao_de_exame
@@ -74,7 +74,7 @@ RSpec.feature "Exames", type: :feature do
     e_uma_solicitacao_de_exame_com_status_aguardando_resultado
     e_o_veterinario_que_solicitou_o_exame_estiver_logado
     quando_acessar_pagina_inicial_do_laboratorio
-    e_clicar_em_exames_solicitados
+    e_clicar_em_resultados
     entao_estamos_na_pagina_de_lista_de_resultados
     quando_clicar_no_numero_do_protocolo
     entao_estamos_na_pagina_de_vizualizacao_de_exame
@@ -112,7 +112,7 @@ RSpec.feature "Exames", type: :feature do
     e_uma_solicitacao_de_exame_com_status_aguardando_resultado
     e_o_veterinario_que_solicitou_o_exame_estiver_logado
     quando_acessar_pagina_inicial_do_laboratorio
-    e_clicar_em_exames_solicitados
+    e_clicar_em_resultados
     entao_estamos_na_pagina_de_lista_de_resultados
     quando_clicar_no_numero_do_protocolo
     entao_estamos_na_pagina_de_vizualizacao_de_exame
@@ -133,7 +133,7 @@ RSpec.feature "Exames", type: :feature do
     entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
   end
 
-  scenario "Tecnico do laboratório anexa resultado de um exame" do
+  scenario "Tecnico do laboratório anexa resultado PDF de um exame", :wip do
     dado_um_laboratorio_com_funcionarios
     e_uma_solicitacao_de_exame_com_status_aguardando_resultado
     e_o_tecnico_do_laboratorio_estiver_logado
@@ -145,11 +145,12 @@ RSpec.feature "Exames", type: :feature do
     e_posso_ver_os_principais_dados_da_solicitacao
     quando_clicar_no_numero_do_protocolo
     entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
-    quando_anexar_um_documento_como_resultado
+    quando_anexar_uma_imagem_e_um_documento_como_resultado
     e_clicar_em_anexar_ao_resultado
     entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
     e_estamos_vendo_o_status_resultado_disponivel
-    #e_vemos_um_link_para_acessar_o_resultado_anexado
+    e_vendo_dois_links_baixar_os_arquivos_enviados
+    e_vendo_um_link_baixar_o_arquivo_enviado
   end
 
 
@@ -233,8 +234,12 @@ RSpec.feature "Exames", type: :feature do
     click_on("Solicitar exame")
   end
 
-  def e_clicar_em_exames_solicitados
-    click_on("Exames solicitados")
+  def e_clicar_em_resultados
+    find('header').click_on("Resultados")
+  end
+
+  def e_clicar_no_botao_solicitar_exame
+    click_button('Solicitar exame')
   end
 
   def e_clicar_em_intranet
@@ -269,12 +274,12 @@ RSpec.feature "Exames", type: :feature do
 
   def quando_preencher_os_dados_da_requisicao_de_exame
     observacoes = "Localização da lezão: Perna traseira direita\nDescrição da lezão: Corte profundo, não infecionado"
-    @requisicao_dados = {"especie" => "Canino", "raca" => "Poodle", "idade" => 5, nome: "Lucas", "observacoes" => observacoes}
+    @requisicao_dados = {"especie" => "Canino", "raca" => "Poodle", "idade" => 5, nome: "Lucas", 'suspeita_clinica' => "Acho que é dengue", "observacoes" => observacoes}
     @requisicao_dados.each {|k,v| fill_in("exame_requisicao_#{k}", with:v)}
   end
 
   def e_nao_ha_resultados_exibidos
-    expect(page).not_to have_content("Resultado")
+    expect(find('main')).not_to have_content("Resultado")
   end
 
   def e_o_status_do_exame_aguardando_envio_da_amostra_eh_exibido
@@ -339,8 +344,9 @@ RSpec.feature "Exames", type: :feature do
     click_on("Anexar ao resultado")
   end
 
-  def quando_anexar_um_documento_como_resultado
-    attach_file('exame_anexo[anexo]', "spec/samples/exame_anexos/exame-citopatologico1.pdf")    
+  def quando_anexar_uma_imagem_e_um_documento_como_resultado
+    #attach_file('exame_anexo[anexo][]', ["spec/samples/exame_anexos/exame-citopatologico1.pdf", 'spec/samples/exame_anexos/imagem-exame.jpg'])
+    attach_file('exame_anexo[anexo]', "spec/samples/exame_anexos/exame-citopatologico1.pdf")
   end
 
   def entao_vemos_uma_mensagem_que_nao_temos_permissao_para_acessar_o_exame
@@ -356,7 +362,15 @@ RSpec.feature "Exames", type: :feature do
   end
 
   def e_posso_ver_link_para_baixar_o_resultado
-    save_page
+    expect(find("#anexos")).to have_link("resultado-anexo1")
+  end
+
+  def e_vendo_dois_links_baixar_os_arquivos_enviados
+    expect(find("#anexos")).to have_link("resultado-anexo1")
+    #expect(find("#anexos")).to have_link("resultado-anexo2")
+  end
+
+  def e_vendo_um_link_baixar_o_arquivo_enviado
     expect(find("#anexos")).to have_link("resultado-anexo1")
   end
 
