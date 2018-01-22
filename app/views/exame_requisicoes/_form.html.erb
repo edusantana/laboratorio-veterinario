@@ -1,4 +1,5 @@
 <%= form_with(model: exame_requisicao, local: true) do |f| %>
+
   <% if exame_requisicao.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(exame_requisicao.errors.count, "error") %> prohibited this exame_requisicao from being saved:</h2>
@@ -11,49 +12,55 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :tipo, "Tipo do exame" %>
-    <%= f.collection_select(:tipo_id, @lab.exame_tipos, :id, :nome) %>
+    <%= f.collection_select(:tipo_id, @lab.exame_tipos, :id, :nome, class: 'form-control') %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :proprietario, "Nome do proprietário" %>
-    <%= f.text_field :proprietario, id: :exame_requisicao_proprietario %>
+    <%= f.text_field :proprietario, id: :exame_requisicao_proprietario, class: 'form-control', placeholder: "Nome do proprietário" %>
   </div>
 
-  <div class="field">
-    <%= f.label :nome, "Nome do animal" %>
-    <%= f.text_field :nome, id: :exame_requisicao_nome %>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+        <%= f.label :nome, "Nome do animal" %>
+        <%= f.text_field :nome, id: :exame_requisicao_nome, class: 'form-control' %>
+    </div>
+    <div class="form-group col-md-6">
+        <%= f.label :idade, "Idade do animal" %>
+    <!--    <%= f.text_field :idade, id: :exame_requisicao_idade %> -->
+        <%= f.number_field(:idade, in: 0.0..100.0, step: 1, id: :exame_requisicao_idade, class: 'form-control') %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :idade %>
-<!--    <%= f.text_field :idade, id: :exame_requisicao_idade %> -->
-    <%= f.number_field(:idade, in: 0.0..100.0, step: 1, id: :exame_requisicao_idade) %>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= f.label :especie, "Espécie do animal" %>
+      <%= f.text_field :especie, id: :exame_requisicao_especie, class: 'form-control' %>
 
+    </div>
+    <div class="form-group col-md-6">
+      <%= f.label :raca, "Raça do animal" %>
+      <%= f.text_field :raca, id: :exame_requisicao_raca, class: 'form-control' %>
+
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :especie, "Espécie" %>
-    <%= f.text_field :especie, id: :exame_requisicao_especie %>
-  </div>
-
-  <div class="field">
-    <%= f.label :raca, "Raça" %>
-    <%= f.text_field :raca, id: :exame_requisicao_raca %>
-  </div>
-
-  <div class="field">
+  <div class="form-group">
     <%= f.label :suspeita_clinica, "Suspeita cliníca" %>
-    <%= f.text_field :suspeita_clinica, id: :exame_requisicao_suspeita_clinica %>
+    <%= f.text_field :suspeita_clinica, id: :exame_requisicao_suspeita_clinica, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :observacoes, "Descrições e observações" %>
-    <%= f.text_area :observacoes, id: :exame_requisicao_observacoes %>
+    <%= f.text_area :observacoes, id: :exame_requisicao_observacoes, class: 'form-control', placeholder: "Local e descrição da lesão" %>
+    <small id="observacoesHelpBlock" class="form-text text-muted">
+      Forneça o local e descrição da lesão para os exames que se aplicam.
+    </small>    
   </div>
 
   <div class="actions">
-    <%= f.submit yield(:button_text) %>
+    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
   </div>
 <% end %>

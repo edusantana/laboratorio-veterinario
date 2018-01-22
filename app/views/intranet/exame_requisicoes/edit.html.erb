@@ -1,3 +1,5 @@
+<div class="container">
+
 <h1 id="resultado">Resultado</h1>
 <div id="menu">
 <!--
@@ -7,10 +9,13 @@
   <% end %>
 -->
 
-  <%= form_for ExameAnexo.new, url: anexar_resultado_intranet_exame_requisicao_path(@exame_requisicao), html: { multipart: true } do |f| %>
-    <%= f.file_field :anexo %>
-    <%= f.submit 'Anexar ao resultado', class: 'btn btn-default' %>
-  <% end %>
+  <div class="form-group">
+    <%= form_for ExameAnexo.new, url: anexar_resultado_intranet_exame_requisicao_path(@exame_requisicao), html: { multipart: true } do |f| %>
+      <%= f.file_field :anexo %>
+      <%= f.submit 'Anexar ao resultado', class: 'btn btn-default' %>
+      <small class="form-text text-muted">Permite anexar um PDF por vez. Não é permitido excluir o arquivo após submissão.</small>
+    <% end %>
+  </div>
 
 </div>
 
@@ -20,9 +25,21 @@
       <% @exame_requisicao.resultado.anexos.each_with_index do |anexo,index| %>
         <li><%= link_to "Resultado-#{index+1}-#{l anexo.created_at}", anexo.anexo.url, id: "resultado-anexo#{index+1}"%></li>
       <% end %>
+      <% @exame_requisicao.resultado.imagens.each_with_index do |imagem,index| %>
+        <li><%= link_to "Imagem-#{index+1}", imagem.imagem.url, id: "resultado-imagem#{index+1}"%></li>
+      <% end %>
     </ul>
   </div>
 <% end %>
+
+<div class="form-group">
+  <%= form_for ExameImagem.new, url: anexar_imagens_intranet_exame_requisicao_path(@exame_requisicao), html: { multipart: true } do |f| %>
+    <%= file_field_tag "imagens[]", type: :file, multiple: true %>
+    <%= f.submit 'Anexar imagens', class: 'btn btn-default' %>
+    <small class="form-text text-muted">Permite anexar múltiplas imagens por vez. Não é permitido excluir o arquivo após submissão.</small>
+  <% end %>
+</div>
+
 
 <h1>Requisição de exame</h1>
 
@@ -77,3 +94,5 @@
 </p>
 
 <%= link_to 'Voltar', intranet_exame_requisicoes_path %>
+
+</div>

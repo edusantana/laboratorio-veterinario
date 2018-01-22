@@ -133,7 +133,7 @@ RSpec.feature "Exames", type: :feature do
     entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
   end
 
-  scenario "Tecnico do laboratório anexa resultado PDF de um exame", :wip do
+  scenario "Tecnico do laboratório anexa resultado PDF de um exame" do
     dado_um_laboratorio_com_funcionarios
     e_uma_solicitacao_de_exame_com_status_aguardando_resultado
     e_o_tecnico_do_laboratorio_estiver_logado
@@ -145,12 +145,30 @@ RSpec.feature "Exames", type: :feature do
     e_posso_ver_os_principais_dados_da_solicitacao
     quando_clicar_no_numero_do_protocolo
     entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
-    quando_anexar_uma_imagem_e_um_documento_como_resultado
+    quando_anexar_um_documento_como_resultado
     e_clicar_em_anexar_ao_resultado
     entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
     e_estamos_vendo_o_status_resultado_disponivel
-    e_vendo_dois_links_baixar_os_arquivos_enviados
-    e_vendo_um_link_baixar_o_arquivo_enviado
+    e_posso_ver_link_para_baixar_o_resultado
+  end
+
+  scenario "Tecnico do laboratório anexa multiplas imagens a um exame", :wip do
+    dado_um_laboratorio_com_funcionarios
+    e_uma_solicitacao_de_exame_com_status_aguardando_resultado
+    e_o_tecnico_do_laboratorio_estiver_logado
+    quando_acessar_pagina_inicial_do_laboratorio
+    e_clicar_em_intranet
+    entao_estamos_na_intranet_do_laboratorio
+    quando_clicar_em_solicitacoes_de_exames
+    entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
+    e_posso_ver_os_principais_dados_da_solicitacao
+    quando_clicar_no_numero_do_protocolo
+    entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
+    quando_anexar_multiplas_imagens
+    e_clicar_em_anexar_imagens
+    entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
+    #e_estamos_vendo_o_status_resultado_disponivel
+    e_posso_ver_link_para_baixar_as_imagens
   end
 
 
@@ -344,9 +362,17 @@ RSpec.feature "Exames", type: :feature do
     click_on("Anexar ao resultado")
   end
 
-  def quando_anexar_uma_imagem_e_um_documento_como_resultado
+  def e_clicar_em_anexar_imagens
+    click_on("Anexar imagens")
+  end
+
+  def quando_anexar_um_documento_como_resultado
     #attach_file('exame_anexo[anexo][]', ["spec/samples/exame_anexos/exame-citopatologico1.pdf", 'spec/samples/exame_anexos/imagem-exame.jpg'])
     attach_file('exame_anexo[anexo]', "spec/samples/exame_anexos/exame-citopatologico1.pdf")
+  end
+
+  def quando_anexar_multiplas_imagens
+    attach_file('imagens[]', ['spec/samples/exame_imagens/exame-imagem1.jpg', 'spec/samples/exame_imagens/exame-imagem2.jpg'])
   end
 
   def entao_vemos_uma_mensagem_que_nao_temos_permissao_para_acessar_o_exame
@@ -367,11 +393,10 @@ RSpec.feature "Exames", type: :feature do
 
   def e_vendo_dois_links_baixar_os_arquivos_enviados
     expect(find("#anexos")).to have_link("resultado-anexo1")
-    #expect(find("#anexos")).to have_link("resultado-anexo2")
   end
 
-  def e_vendo_um_link_baixar_o_arquivo_enviado
-    expect(find("#anexos")).to have_link("resultado-anexo1")
+  def e_posso_ver_link_para_baixar_as_imagens
+    expect(find("#anexos")).to have_link("resultado-imagem1")
+    expect(find("#anexos")).to have_link("resultado-imagem2")
   end
-
 end

@@ -11,6 +11,9 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 
    inflect.plural 'requisicao', 'requisicoes'
    inflect.singular 'requisicoes', 'requisicao'
+   inflect.plural 'imagem', 'imagens'
+   inflect.singular 'imagens', 'imagem'
+   
 end
 
 # These inflection rules are supported but not enabled by default:

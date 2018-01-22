@@ -1,3 +1,5 @@
+<div class="container">
+
 <% if @exame_requisicao.resultado %>
 <h1>Resultado</h1>
 
@@ -14,6 +16,12 @@
 
 
 <h1>Requisição de exame</h1>
+
+<p>
+  <strong>Data da criação da requisição:</strong>
+  <%= l @exame_requisicao.created_at %>
+</p>
+
 
 <p>
   <strong>Protocolo:</strong>
@@ -70,3 +78,6 @@
   <%= link_to 'Editar', edit_exame_requisicao_path(@exame_requisicao) %> |
 <% end %>
 <%= link_to 'Voltar', exame_requisicoes_path %>
+
+
+</div>

@@ -1,11 +1,13 @@
 
+<div class="container">
+
 <%= link_to 'Voltar', root_path %>
 <br>
 
 <h1>Requisições de exames</h1>
 
-<table>
-  <thead>
+<table class="table">
+  <thead class="thead-dark">
     <tr>
       <th>Data</th>
       <th>Protocolo</th>
@@ -13,13 +15,13 @@
       <th>Proprietário</th>
       <th>Nome do animal</th>
       <th>Status</th>
-      <th colspan="2"></th>
+      <th colspan="2">Ação</th>
     </tr>
   </thead>
 
   <tbody>
     <% @exame_requisicoes.each do |exame_requisicao| %>
-      <tr>
+      <tr class="<%= exame_requisicao.aguardando_envio?? 'table-warning' : exame_requisicao.aguardando_resultado?? 'table-info' : ''%>">
         <td><%= l exame_requisicao.created_at %></td>
         <td><%= link_to exame_requisicao.id, exame_requisicao %></td>
         <td><%= exame_requisicao.tipo.nome %></td>
@@ -37,3 +39,4 @@
 </table>
 
 
+</div>

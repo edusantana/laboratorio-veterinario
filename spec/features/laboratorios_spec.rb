@@ -61,6 +61,9 @@ RSpec.feature "Laboratorios", type: :feature do
       
   end
 
+  scenario "subdomain não pode conter ponto" do
+    pending "Falta implementar"
+  end
 
   def dado_um_laboratorio
     @lab = create(:laboratorio)

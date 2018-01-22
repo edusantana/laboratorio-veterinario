@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       resources :exame_requisicoes, except: [:new, :create, :show, :destroy] do
         get 'receber', on: :member
         post 'anexar_resultado', on: :member
+        post 'anexar_imagens', on: :member
         resources :exame_resultados, only: [:new, :create]
       end
       resources :exame_resultados, only: [:show, :edit, :update]

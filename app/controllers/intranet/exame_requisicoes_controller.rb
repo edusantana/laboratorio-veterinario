@@ -3,7 +3,7 @@ module Intranet
   class ExameRequisicoesController < IntranetController
 
     before_action :authenticate_user!
-    before_action :set_exame_requisicao, only: [:show, :edit, :update, :destroy, :receber, :anexar_resultado]    
+    before_action :set_exame_requisicao, only: [:show, :edit, :update, :destroy, :receber, :anexar_resultado, :anexar_imagens]    
 
     def edit
     end
@@ -24,6 +24,17 @@ module Intranet
       @exame_requisicao.resultado_inserido! unless  @exame_requisicao.resultado_disponivel?
 
       redirect_to edit_intranet_exame_requisicao_path(@exame_requisicao), notice: 'Anexo adicionado.'
+    end
+
+
+    def anexar_imagens
+      @exame_requisicao.resultado ||= ExameResultado.create(requisicao: @exame_requisicao, tecnico: current_user)
+      
+      imagem_params.each do |imagem|
+        img = @exame_requisicao.resultado.imagens.create(imagem: imagem)
+      end
+
+      redirect_to edit_intranet_exame_requisicao_path(@exame_requisicao), notice: 'Imagens adicionadas.'
     end
 
     def receber
@@ -58,6 +69,10 @@ module Intranet
     def anexo_params
       #params.require(:anexo)
       params.require(:exame_anexo).permit(:anexo)
+    end
+    def imagem_params
+      #params.require(:anexo)
+      params.require(:imagens)
 
     end
 

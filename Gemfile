@@ -63,7 +63,7 @@ gem 'aasm' # Possibilitar status: https://github.com/aasm/aasm
 
 gem "rolify"
 gem "pundit"
-gem "paperclip", "~> 5.0.0"
+gem "paperclip", "~> 5.1.0"
 gem 'aws-sdk', '~> 2'
 
 # https://github.com/twbs/bootstrap-rubygem

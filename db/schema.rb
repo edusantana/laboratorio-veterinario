@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119132817) do
+ActiveRecord::Schema.define(version: 20180122183852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,20 @@ ActiveRecord::Schema.define(version: 20180119132817) do
     t.datetime "anexo_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "access_token"
     t.index ["resultado_id"], name: "index_exame_anexos_on_resultado_id"
+  end
+
+  create_table "exame_imagens", force: :cascade do |t|
+    t.bigint "resultado_id"
+    t.string "imagem_file_name"
+    t.string "imagem_content_type"
+    t.integer "imagem_file_size"
+    t.datetime "imagem_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "access_token"
+    t.index ["resultado_id"], name: "index_exame_imagens_on_resultado_id"
   end
 
   create_table "exame_requisicoes", force: :cascade do |t|
@@ -124,6 +137,7 @@ ActiveRecord::Schema.define(version: 20180119132817) do
   end
 
   add_foreign_key "exame_anexos", "exame_resultados", column: "resultado_id"
+  add_foreign_key "exame_imagens", "exame_resultados", column: "resultado_id"
   add_foreign_key "exame_requisicoes", "exame_tipos", column: "tipo_id"
   add_foreign_key "exame_requisicoes", "laboratorios"
   add_foreign_key "exame_requisicoes", "users", column: "requisitante_id"

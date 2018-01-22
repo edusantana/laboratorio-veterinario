@@ -1,68 +1,86 @@
+<div class="container">
+
 <h2>Editar usuário</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :nome, 'Nome completo' %><br />
-    <%= f.text_field :nome, autofocus: true %>
+    <%= f.text_field :nome, autofocus: true, class: 'form-control' %>
   </div>
   
-  <div class="field">
-    <%= f.label :crmv, 'CRMV' %><br />
-    <%= f.text_field :crmv %>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= f.label :crmv, 'CRMV' %><br />
+      <%= f.text_field :crmv, class: 'form-control', class: 'form-control' %>
+      <small id="CRMVHelp" class="form-text text-muted">Este CRMV será utilizado em todas as suas solicitações de exames.</small>
+    </div>
+    <div class="form-group col-md-6">
+      <%= f.label :cpf, 'CPF' %><br />
+      <%= f.text_field :cpf, class: 'form-control', class: 'form-control' %>
+      <small id="CPFHelp" class="form-text text-muted">O seu CPF é necessário para emissão dos recibos.</small>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :cpf, 'CPF' %><br />
-    <%= f.text_field :cpf %>
-  </div>
 
-  <div class="field">
+
+  <div class="form-group">
     <%= f.label :telefone %><br />
-    <%= f.text_field :telefone %>
+    <%= f.text_field :telefone, class: 'form-control' %>
+    <small id="CPFHelp" class="form-text text-muted">Casa haja algum problema com seus exames, você será contactado através desse número.</small>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :endereco, 'Endereço' %><br />
-    <%= f.text_area :endereco %>
+    <%= f.text_area :endereco, class: 'form-control' %>
+    <small id="CPFHelp" class="form-text text-muted">O seu endereço é necessário para emissão dos recibos.</small>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email" %>
+    <%= f.email_field :email, autocomplete: "email", class: 'form-control' %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :password %> <i>(deixe em branco se não quiser mudá-la)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
     <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> caractéres no mínimo</em>
+      <small id="passwordHelp" class="form-text text-muted"><%= @minimum_password_length %> caractéres no mínimo.</small>
     <% end %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :current_password %> <i>(precisamos da sua senha para confirmar as mudanças)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
+    <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Atualizar" %>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <div class="actions">
+        <%= f.submit "Atualizar", class: 'btn btn-primary' %>
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <%= link_to "Voltar (Cancelar edição)", root_path %>
+    </div>
   </div>
+
 <% end %>
 
+<!--
 <h3>Cancelar minha conta</h3>
 
 <p>Não está satisfeito? <%= button_to "Cancelar minha conta", registration_path(resource_name), data: { confirm: "Você tem certeza?" }, method: :delete %></p>
+-->
 
-<%= link_to "Voltar", root_path %>
+</div>
