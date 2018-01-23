@@ -28,11 +28,12 @@ class ApplicationController < ActionController::Base
   private
 
   def get_laboratorio
-    if ENV['RACK_ENV'] == 'production'
-      # Exemplo: lupa.labvet.sa-east-1.elasticbeanstalk.com/
-      # subdomain <- lupa
-      @subdomain = request.subdomain.split(/\.labvet\./)[-2]
+    if request.domain == 'elasticbeanstalk'
+      # acessando pelo aws
+      # vilareal.mundovet.sa-east-1.elasticbeanstalk.com
+      @subdomain = request.subdomain.split(".")[0]
     else
+      # http://lupa.lvh.me:3000/
       @subdomain = request.subdomain
     end
     
