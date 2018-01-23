@@ -31,9 +31,10 @@ class ApplicationController < ActionController::Base
     if request.domain == 'elasticbeanstalk'
       # acessando pelo aws
       # vilareal.mundovet.sa-east-1.elasticbeanstalk.com
-      @subdomain = request.subdomain.split(".")[0]
+      @subdomain = request.subdomain.split(".")[-3]
     else
       # http://lupa.lvh.me:3000/
+      # http://vilareal.mundo.vet
       @subdomain = request.subdomain
     end
     
