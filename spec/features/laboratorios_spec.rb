@@ -13,8 +13,7 @@ RSpec.feature "Laboratorios", type: :feature do
   end
 
   scenario "Acessando laboratório inexistente" do
-    pending "Falta implementar"
-    dado_um_laboratorio
+    dado_um_laboratorio_inexistente
     quando_acessar_subdominio_do_laboratorio
     entao_pagina_de_laboratorio_inexistente_eh_exibida
   end
@@ -62,7 +61,7 @@ RSpec.feature "Laboratorios", type: :feature do
   end
 
   feature "Apresentação" do
-    scenario "A página inicial do laboratório possui um texto de apresentação do laboratório", :wip do
+    scenario "A página inicial do laboratório possui um texto de apresentação do laboratório" do
       dado_um_laboratorio
       quando_acessar_subdominio_do_laboratorio
       entao_pagina_inicial_do_laboratorio_eh_exibida
@@ -70,12 +69,11 @@ RSpec.feature "Laboratorios", type: :feature do
     end
   end
 
-  scenario "subdomain não pode conter ponto" do
-    pending "Falta implementar"
-  end
-
   def dado_um_laboratorio
     @lab = create(:laboratorio)
+  end
+  def dado_um_laboratorio_inexistente
+    @lab = build(:laboratorio)
   end
   
   def dado_um_laboratorio_com_funcionarios

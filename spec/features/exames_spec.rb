@@ -152,7 +152,7 @@ RSpec.feature "Exames", type: :feature do
     e_posso_ver_link_para_baixar_o_resultado
   end
 
-  scenario "Tecnico do laboratório anexa multiplas imagens a um exame", :wip do
+  scenario "Tecnico do laboratório anexa multiplas imagens a um exame" do
     dado_um_laboratorio_com_funcionarios
     e_uma_solicitacao_de_exame_com_status_aguardando_resultado
     e_o_tecnico_do_laboratorio_estiver_logado

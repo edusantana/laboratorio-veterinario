@@ -4,24 +4,26 @@
 
 <h1>Requisições de exames</h1>
 
-<table class="table">
-  <thead>
+<table class="table text-center">
+  <thead class="thead-dark">
     <tr>
       <th>Data</th>
       <th>Protocolo</th>
+      <th>Tipo</th>      
       <th>Requisitante</th>
       <th>Proprietário</th>
       <th>Nome do animal</th>
       <th>Status</th>
-      <th colspan="2"></th>
+      <th colspan="2">Ação</th>
     </tr>
   </thead>
 
   <tbody>
     <% @exame_requisicoes.each do |exame_requisicao| %>
-      <tr id="exame_requisicao<%=exame_requisicao.id%>">
-        <td><%= l exame_requisicao.created_at %></td>
+      <tr id="exame_requisicao<%=exame_requisicao.id%>" class="<%= exame_requisicao.aguardando_envio?? 'table-warning' : exame_requisicao.aguardando_resultado?? 'table-info' : ''%>">
+        <td><%= exame_requisicao.created_at.strftime("%d/%m/%Y") %></td>
         <td><%= link_to exame_requisicao.id, edit_intranet_exame_requisicao_path(exame_requisicao) %></td>
+        <td><%= exame_requisicao.tipo.nome %></td>
         <td><%= link_to (exame_requisicao.requisitante.nome or exame_requisicao.requisitante.email), edit_intranet_exame_requisicao_path(exame_requisicao)%></td>
         <td><%= link_to exame_requisicao.proprietario, edit_intranet_exame_requisicao_path(exame_requisicao) %></td>
         <td><%= link_to exame_requisicao.nome, edit_intranet_exame_requisicao_path(exame_requisicao) %></td>
