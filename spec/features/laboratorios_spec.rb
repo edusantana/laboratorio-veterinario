@@ -61,6 +61,15 @@ RSpec.feature "Laboratorios", type: :feature do
       
   end
 
+  feature "Apresentação" do
+    scenario "A página inicial do laboratório possui um texto de apresentação do laboratório", :wip do
+      dado_um_laboratorio
+      quando_acessar_subdominio_do_laboratorio
+      entao_pagina_inicial_do_laboratorio_eh_exibida
+      e_estou_vendo_o_texto_de_apresentacao_do_laboratorio
+    end
+  end
+
   scenario "subdomain não pode conter ponto" do
     pending "Falta implementar"
   end
@@ -130,8 +139,11 @@ RSpec.feature "Laboratorios", type: :feature do
   def entao_nome_telefone_e_endereco_da_unidade_esta_no_rodape
     expect(find("#rodade")).to have_content(@unidade.nome)
     expect(find("#rodade")).to have_content(@unidade.telefone)
-    expect(find("#rodade")).to have_content(@unidade.endereco)
-    
+    expect(find("#rodade")).to have_content(@unidade.endereco)    
+  end
+
+  def e_estou_vendo_o_texto_de_apresentacao_do_laboratorio
+    expect(find("#apresentacao_inicial")).to have_content(@lab.apresentacao)
   end
 
 

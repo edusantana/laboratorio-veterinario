@@ -37,8 +37,18 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <%= f.label :especie, "Espécie do animal" %>
-      <%= f.text_field :especie, id: :exame_requisicao_especie, class: 'form-control' %>
-
+      <%= f.text_field :especie, id: :exame_requisicao_especie, class: 'form-control', list: 'especies' %>
+      <datalist id="especies">
+        <option value="Aves">
+        <option value="Bovina">
+        <option value="Canina">
+        <option value="Caprina">
+        <option value="Equina">
+        <option value="Felina">
+        <option value="Ouvina">
+        <option value="Roedores">
+        <option value="Outras">
+      </datalist>
     </div>
     <div class="form-group col-md-6">
       <%= f.label :raca, "Raça do animal" %>

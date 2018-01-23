@@ -7,6 +7,8 @@ FactoryBot.define do
   factory :laboratorio do
     nome "meulab"
     subdomain
+    sequence(:apresentacao) {|n| "Texto#{n} de apresentação do laboratório." }
+
     association :dono, factory: :user
 
     factory :laboratorio_com_funcionarios do
