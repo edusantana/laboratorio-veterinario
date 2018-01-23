@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   private
 
   def get_laboratorio
-    if request.domain == 'elasticbeanstalk'
+    if request.domain == 'elasticbeanstalk.com'
       # acessando pelo aws
       # vilareal.mundovet.sa-east-1.elasticbeanstalk.com
       @subdomain = request.subdomain.split(".")[-3]
@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
       # http://vilareal.mundo.vet
       @subdomain = request.subdomain
     end
-    
+    @domain = request.domain
     @lab = Laboratorio.where(subdomain: @subdomain).take
   end
 
