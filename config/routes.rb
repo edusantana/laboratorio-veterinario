@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     get 'exame_resultados/edit'
   end
 
-  constraints(subdomain: /^(?!labvet).+/) do
+  constraints(subdomain: /^(?!mundo).+/) do
     resources :exame_requisicoes, except: [:destroy]
     match '/', to: 'laboratorios#show', via: [:get]
 
