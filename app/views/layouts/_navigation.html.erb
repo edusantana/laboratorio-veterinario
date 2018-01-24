@@ -1,5 +1,5 @@
 <%# navigation styled for Bootstrap 4.0 %>
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+<nav class="navbar navbar-expand-lg navbar-light rounded border-bottom box-shadow   align-items-center p-3 px-md-4 mb-3">
   <nav class="navbar navbar-light">
     <% if @lab %>
       <%= link_to (image_tag @lab.dono.gravatar_url(:size => 120)), root_path, class: 'navbar-brand', id: 'logo'%>
@@ -7,23 +7,40 @@
         <span class="navbar-brand mb-0 h1">mundo.vet</span>
     <% end %>
   </nav>
-  <!-- h5 class="my-0 mr-md-auto font-weight-normal">< %= image_tag @lab.dono.gravatar_url(:size => 120) %><Laboratório Lupa></h5 -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-  <nav class="my-2 my-md-0 mr-md-3">
-    <%= link_to('Início', root_path, class: "p-2 text-dark") %> | 
-    <%= link_to('Solicitar exame', new_exame_requisicao_path, class: "p-2 text-dark") %> | 
-    <%= link_to('Resultados', exame_requisicoes_path, class: "p-2 text-dark") %> <!--span class="badge badge-secondary">2</span--> |
-    <%= link_to "Intranet", intranet_path, class: "p-2 text-dark" %>
-    <!-- a class="p-2 text-dark" href="#">Contato</a -->
-    <% if user_signed_in? %>
-        <a class="nav-link dropdown-toggle" href="<%=edit_user_registration_path%>" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.email %></a>
-        <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <%= link_to('Editar perfil', edit_user_registration_path, class: "dropdown-item") %>
-          <%= link_to('Sair', destroy_user_session_path, method: :delete, class: "dropdown-item") %>        
-        </div>
-    <% else %>
-      <%= link_to('Entrar', new_user_session_path, class: 'btn btn-outline-primary')  %> 
-      <!-- %= link_to('Novo usuário', new_user_registration_path, class: 'btn btn-outline-primary')  %-->
-    <% end %>
-  </nav>
-</div>
+  <div class="collapse navbar-collapse" id="navbarsExample09">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <%= link_to('Início', root_path, class: "text-dark nav-link") %>
+        
+      </li>
+      <li class="nav-item">
+        <%= link_to('Solicitar exame', new_exame_requisicao_path, class: "text-dark nav-link") %>
+      </li>
+      <li class="nav-item">
+        <%= link_to('Resultados', exame_requisicoes_path, class: "text-dark nav-link") %> <!--span class="badge badge-secondary">2</span-->
+      </li>
+      <li class="nav-item">
+        <%= link_to "Intranet", intranet_path, class: "text-dark nav-link" %>
+      </li>      
+      <% if user_signed_in? %>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="<%=edit_user_registration_path%>" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.email %></a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <%= link_to('Editar perfil', edit_user_registration_path, class: "dropdown-item") %>
+              <%= link_to('Sair', destroy_user_session_path, method: :delete, class: "dropdown-item") %>        
+            </div>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to('Entrar', new_user_session_path, class: 'btn btn-outline-primary')  %> 
+          <!-- %= link_to('Novo usuário', new_user_registration_path, class: 'btn btn-outline-primary')  %-->
+        </li>
+      <% end %>
+      </li>
+    </ul>
+  </div>
+</nav>
