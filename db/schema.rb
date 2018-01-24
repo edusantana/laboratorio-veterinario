@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180123114344) do
+ActiveRecord::Schema.define(version: 20180124140820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20180123114344) do
     t.bigint "laboratorio_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "valor"
     t.index ["laboratorio_id"], name: "index_exame_tipos_on_laboratorio_id"
   end
 

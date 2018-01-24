@@ -67,6 +67,13 @@ RSpec.feature "Laboratorios", type: :feature do
       entao_pagina_inicial_do_laboratorio_eh_exibida
       e_estou_vendo_o_texto_de_apresentacao_do_laboratorio
     end
+
+    scenario "A página inicial do laboratório mostra os exames disponíveis e o valor de cada um", :wip do
+      dado_um_laboratorio_com_alguns_tipos_de_exames_cadastrados
+      quando_acessar_subdominio_do_laboratorio
+      entao_pagina_inicial_do_laboratorio_eh_exibida
+      e_estou_vendo_os_nomes_dos_exames_e_seus_valores
+    end
   end
 
   def dado_um_laboratorio
@@ -86,6 +93,12 @@ RSpec.feature "Laboratorios", type: :feature do
     dado_um_laboratorio
     @unidade = create(:unidade, laboratorio: @lab)
     @lab.unidades << @unidade
+  end
+
+  def dado_um_laboratorio_com_alguns_tipos_de_exames_cadastrados
+    dado_um_laboratorio
+    @tipos = []
+    @tipos << create(:exame_tipo, laboratorio: @lab)
   end
 
   def e_um_usuario_logado
@@ -142,6 +155,13 @@ RSpec.feature "Laboratorios", type: :feature do
 
   def e_estou_vendo_o_texto_de_apresentacao_do_laboratorio
     expect(find("#apresentacao_inicial")).to have_content(@lab.apresentacao)
+  end
+
+  def e_estou_vendo_os_nomes_dos_exames_e_seus_valores
+    @tipos.each do |tipo|
+      expect(find("#tipos")).to have_content(tipo.nome)
+      expect(find("#tipos")).to have_content(ActiveSupport::NumberHelper.number_to_currency(tipo.valor, unit: "R$", separator: ","))
+    end
   end
 
 

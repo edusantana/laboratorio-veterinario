@@ -14,10 +14,23 @@
   </p>
 </div>
 
-  <h1 id="tipos">Exames disponíveis</h1>
-  <ul class="list-group list-group-flush">
-    <% @lab.exame_tipos.each do |tipo| %>
-    <li class="list-group-item"><%= tipo.nome %></li>
-    <% end %>
-  </ul>
+  <div id="tipos">
+    <h1>Exames disponíveis</h1>
+    <table class="table table-sm table-striped">
+      <thead>
+        <tr>
+          <th>Tipo do exame</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @lab.exame_tipos.each do |tipo| %>
+          <tr>
+            <td><%= tipo.nome %></td>
+            <td><%= number_to_currency(tipo.valor, unit: "R$", separator: ",")%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>    
+  </div>
 </div>
