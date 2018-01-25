@@ -1,7 +1,7 @@
 class ExameRequisicoesController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :set_exame_requisicao, only: [:show, :edit, :update, :destroy]
+  before_action :set_exame_requisicao, only: [:show, :edit, :update, :destroy, :novo_semelhante]
 
 
   def show
@@ -16,7 +16,12 @@ class ExameRequisicoesController < ApplicationController
   def new
     @exame_requisicao = ExameRequisicao.new
   end
-  
+
+  def novo_semelhante
+    @exame_requisicao = @exame_requisicao.dup
+    render :new
+  end
+
   def index
     @exame_requisicoes = ExameRequisicao.where(requisitante: current_user).order(:id).reverse_order
   end

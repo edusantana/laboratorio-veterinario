@@ -17,6 +17,8 @@
 
 <h1>Requisição de exame</h1>
 
+<%= link_to "Novo exame semelhante", novo_semelhante_exame_requisicao_path(@exame_requisicao), id: "novo_semelhante", class: "btn btn-primary" %>
+
 <p>
   <strong>Data da criação da requisição:</strong>
   <%= l @exame_requisicao.created_at %>

@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   end
 
   constraints(subdomain: /^(?!mundo).+/) do
-    resources :exame_requisicoes, except: [:destroy]
+    resources :exame_requisicoes, except: [:destroy] do
+      get 'novo_semelhante', on: :member
+    end
     match '/', to: 'laboratorios#show', via: [:get]
 
     namespace :intranet do

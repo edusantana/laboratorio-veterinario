@@ -68,7 +68,7 @@ RSpec.feature "Laboratorios", type: :feature do
       e_estou_vendo_o_texto_de_apresentacao_do_laboratorio
     end
 
-    scenario "A página inicial do laboratório mostra os exames disponíveis e o valor de cada um", :wip do
+    scenario "A página inicial do laboratório mostra os exames disponíveis e o valor de cada um" do
       dado_um_laboratorio_com_alguns_tipos_de_exames_cadastrados
       quando_acessar_subdominio_do_laboratorio
       entao_pagina_inicial_do_laboratorio_eh_exibida

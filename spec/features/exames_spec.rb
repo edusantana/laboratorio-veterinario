@@ -22,6 +22,17 @@ RSpec.feature "Exames", type: :feature do
     #e_endereco_telefone_horario_recebimento_eh_exibido
   end
 
+  scenario "Veterinário solicitando exame com base nos dados de outra requisição" do
+    dado_existe_um_laboratorio
+    e_uma_solicitacao_de_exame
+    e_o_veterinario_que_solicitou_o_exame_estiver_logado
+    quando_acessar_uma_requisicao_de_exame
+    entao_estamos_vendo_um_botao_solicitar_novo_exame
+    quando_clicar_no_botao_solicitar_novo_exame_semelhante
+    entao_estamos_na_pagina_de_novo_exame_semelhante
+    e_o_formulario_esta_preenchido_com_os_dados_da_solicitacao_anterior
+  end
+
   scenario "Veterinário verificando status de exame requerido" do
     dado_existe_um_laboratorio
     e_uma_solicitacao_de_exame
@@ -243,10 +254,15 @@ RSpec.feature "Exames", type: :feature do
     visit exame_requisicao_path(@exame_requisicao)
   end
 
+  def quando_acessar_uma_requisicao_de_exame
+    quando_tentar_acessar_o_exame
+  end
+
   def quando_tentar_editar_o_exame
     usando_labdomain(@lab)
     visit edit_exame_requisicao_path(@exame_requisicao)    
   end
+
   
   def e_clicar_em_solicitar_exame
     click_on("Solicitar exame")
@@ -287,6 +303,10 @@ RSpec.feature "Exames", type: :feature do
 
   def entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
     expect(page).to have_current_path(edit_intranet_exame_requisicao_path(@exame_requisicao))
+  end
+
+  def entao_estamos_na_pagina_de_novo_exame_semelhante
+    expect(page).to have_current_path(novo_semelhante_exame_requisicao_path(@exame_requisicao))
   end
 
 
@@ -366,6 +386,10 @@ RSpec.feature "Exames", type: :feature do
     click_on("Anexar imagens")
   end
 
+  def quando_clicar_no_botao_solicitar_novo_exame_semelhante
+    click_on("Novo exame semelhante")
+  end
+
   def quando_anexar_um_documento_como_resultado
     #attach_file('exame_anexo[anexo][]', ["spec/samples/exame_anexos/exame-citopatologico1.pdf", 'spec/samples/exame_anexos/imagem-exame.jpg'])
     attach_file('exame_anexo[anexo]', "spec/samples/exame_anexos/exame-citopatologico1.pdf")
@@ -398,5 +422,14 @@ RSpec.feature "Exames", type: :feature do
   def e_posso_ver_link_para_baixar_as_imagens
     expect(find("#anexos")).to have_link("resultado-imagem1")
     expect(find("#anexos")).to have_link("resultado-imagem2")
+  end
+
+  def entao_estamos_vendo_um_botao_solicitar_novo_exame
+    expect(find("main")).to have_link("novo_semelhante")
+  end
+
+  def e_o_formulario_esta_preenchido_com_os_dados_da_solicitacao_anterior
+    #expect(page).to have_field('#exame_requisicao_proprietario', with: @exame_requisicao.proprietario)
+    skip "Está funcionando, mas falta implementar teste de verificação"
   end
 end
