@@ -46,18 +46,20 @@
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :password %> <i>(deixe em branco se não quiser mudá-la)</i><br />
+<div class="form-row">
+  <div class="form-group col">
+    <%= f.label :password, "Nova Senha" %> <i>(deixe em branco se não quiser mudá-la)</i><br />
     <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
     <% if @minimum_password_length %>
       <small id="passwordHelp" class="form-text text-muted"><%= @minimum_password_length %> caractéres no mínimo.</small>
     <% end %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group col">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
   </div>
+</div>
 
   <div class="form-group">
     <%= f.label :current_password %> <i>(precisamos da sua senha para confirmar as mudanças)</i><br />

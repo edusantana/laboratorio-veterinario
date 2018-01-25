@@ -14,7 +14,11 @@ class ExameRequisicoesController < ApplicationController
 
   
   def new
-    @exame_requisicao = ExameRequisicao.new
+    if current_user.nome.blank? || current_user.cpf.blank? || current_user.crmv.blank? || current_user.endereco.blank? || current_user.telefone.blank?
+      redirect_to edit_user_registration_path, alert: "Atualize o perfil completo para poder solicitar exames."
+    else
+      @exame_requisicao = ExameRequisicao.new
+    end
   end
 
   def novo_semelhante

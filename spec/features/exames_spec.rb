@@ -117,6 +117,14 @@ RSpec.feature "Exames", type: :feature do
     entao_vemos_uma_mensagem_que_nao_temos_permissao_para_editar_o_exame
   end
 
+  scenario "Veterinário com cadastro incompleto não consegue solicitar exames" do
+    dado_existe_um_laboratorio
+    e_um_veterinario_com_cadastro_incompleto_logado
+    quando_tentar_criar_um_novo_exame
+    entao_fui_redirecionado_para_pagina_de_edicao_de_perfil
+    e_estamos_vendo_uma_mensagem_que_nao_eh_possivel_solicitar_exames_com_cadastro_incompleto
+  end
+
 
   scenario "Cliente verificando resultado do exame anexado" do
     dado_um_laboratorio_com_funcionarios
@@ -228,6 +236,11 @@ RSpec.feature "Exames", type: :feature do
     login(@veterinario)
   end
 
+  def e_um_veterinario_com_cadastro_incompleto_logado
+    @veterinario = create(:veterinario_com_cadastro_incompleto)
+    login(@veterinario)
+  end
+
   def e_o_dono_do_laboratorio_estiver_logado
     @dono = @lab.dono
     usando_labdomain(@lab)
@@ -261,6 +274,11 @@ RSpec.feature "Exames", type: :feature do
   def quando_tentar_editar_o_exame
     usando_labdomain(@lab)
     visit edit_exame_requisicao_path(@exame_requisicao)    
+  end
+
+  def quando_tentar_criar_um_novo_exame
+    usando_labdomain(@lab)
+    visit new_exame_requisicao_path
   end
 
   
@@ -309,6 +327,10 @@ RSpec.feature "Exames", type: :feature do
     expect(page).to have_current_path(novo_semelhante_exame_requisicao_path(@exame_requisicao))
   end
 
+  def entao_fui_redirecionado_para_pagina_de_edicao_de_perfil
+    expect(page).to have_current_path(edit_user_registration_path)
+    
+  end
 
   def quando_preencher_os_dados_da_requisicao_de_exame
     observacoes = "Localização da lezão: Perna traseira direita\nDescrição da lezão: Corte profundo, não infecionado"
@@ -405,6 +427,10 @@ RSpec.feature "Exames", type: :feature do
 
   def entao_vemos_uma_mensagem_que_nao_temos_permissao_para_editar_o_exame
     expect(page).to have_content("Não é possível editar um exame após o recebimento ser confirmado.")    
+  end
+
+  def e_estamos_vendo_uma_mensagem_que_nao_eh_possivel_solicitar_exames_com_cadastro_incompleto
+    expect(page).to have_content("Atualize o perfil completo para poder solicitar exames.")
   end
 
   def e_vemos_um_link_para_acessar_o_resultado_anexado
