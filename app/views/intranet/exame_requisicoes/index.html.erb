@@ -29,7 +29,7 @@
         <td><%= link_to exame_requisicao.nome, edit_intranet_exame_requisicao_path(exame_requisicao) %></td>
         <td><%= t (exame_requisicao.aasm_state) %></td>
         <td>
-          <%= link_to 'Confirmar recebimento', receber_intranet_exame_requisicao_path(exame_requisicao), id: "confirmar_recebimento" if exame_requisicao.may_confirmar_recebimento?%>
+          <%= link_to 'Confirmar recebimento', receber_intranet_exame_requisicao_path(exame_requisicao), id: "confirmar_recebimento", class: 'btn btn-outline-primary' if exame_requisicao.may_confirmar_recebimento?%>
         </td>
       </tr>
     <% end %>

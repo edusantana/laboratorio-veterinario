@@ -25,7 +25,7 @@
         <td><%= link_to exame_requisicao.nome, exame_requisicao %></td>
         <td><%= link_to (t exame_requisicao.aasm_state), exame_requisicao %></td>
         <% if policy(exame_requisicao).update? %>
-          <td><%= link_to 'Editar', edit_exame_requisicao_path(exame_requisicao) %></td>
+          <td><%= link_to 'Editar', edit_exame_requisicao_path(exame_requisicao), class: 'btn btn-outline-primary' %></td>
         <% end %>
       </tr>
     <% end %>

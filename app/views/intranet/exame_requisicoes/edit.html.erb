@@ -1,5 +1,6 @@
 <div class="container">
 
+<% unless @exame_requisicao.aguardando_envio? %>
 <h1 id="resultado">Resultado</h1>
 <div id="menu">
 <!--
@@ -39,9 +40,12 @@
     <small class="form-text text-muted">Permite anexar múltiplas imagens por vez. Não é permitido excluir o arquivo após submissão.</small>
   <% end %>
 </div>
+<% end %>
 
 
 <h1>Requisição de exame</h1>
+
+<%= link_to 'Confirmar recebimento', receber_intranet_exame_requisicao_path(@exame_requisicao), id: "confirmar_recebimento", class: 'btn btn-outline-primary' if @exame_requisicao.may_confirmar_recebimento?%>
 
 <p>
   <strong>Protocolo:</strong>
