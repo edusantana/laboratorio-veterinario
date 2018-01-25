@@ -26,8 +26,8 @@ class ExameRequisicoesController < ApplicationController
       redirect_to edit_user_registration_path, alert: "Atualize o perfil completo para poder solicitar exames."
     else
       @exame_requisicao = @exame_requisicao.dup
+      render :new
     end
-    render :new
   end
 
   def index
