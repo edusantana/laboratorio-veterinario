@@ -1,2 +1,30 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="container">
+  <section class="jumbotron text-center">
+      <h1 class="jumbotron-heading">Sistema para clínica ou laboratório veterinário</h1>
+      <p class="lead text-muted">O Mundo.vet é um sistema on-line para clínicas e laboratórios veterinários.</p>
+<!--
+      <p>
+        <a href="#contato" class="btn btn-primary my-2">Contato</a>
+        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+      </p>
+-->      
+  </section>
+
+  <h2>Nossos clientes</h2>
+  <ul class="list-group">
+    <% @laboratorios.each do |lab| %>
+      <li class="list-group-item">
+        <%= link_to root_url(subdomain: lab.subdomain) do %>
+          <%= image_tag lab.dono.gravatar_url(:size => 64) %> 
+          <%= lab.nome %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+  <h2 id="contato">Contato</h2>
+  <p class="">
+    Para contratar o sistema para sua clínica ou laboraorio entre em contato por telefone: (83) 98108-1977 ou por email: eduardo.ufpb+mundovet@gmail.com.
+  </p> 
+
+</div>

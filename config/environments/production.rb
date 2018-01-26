@@ -62,7 +62,7 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "laboratorio-veterinario_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { :host => 'mundo.vet' }
+  config.action_mailer.default_url_options = { :host => 'mundo.vet' } #FIXME mover para variavel de ambiente
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              ENV['SMTP_SERVER'],
