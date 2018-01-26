@@ -76,7 +76,6 @@ RSpec.feature "Laboratorios", type: :feature do
     end
   end
 
-
   def entao_pagina_inicial_do_laboratorio_eh_exibida
     expect(page).to have_content(@lab.nome)
   end
