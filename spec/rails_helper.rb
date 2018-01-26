@@ -25,6 +25,8 @@ require 'rspec/rails'
 require 'support/factory_bot'
 require 'support/users_helper'
 require 'support/subdomains'
+require 'support/laboratorios_helper'
+require 'support/exames_helper.rb'
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.

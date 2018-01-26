@@ -7,7 +7,7 @@ RSpec.feature "Exames", type: :feature do
   end
 
   scenario "Veterinário solicitando um exame" do
-    dado_existe_um_laboratorio
+    dado_um_laboratorio
     e_dois_tipo_de_exames_cadastrados_no_laboratorio
     e_um_veterinario_logado
     quando_acessar_pagina_inicial_do_laboratorio
@@ -23,7 +23,7 @@ RSpec.feature "Exames", type: :feature do
   end
 
   scenario "Veterinário solicitando exame com base nos dados de outra requisição" do
-    dado_existe_um_laboratorio
+    dado_um_laboratorio
     e_uma_solicitacao_de_exame
     e_o_veterinario_que_solicitou_o_exame_estiver_logado
     quando_acessar_uma_requisicao_de_exame
@@ -34,7 +34,7 @@ RSpec.feature "Exames", type: :feature do
   end
 
   scenario "Veterinário verificando status de exame requerido" do
-    dado_existe_um_laboratorio
+    dado_um_laboratorio
     e_uma_solicitacao_de_exame
     e_o_veterinario_que_solicitou_o_exame_estiver_logado
     quando_acessar_pagina_inicial_do_laboratorio
@@ -50,7 +50,7 @@ RSpec.feature "Exames", type: :feature do
   end
 
   scenario "Veterinário baixando o resultado" do
-    dado_existe_um_laboratorio
+    dado_um_laboratorio
     e_uma_solicitacao_de_exame_com_resultado_disponivel
     e_o_veterinario_que_solicitou_o_exame_estiver_logado
     quando_acessar_pagina_inicial_do_laboratorio
@@ -62,26 +62,8 @@ RSpec.feature "Exames", type: :feature do
     e_posso_ver_link_para_baixar_o_resultado
   end
 
-
-  scenario "Cliente não tem acesso a verificar o exame de outro cliente" do
-    dado_existe_um_laboratorio
-    e_uma_solicitacao_de_exame
-    e_o_outro_cliente_logado
-    quando_tentar_acessar_o_exame
-    entao_vemos_uma_mensagem_que_nao_temos_permissao_para_acessar_o_exame
-  end
-
-  scenario "Cliente não tem acesso para editar o exame de outro cliente" do
-    dado_existe_um_laboratorio
-    e_uma_solicitacao_de_exame
-    e_o_outro_cliente_logado
-    quando_tentar_editar_o_exame
-    entao_vemos_uma_mensagem_que_nao_temos_permissao_para_editar_o_exame
-  end
-
-
   scenario "Veterinário verificando status de exame após recebido pelo laboratório" do
-    dado_existe_um_laboratorio
+    dado_um_laboratorio
     e_uma_solicitacao_de_exame_com_status_aguardando_resultado
     e_o_veterinario_que_solicitou_o_exame_estiver_logado
     quando_acessar_pagina_inicial_do_laboratorio
@@ -93,24 +75,8 @@ RSpec.feature "Exames", type: :feature do
   end
 
 
-  scenario "Secretario do laboratório confirma recebimento de amostra de exame solicitado" do
-    dado_um_laboratorio_com_funcionarios
-    e_uma_solicitacao_de_exame
-    e_o_secretario_estiver_logado
-    quando_acessar_pagina_inicial_do_laboratorio
-    e_clicar_em_intranet
-    entao_estamos_na_intranet_do_laboratorio
-    quando_clicar_em_solicitacoes_de_exames
-    entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
-    e_posso_ver_os_principais_dados_da_solicitacao
-    quando_clicar_em_confirmar_recebimento_na_solicitacao
-    entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
-    e_posso_ver_o_status_aguardando_resultado
-    e_o_status_da_solicitacao_mudou_para_aguardando_resultado
-  end
-
   scenario "Cliente não consegue editar exame após recebido pelo laboratório" do
-    dado_existe_um_laboratorio
+    dado_um_laboratorio
     e_uma_solicitacao_de_exame_com_status_aguardando_resultado
     e_o_veterinario_que_solicitou_o_exame_estiver_logado
     quando_tentar_editar_o_exame
@@ -118,13 +84,12 @@ RSpec.feature "Exames", type: :feature do
   end
 
   scenario "Veterinário com cadastro incompleto não consegue solicitar exames" do
-    dado_existe_um_laboratorio
+    dado_um_laboratorio
     e_um_veterinario_com_cadastro_incompleto_logado
     quando_tentar_criar_um_novo_exame
     entao_fui_redirecionado_para_pagina_de_edicao_de_perfil
     e_estamos_vendo_uma_mensagem_que_nao_eh_possivel_solicitar_exames_com_cadastro_incompleto
   end
-
 
   scenario "Cliente verificando resultado do exame anexado" do
     dado_um_laboratorio_com_funcionarios
@@ -138,82 +103,22 @@ RSpec.feature "Exames", type: :feature do
     e_posso_ver_o_status_aguardando_resultado
   end
 
-  scenario "Dono do laboratório ver dados da solicitação do exame para realizá-lo" do
-    dado_um_laboratorio_com_funcionarios
-    e_uma_solicitacao_de_exame_com_status_aguardando_resultado
-    e_o_dono_do_laboratorio_estiver_logado
-    quando_acessar_pagina_inicial_do_laboratorio
-    e_clicar_em_intranet
-    entao_estamos_na_intranet_do_laboratorio
-    quando_clicar_em_solicitacoes_de_exames
-    entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
-    e_posso_ver_os_principais_dados_da_solicitacao
-    quando_clicar_no_numero_do_protocolo
-    entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
+  scenario "Cliente não tem acesso a verificar o exame de outro cliente" do
+    dado_um_laboratorio
+    e_uma_solicitacao_de_exame
+    e_o_outro_cliente_logado
+    quando_tentar_acessar_o_exame
+    entao_vemos_uma_mensagem_que_nao_temos_permissao_para_acessar_o_exame
   end
 
-  scenario "Tecnico do laboratório anexa resultado PDF de um exame" do
-    dado_um_laboratorio_com_funcionarios
-    e_uma_solicitacao_de_exame_com_status_aguardando_resultado
-    e_o_tecnico_do_laboratorio_estiver_logado
-    quando_acessar_pagina_inicial_do_laboratorio
-    e_clicar_em_intranet
-    entao_estamos_na_intranet_do_laboratorio
-    quando_clicar_em_solicitacoes_de_exames
-    entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
-    e_posso_ver_os_principais_dados_da_solicitacao
-    quando_clicar_no_numero_do_protocolo
-    entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
-    quando_anexar_um_documento_como_resultado
-    e_clicar_em_anexar_ao_resultado
-    entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
-    e_estamos_vendo_o_status_resultado_disponivel
-    e_posso_ver_link_para_baixar_o_resultado
+  scenario "Cliente não tem acesso para editar o exame de outro cliente" do
+    dado_um_laboratorio
+    e_uma_solicitacao_de_exame
+    e_o_outro_cliente_logado
+    quando_tentar_editar_o_exame
+    entao_vemos_uma_mensagem_que_nao_temos_permissao_para_editar_o_exame
   end
-
-  scenario "Tecnico do laboratório anexa multiplas imagens a um exame" do
-    dado_um_laboratorio_com_funcionarios
-    e_uma_solicitacao_de_exame_com_status_aguardando_resultado
-    e_o_tecnico_do_laboratorio_estiver_logado
-    quando_acessar_pagina_inicial_do_laboratorio
-    e_clicar_em_intranet
-    entao_estamos_na_intranet_do_laboratorio
-    quando_clicar_em_solicitacoes_de_exames
-    entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
-    e_posso_ver_os_principais_dados_da_solicitacao
-    quando_clicar_no_numero_do_protocolo
-    entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
-    quando_anexar_multiplas_imagens
-    e_clicar_em_anexar_imagens
-    entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
-    #e_estamos_vendo_o_status_resultado_disponivel
-    e_posso_ver_link_para_baixar_as_imagens
-  end
-
-
-  def dado_existe_um_laboratorio
-    @lab = create(:laboratorio)
-  end
-
-  def dado_um_laboratorio_com_funcionarios
-    @lab = create(:laboratorio_com_funcionarios)
-    @dono = User.with_role(:dono, @lab).take
-    @tecnico = User.with_role(:tecnico, @lab).take
-    @secretario = User.with_role(:secretario, @lab).take
-  end
-
-  def e_uma_solicitacao_de_exame
-    @exame_requisicao = create(:exame_requisicao, laboratorio: @lab)
-  end
-
-  def e_uma_solicitacao_de_exame_com_status_aguardando_resultado
-    @exame_requisicao = create(:exame_requisicao_aguardando_resultado, laboratorio: @lab)
-  end
-
-  def e_uma_solicitacao_de_exame_com_resultado_disponivel
-    @exame_requisicao = create(:exame_requisicao_com_resultado_disponivel, laboratorio: @lab)
-  end
-
+  
   def e_o_veterinario_que_solicitou_o_exame_estiver_logado
     @veterinario = @exame_requisicao.requisitante
     usando_labdomain(@lab)
@@ -227,40 +132,15 @@ RSpec.feature "Exames", type: :feature do
     @tipos = [@tipo1, @tipo2]
   end
 
-  def e_o_outro_cliente_logado
-    e_um_veterinario_logado
-  end
-
-  def e_um_veterinario_logado
-    @veterinario = create(:veterinario)
-    login(@veterinario)
-  end
-
   def e_um_veterinario_com_cadastro_incompleto_logado
     @veterinario = create(:veterinario_com_cadastro_incompleto)
     login(@veterinario)
   end
 
-  def e_o_dono_do_laboratorio_estiver_logado
-    @dono = @lab.dono
+  def quando_tentar_editar_o_exame
     usando_labdomain(@lab)
-    login(@dono)
-  end
-
-  def e_o_tecnico_do_laboratorio_estiver_logado
-    usando_labdomain(@lab)
-    login(@tecnico)
-  end
-
-  def e_o_secretario_estiver_logado
-    usando_labdomain(@lab)
-    login(@secretario)
-  end
-
-  def quando_acessar_pagina_inicial_do_laboratorio
-    usando_labdomain(@lab)
-    visit root_path
-  end
+    visit edit_exame_requisicao_path(@exame_requisicao)    
+  end  
 
   def quando_tentar_acessar_o_exame
     usando_labdomain(@lab)
@@ -269,11 +149,6 @@ RSpec.feature "Exames", type: :feature do
 
   def quando_acessar_uma_requisicao_de_exame
     quando_tentar_acessar_o_exame
-  end
-
-  def quando_tentar_editar_o_exame
-    usando_labdomain(@lab)
-    visit edit_exame_requisicao_path(@exame_requisicao)    
   end
 
   def quando_tentar_criar_um_novo_exame
@@ -294,10 +169,6 @@ RSpec.feature "Exames", type: :feature do
     click_button('Solicitar exame')
   end
 
-  def e_clicar_em_intranet
-    click_on("Intranet")
-  end
-
   def entao_estamos_na_pagina_de_requisicao_de_exame
     expect(page).to have_current_path(new_exame_requisicao_path)
   end
@@ -311,17 +182,6 @@ RSpec.feature "Exames", type: :feature do
     expect(page).to have_current_path(exame_requisicoes_path)
   end
 
-  def entao_estamos_na_intranet_do_laboratorio
-    expect(page).to have_current_path(intranet_path)
-  end
-
-  def entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
-    expect(page).to have_current_path(intranet_exame_requisicoes_path)
-  end
-
-  def entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
-    expect(page).to have_current_path(edit_intranet_exame_requisicao_path(@exame_requisicao))
-  end
 
   def entao_estamos_na_pagina_de_novo_exame_semelhante
     expect(page).to have_current_path(novo_semelhante_exame_requisicao_path(@exame_requisicao))
@@ -353,28 +213,6 @@ RSpec.feature "Exames", type: :feature do
     expect(page).to have_content(/\#[0-9]+ \- #{@requisicao_dados[:nome]}/)
   end
 
-
-  def e_posso_ver_os_principais_dados_da_solicitacao
-    expect(page).to have_content("Requisições de exames")
-    expect(page).to have_content(@exame_requisicao.id)
-    expect(page).to have_content(@exame_requisicao.proprietario)
-    expect(page).to have_content(@exame_requisicao.nome)
-    expect(page).to have_content(@exame_requisicao.created_at.strftime("%d/%m/%Y"))
-    # FIXME incluir status
-  end
-
-  def e_o_status_da_solicitacao_mudou_para_aguardando_resultado
-    expect(page).to have_content("Aguardando resultado")
-  end
-
-  def e_estamos_vendo_o_status_resultado_disponivel
-    expect(page).to have_content("Resultado disponível")
-  end
-
-  def e_posso_ver_o_status_aguardando_resultado
-    expect(page).to have_content("Aguardando resultado")
-  end
-
   def e_posso_ver_o_status_aguardando_envio
     expect(page).to have_content("Aguardando envio da amostra")
   end
@@ -387,38 +225,12 @@ RSpec.feature "Exames", type: :feature do
     click_on("Voltar")
   end
 
-  def quando_clicar_em_solicitacoes_de_exames
-    click_on("Solicitações de exames")
-  end
-
-  def quando_clicar_em_confirmar_recebimento_na_solicitacao
-    #click_on( confirmar_recebimento")
-    find("#exame_requisicao#{@exame_requisicao.id}").find("#confirmar_recebimento").click
-  end
-
   def quando_clicar_em_inserir_resultado
     click_on("Inserir resultado")
   end
 
-  def e_clicar_em_anexar_ao_resultado
-    click_on("Anexar ao resultado")
-  end
-
-  def e_clicar_em_anexar_imagens
-    click_on("Anexar imagens")
-  end
-
   def quando_clicar_no_botao_solicitar_novo_exame_semelhante
     click_on("Novo exame semelhante")
-  end
-
-  def quando_anexar_um_documento_como_resultado
-    #attach_file('exame_anexo[anexo][]', ["spec/samples/exame_anexos/exame-citopatologico1.pdf", 'spec/samples/exame_anexos/imagem-exame.jpg'])
-    attach_file('exame_anexo[anexo]', "spec/samples/exame_anexos/exame-citopatologico1.pdf")
-  end
-
-  def quando_anexar_multiplas_imagens
-    attach_file('imagens[]', ['spec/samples/exame_imagens/exame-imagem1.jpg', 'spec/samples/exame_imagens/exame-imagem2.jpg'])
   end
 
   def entao_vemos_uma_mensagem_que_nao_temos_permissao_para_acessar_o_exame
@@ -437,17 +249,8 @@ RSpec.feature "Exames", type: :feature do
     find("#anexos").find("a").click
   end
 
-  def e_posso_ver_link_para_baixar_o_resultado
-    expect(find("#anexos")).to have_link("resultado-anexo1")
-  end
-
   def e_vendo_dois_links_baixar_os_arquivos_enviados
     expect(find("#anexos")).to have_link("resultado-anexo1")
-  end
-
-  def e_posso_ver_link_para_baixar_as_imagens
-    expect(find("#anexos")).to have_link("resultado-imagem1")
-    expect(find("#anexos")).to have_link("resultado-imagem2")
   end
 
   def entao_estamos_vendo_um_botao_solicitar_novo_exame
