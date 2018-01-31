@@ -5,7 +5,7 @@ class ExameAnexo < ApplicationRecord
   #
   has_secure_token :access_token
   
-  has_attached_file :anexo, url: ":subdomain/:mes/resultados/:resultado_id/:class/:id/:access_token/:filename"
+  has_attached_file :anexo, url: ":organizacao_id/:mes/resultados/:resultado_id/:class/:id/:access_token/:filename"
 
   validates_attachment_content_type :anexo, content_type: /.*pdf/
 
