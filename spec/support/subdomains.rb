@@ -5,8 +5,8 @@
 
 
 def usando_labdomain(lab)
-  raise RuntimeError unless lab.subdomain
-  Capybara.app_host = "http://#{lab.subdomain}.lvh.me"
+  raise RuntimeError unless lab.organizacao.subdomain
+  Capybara.app_host = "http://#{lab.organizacao.subdomain}.lvh.me"
 end
 
 def usando_subdomain(subdomain)

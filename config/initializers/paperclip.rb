@@ -1,5 +1,5 @@
 Paperclip.interpolates :subdomain do |attachment, style|
-  attachment.instance.resultado.requisicao.laboratorio.subdomain
+  attachment.instance.resultado.requisicao.laboratorio.organizacao.subdomain
 end
 
 Paperclip.interpolates :access_token  do |attachment, style|

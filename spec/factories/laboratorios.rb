@@ -6,21 +6,17 @@ FactoryBot.define do
 
   factory :laboratorio do
     nome "meulab"
-    subdomain
     sequence(:apresentacao) {|n| "Texto#{n} de apresentação do laboratório." }
-
-    association :dono, factory: :user
+    organizacao
 
     factory :laboratorio_com_funcionarios do
       after(:create) do |lab|
         secretario = create(:user)
         tecnico = create(:user)
-        secretario.add_role :secretario, lab
-        tecnico.add_role :tecnico, lab
+        secretario.add_role :secretario, lab.organizacao
+        tecnico.add_role :tecnico, lab.organizacao
       end
     end
-
-    after(:build) {|lab| lab.dono.add_role :dono, lab}
 
   end
 end

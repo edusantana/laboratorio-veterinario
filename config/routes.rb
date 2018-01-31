@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  
+
   namespace :intranet do
     get 'exame_resultados/new'
   end
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 
 #  match '/', to: 'exame_requisicao#show', constraints: { subdomain: /.+/ }, via: [:get, :post, :put, :patch, :delete]
 
-
+  get '/clinica', controller: :clinicas, action: :show
 
   devise_for :users
   root to: "home#index"

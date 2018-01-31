@@ -9,9 +9,9 @@ end
 
 def dado_um_laboratorio_com_funcionarios
   @lab = create(:laboratorio_com_funcionarios)
-  @dono = User.with_role(:dono, @lab).take
-  @tecnico = User.with_role(:tecnico, @lab).take
-  @secretario = User.with_role(:secretario, @lab).take
+  @dono = User.with_role(:dono, @lab.organizacao).take
+  @tecnico = User.with_role(:tecnico, @lab.organizacao).take
+  @secretario = User.with_role(:secretario, @lab.organizacao).take
 end
 
 def dado_um_laboratorio_com_uma_unidade
@@ -41,16 +41,6 @@ def e_um_secretario_logado
   usando_labdomain(@lab)
   login(@secretario)
 end
-
-def e_o_outro_cliente_logado
-  e_um_veterinario_logado
-end
-
-def e_um_veterinario_logado
-  @veterinario = create(:veterinario)
-  login(@veterinario)
-end
-
 
 # QUANDO  QUANDO  QUANDO  QUANDO  QUANDO 
 

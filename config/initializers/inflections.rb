@@ -13,6 +13,9 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
    inflect.singular 'requisicoes', 'requisicao'
    inflect.plural 'imagem', 'imagens'
    inflect.singular 'imagens', 'imagem'
+
+   inflect.singular 'organizacoes', 'organizacao'
+   inflect.plural 'organizacao', 'organizacoes'
    
 end
 

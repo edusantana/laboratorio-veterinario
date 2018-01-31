@@ -1,26 +1,79 @@
-<div class="container">
-  <section class="jumbotron text-center">
-      <h1 class="jumbotron-heading">Sistema para clínica ou laboratório veterinário</h1>
-      <p class="lead text-muted">O Mundo.vet é um sistema on-line para clínicas e laboratórios veterinários.</p>
-<!--
+  <section class="jumbotron text-center" id="capa" style="background-image: url('assets/capa1.jpg');">
+      <h1 class="jumbotron-heading">Estamos construindo o mundo.vet para você veterinário!</h1>
+      <p class="lead text-muted">O sistema on-line que estamos construndo é ideal para quem estiver abrindo um laboratório veterinário ou possuir uma clínica veterinária.</p>
       <p>
-        <a href="#contato" class="btn btn-primary my-2">Contato</a>
-        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+        <a href="#laboratorio" class="btn btn-primary my-2">Laboratório Veterinário</a>
+        <a href="#clinica" class="btn btn-primary my-2">Clínica Veterinária</a>
+        <%= link_to "Minha clínica", clinica_path, class: 'btn btn-primary my-2' %>
       </p>
--->      
   </section>
+
+<div class="container">
 
   <h2>Nossos clientes</h2>
   <ul class="list-group">
     <% @laboratorios.each do |lab| %>
       <li class="list-group-item">
-        <%= link_to root_url(subdomain: lab.subdomain) do %>
-          <%= image_tag lab.dono.gravatar_url(:size => 64) %> 
+        <%= link_to root_url(subdomain: lab.organizacao.subdomain) do %>
+          <%= image_tag lab.organizacao.dono.gravatar_url(:size => 64) %> 
           <%= lab.nome %>
         <% end %>
       </li>
     <% end %>
   </ul>
+
+  <h2 id="laboratorio">Laboratório veterinário</h2>
+  <div>
+    <p>Você está abrindo um laboratório veterinário e precisa de um software para gerenciá-lo, já pesquisou na internet e verificou que existem várias alternativas mas não sabe qual a ideal para você iniciar o seu negócio.<p>
+    <p>Nós estamos oferecendo a você simplicidade e baixo custo, veja as funcionalidades do sistema para laboratório:</p>
+  </div>
+  <h3>Funcionalidades</h3>
+  <ul class="list-group mb-3">
+    <li class="list-group-item d-flex justify-content-between lh-condensed">
+      <div>
+        <h6 class="my-0">Sistema completamete on-line</h6>
+        <small class="text-muted">Não há necessidade de instalação ou backups, acesse através do seu navegador, celular ou tablet.</small>
+      </div>
+    </li>
+    <li class="list-group-item d-flex justify-content-between lh-condensed">
+      <div>
+        <h6 class="my-0">Não há necessidade de adquirir um domínio.</h6>
+        <small class="text-muted"> O seu laboratório ganha um subdomínio dentro do mundo.vet, exemplo: <strong>seulab.mundo.vet</strong></small>
+      </div>
+    </li>
+    <li class="list-group-item d-flex justify-content-between lh-condensed">
+      <div>
+        <h6 class="my-0">Pode ser utilizado com um domínio próprio</h6>
+        <small class="text-muted">Já possui um domínio? Não tem problema, você pode utilizá-lo, nós te ajudamos na configuração.</small>
+      </div>
+    </li>
+    <li class="list-group-item d-flex justify-content-between lh-condensed">
+      <div>
+        <h6 class="my-0">Anexe PDFs como resultados</h6>
+        <small class="text-muted">Os resultados dos exames serão arquivos PDFs criados por você e anexados ao sistema. Você pode utilizar o próprio Word para escrever o resultado e gerar o seu PDF.</small>
+      </div>
+    </li>
+    <li class="list-group-item d-flex justify-content-between lh-condensed">
+      <div>
+        <h6 class="my-0">Seus clientes solicitam os exames on-line</h6>
+        <small class="text-muted">Através do sistema on-line seus clientes (veterinários) cadastram solicitações de exames, acompanham os status dos exames e acessam os resultados.</small>
+      </div>
+    </li>
+    <li class="list-group-item d-flex justify-content-between lh-condensed">
+      <div>
+        <h6 class="my-0">Seu cliente terá acesso ao nosso sistema de clínica veterinária</h6>
+        <small class="text-muted">Seu cliente ganha acesso ao sistema de clínica veterinária on-line do <strong>mundo.vet</strong>, onde poderá acessar os históricos de exames dos animais ou gerenciar a clínica que possuir.</small>
+      </div>
+    </li>
+  </ul>
+
+
+  <h2 id="clinica">Clínica veterinária</h2>
+  <div>
+    <p>Estamos construindo um sistema para clínica veterinária e gostaríamos do seu auxílio.<p>
+    <p>Nós estamos oferecendo a você simplicidade e baixo custo, veja as funcionalidades do sistema para laboratório:</p>
+  </div>
+
 
   <h2 id="contato">Contato</h2>
   <p class="">

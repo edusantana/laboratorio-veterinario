@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  layout "labvet"
+  layout "mundovet"
 
   def index
     @laboratorios = Laboratorio.all

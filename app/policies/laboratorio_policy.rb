@@ -1,9 +1,10 @@
 class LaboratorioPolicy < ApplicationPolicy
-  attr_reader :user, :lab
+  attr_reader :user, :lab, :org
 
   def initialize(user, lab)
     @user = user
     @lab = lab
+    @org = lab.organizacao
   end
 
   def show?
@@ -11,6 +12,6 @@ class LaboratorioPolicy < ApplicationPolicy
   end
   
   def funcionario?
-    @user.has_role?(:dono, @lab) || @user.has_role?(:tecnico, @lab)  ||  @user.has_role?(:secretario, @lab )
+    @user.has_role?(:dono, @org) || @user.has_role?(:tecnico, @org)  ||  @user.has_role?(:secretario, @org )
   end
 end

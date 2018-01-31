@@ -38,7 +38,8 @@ class ApplicationController < ActionController::Base
       @subdomain = request.subdomain
     end
     @domain = request.domain
-    @lab = Laboratorio.where(subdomain: @subdomain).take
+    @org = Organizacao.where(subdomain: @subdomain).take
+    @lab = @org.nil?? nil : @org.laboratorio
   end
 
   def user_not_authorized(exception)

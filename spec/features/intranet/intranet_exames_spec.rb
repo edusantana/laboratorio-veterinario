@@ -88,7 +88,7 @@ RSpec.feature "Intranet Exames", type: :feature do
   end
 
   def e_o_dono_do_laboratorio_estiver_logado
-    @dono = @lab.dono
+    @dono = @lab.organizacao.dono
     usando_labdomain(@lab)
     login(@dono)
   end
