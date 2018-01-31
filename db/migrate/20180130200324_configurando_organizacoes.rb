@@ -1,7 +1,7 @@
 class ConfigurandoOrganizacoes < ActiveRecord::Migration[5.1]
   def up
     Laboratorio.all.each do |lab|
-      org = Organizacao.create(dono: lab.dono, subdomain: lab.subdomain)
+      org = Organizacao.create
       lab.organizacao = org
       lab.save
     end
