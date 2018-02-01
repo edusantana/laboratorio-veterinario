@@ -9,8 +9,8 @@ class ConfigurandoOrganizacoes < ActiveRecord::Migration[5.1]
 
   def down
     Laboratorio.all.each do |lab|      
-      lab.org.delete if lab.org
-      lab.org = nil
+      lab.organizacao.delete if lab.organizacao
+      lab.organizacao = nil
       lab.save
     end
   end

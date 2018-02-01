@@ -3,7 +3,28 @@ require 'rails_helper'
 RSpec.feature "Clinicas", type: :feature do
   # pending "add some scenarios (or delete) #{__FILE__}"
 
-  feature "Todo veterinário possui acesso a uma clínica pessoal", :wip do
+  feature "O sistema possui uma clínica demonstrativa", :wip do
+    scenario "Usuário pode criar a clínica demonstrativa através de um link" do
+      dado_um_veterinario_logado
+      quando_clicar_em_criar_clinica_demo
+      entao_estamos_na_pagina_da_clinica_demo
+      e_estamos_vendo_msg_clinica_demonstrativa_foi_reiniciada
+      e_estamos_vendo_pagina_da_clinica
+      e_estamos_vendo_o_layout_da_pagina_de_clinica
+    end
+    scenario "Usuário pode recriar a clínica demonstrativa através de um link" do
+      dado_um_veterinario_logado
+      e_uma_clinica_demonstrativa_criada
+      quando_clicar_em_criar_clinica_demo
+      entao_estamos_na_pagina_da_clinica_demo
+      e_estamos_vendo_msg_clinica_demonstrativa_foi_reiniciada
+      e_estamos_vendo_pagina_da_clinica
+      e_estamos_vendo_o_layout_da_pagina_de_clinica
+    end
+
+  end
+
+  feature "Todo veterinário possui acesso a uma clínica pessoal" do
     scenario "Usuário recém criado acessa clínica pessoal em /clinica" do
       dado_um_veterinario_logado
       quando_clicar_em_minha_clinica
@@ -32,6 +53,7 @@ RSpec.feature "Clinicas", type: :feature do
       dado_um_veterinario_logado
       e_clinica_pessoal_criada_com_exemplos
       quando_clicar_em_minha_clinica
+      entao_estamos_na_pagina_da_clinica_pessoal
     end
   
     scenario "Iniciando consulta pesquisando pelo nome do paciente" do
@@ -48,13 +70,28 @@ RSpec.feature "Clinicas", type: :feature do
     click_on("Minha clínica")
   end
 
-  def entao_estamos_na_pagina_da_clinica_pessoal
-    expect(page).to have_current_path(clinica_path)
+  def quando_clicar_em_criar_clinica_demo
+    click_on("criar_clinica_demo")
   end
 
-  def e_clinica_pessoal_criada_com_exemplos
-    
+  def entao_estamos_na_pagina_da_clinica_demo
+    expect(page).to have_current_path(root_path)
   end
 
+  def e_estamos_vendo_msg_clinica_demonstrativa_foi_reiniciada
+    expect(page).to have_content("Clínica demonstrativa foi recriada.")
+  end
+
+  def e_estamos_vendo_pagina_da_clinica
+    expect(page).to have_content("Clínica Demonstrativa")
+  end
+
+  def e_estamos_vendo_o_layout_da_pagina_de_clinica
+    expect(page).to have_content("Layout clínica")
+  end
+
+  def e_uma_clinica_demonstrativa_criada
+    @demo = Organizacao.criar_clinica_demo
+  end
 
 end

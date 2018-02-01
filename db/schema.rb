@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131111049) do
+ActiveRecord::Schema.define(version: 20180131135711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "clinicas", force: :cascade do |t|
-    t.bigint "dono_id"
     t.string "nome"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["dono_id"], name: "index_clinicas_on_dono_id"
+    t.bigint "organizacao_id"
+    t.index ["organizacao_id"], name: "index_clinicas_on_organizacao_id"
   end
 
   create_table "exame_anexos", force: :cascade do |t|
@@ -152,7 +152,7 @@ ActiveRecord::Schema.define(version: 20180131111049) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
-  add_foreign_key "clinicas", "users", column: "dono_id"
+  add_foreign_key "clinicas", "organizacoes"
   add_foreign_key "exame_anexos", "exame_resultados", column: "resultado_id"
   add_foreign_key "exame_imagens", "exame_resultados", column: "resultado_id"
   add_foreign_key "exame_requisicoes", "exame_tipos", column: "tipo_id"

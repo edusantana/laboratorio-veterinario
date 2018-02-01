@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= @page_title or "Clínica pessoal" %> | mundo.vet</title>
+    <title><%= @page_title or "Clínica" %> | mundo.vet</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -37,9 +37,9 @@
        <p class="notice"><%= notice %></p>
        <p class="alert"><%= alert %></p>
     <ul class="hmenu">
-
     </ul>
 
+    Layout clínica
     <%= yield %>
   </body>
 </html>

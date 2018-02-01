@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :exame_requisicoes, except: [:destroy] do
       get 'novo_semelhante', on: :member
     end
-    match '/', to: 'laboratorios#show', via: [:get]
+    match '/', to: 'organizacoes#show', via: [:get]
 
     namespace :intranet do
       resources :exame_requisicoes, except: [:new, :create, :show, :destroy] do
@@ -30,8 +30,8 @@ Rails.application.routes.draw do
 
 #  match '/', to: 'exame_requisicao#show', constraints: { subdomain: /.+/ }, via: [:get, :post, :put, :patch, :delete]
 
-  get '/clinica', controller: :clinicas, action: :show
-
+  match '/criar_clinica_demo', to: 'organizacoes#criar_clinica_demo', via: [:get]
+  
   devise_for :users
   root to: "home#index"
 

@@ -1,8 +1,9 @@
 class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery with: :exception
+  before_action :get_organizacao
   before_action :get_laboratorio
-
+  
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -27,6 +28,23 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def get_organizacao
+    if request.domain == 'elasticbeanstalk.com'
+      # acessando pelo aws
+      # vilareal.mundovet.sa-east-1.elasticbeanstalk.com
+      @subdomain = request.subdomain.split(".")[-3]
+    else
+      # http://lupa.lvh.me:3000/
+      # http://vilareal.mundo.vet
+      @subdomain = request.subdomain
+    end
+    @domain = request.domain
+    @org = Organizacao.where(subdomain: @subdomain).take
+    @org = Organizacao.where(subdomain: nil, dono: current_user).take unless @org
+
+    @org
+  end
+
   def get_laboratorio
     if request.domain == 'elasticbeanstalk.com'
       # acessando pelo aws
@@ -40,6 +58,10 @@ class ApplicationController < ActionController::Base
     @domain = request.domain
     @org = Organizacao.where(subdomain: @subdomain).take
     @lab = @org.nil?? nil : @org.laboratorio
+  end
+
+  def get_clinica
+    @clinica = @org.clinica
   end
 
   def user_not_authorized(exception)

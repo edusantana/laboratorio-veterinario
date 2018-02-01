@@ -4,7 +4,8 @@
       <p>
         <a href="#laboratorio" class="btn btn-primary my-2">Laboratório Veterinário</a>
         <a href="#clinica" class="btn btn-primary my-2">Clínica Veterinária</a>
-        <%= link_to "Minha clínica", clinica_path, class: 'btn btn-primary my-2' %>
+        <%= link_to "Minha clínica", root_url(subdomain: 'clinica'), class: 'btn btn-primary my-2' %>
+        <%= link_to "Criar clínica demonstrativa", criar_clinica_demo_path, class: 'btn btn-primary my-2', id: 'criar_clinica_demo' %>
       </p>
   </section>
 
