@@ -14,7 +14,7 @@ cliente=User.create(email: 'cliente@gmail.com', password: 'ruby123')
 org = Organizacao.create(subdomain: 'lupa', dono: dono)
 
 # Laboratório
-lupa = Laboratorio.create(nome: "Laboratório Lupa", subdomain: 'lupa', dono: dono, apresentacao: 'Laboratório criado para servir a grande João Pessoa.', organizacao: org)
+lupa = Laboratorio.create(nome: "Laboratório Lupa", apresentacao: 'Laboratório criado para servir a grande João Pessoa.', organizacao: org)
 unidade = Unidade.create(nome: "Mangabeira", laboratorio: lupa, endereco: "Rua do garrafão, N 145", telefone: "(83) 3535-1967")
 dono.add_role(:dono, lupa)
 tecnico.add_role(:tecnico, lupa)

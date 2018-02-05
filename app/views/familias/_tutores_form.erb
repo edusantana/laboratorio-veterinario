@@ -1,0 +1,26 @@
+<h2>Novo Tutor</h2>
+<%= form_for [familia, tutor], url: add_tutor_familia_path(familia) do |f| %>
+
+  <div class="form-group">
+    <%= f.text_field :nome, autofocus: true, placeholder: 'Nome do tutor', class: 'form-control' %>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= f.telephone_field :telefones, autocomplete: "telefone", placeholder: 'Telefone', class: 'form-control' %>
+    </div>
+    <div class="form-group col-md-6">
+      <%= f.text_field :cpf, placeholder: 'CPF', class: 'form-control' %>
+    </div>
+  </div>
+  
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= f.email_field :email, autocomplete: "email", placeholder: 'e-mail', class: 'form-control' %>
+    </div>
+    <div class="actions form-group col-md-6">
+      <%= f.submit 'Adicionar tutor', class: "btn btn-primary" %>
+    </div>
+  </div>
+
+<% end %>

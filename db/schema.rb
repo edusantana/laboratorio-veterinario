@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131135711) do
+ActiveRecord::Schema.define(version: 20180202180929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(version: 20180131135711) do
     t.datetime "updated_at", null: false
     t.bigint "organizacao_id"
     t.index ["organizacao_id"], name: "index_clinicas_on_organizacao_id"
+  end
+
+  create_table "enderecos", force: :cascade do |t|
+    t.string "cidade"
+    t.string "endereco"
+    t.string "numero"
+    t.string "complemento"
+    t.string "estado"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "exame_anexos", force: :cascade do |t|
@@ -85,6 +95,13 @@ ActiveRecord::Schema.define(version: 20180131135711) do
     t.index ["laboratorio_id"], name: "index_exame_tipos_on_laboratorio_id"
   end
 
+  create_table "familias", force: :cascade do |t|
+    t.bigint "clinica_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["clinica_id"], name: "index_familias_on_clinica_id"
+  end
+
   create_table "laboratorios", force: :cascade do |t|
     t.string "nome", null: false
     t.datetime "created_at", null: false
@@ -100,6 +117,21 @@ ActiveRecord::Schema.define(version: 20180131135711) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["dono_id"], name: "index_organizacoes_on_dono_id"
+    t.index ["subdomain"], name: "index_organizacoes_on_subdomain", unique: true
+  end
+
+  create_table "pacientes", force: :cascade do |t|
+    t.string "nome", null: false
+    t.boolean "sexo"
+    t.string "especie"
+    t.date "data_nascimento"
+    t.string "raca"
+    t.boolean "vivo", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "familia_id"
+    t.index ["familia_id"], name: "index_pacientes_on_familia_id"
+    t.index ["nome"], name: "index_pacientes_on_nome"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -110,6 +142,18 @@ ActiveRecord::Schema.define(version: 20180131135711) do
     t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
+  end
+
+  create_table "tutores", force: :cascade do |t|
+    t.string "nome"
+    t.boolean "sexo"
+    t.string "cpf"
+    t.string "email"
+    t.string "telefones"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "familia_id"
+    t.index ["familia_id"], name: "index_tutores_on_familia_id"
   end
 
   create_table "unidades", force: :cascade do |t|
@@ -161,7 +205,10 @@ ActiveRecord::Schema.define(version: 20180131135711) do
   add_foreign_key "exame_resultados", "exame_requisicoes", column: "requisicao_id"
   add_foreign_key "exame_resultados", "users", column: "tecnico_id"
   add_foreign_key "exame_tipos", "laboratorios"
+  add_foreign_key "familias", "clinicas"
   add_foreign_key "laboratorios", "organizacoes"
   add_foreign_key "organizacoes", "users", column: "dono_id"
+  add_foreign_key "pacientes", "familias"
+  add_foreign_key "tutores", "familias"
   add_foreign_key "unidades", "laboratorios"
 end

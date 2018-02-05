@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :get_organizacao
   before_action :get_laboratorio
+
   
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -18,12 +19,23 @@ class ApplicationController < ActionController::Base
     end
     current_user
   end
-
+  
   protected
-
+  
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:nome, :crmv, :cpf, :telefone, :endereco])
     devise_parameter_sanitizer.permit(:account_update, keys: [:nome, :crmv, :cpf, :telefone, :endereco])
+  end
+  
+  def get_clinica
+    if @org
+      @clinica = @org.clinica
+    else
+      @clinica = nil
+    end
+
+    
+      
   end
 
   private
@@ -40,7 +52,6 @@ class ApplicationController < ActionController::Base
     end
     @domain = request.domain
     @org = Organizacao.where(subdomain: @subdomain).take
-    @org = Organizacao.where(subdomain: nil, dono: current_user).take unless @org
 
     @org
   end
@@ -58,10 +69,6 @@ class ApplicationController < ActionController::Base
     @domain = request.domain
     @org = Organizacao.where(subdomain: @subdomain).take
     @lab = @org.nil?? nil : @org.laboratorio
-  end
-
-  def get_clinica
-    @clinica = @org.clinica
   end
 
   def user_not_authorized(exception)

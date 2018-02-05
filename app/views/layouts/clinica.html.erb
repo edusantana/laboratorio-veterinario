@@ -39,7 +39,9 @@
     <ul class="hmenu">
     </ul>
 
-    Layout clínica
+    <%= link_to "Iniciar atendimento", iniciando_atendimento_path, class: "btn btn-primary btn-lg" %>
+    <%= link_to "Cadastrar família do paciente", new_familia_path, class: "btn btn-primary btn-lg", id: '#cadastrar_nova_familia' %>
+    
     <%= yield %>
   </body>
 </html>

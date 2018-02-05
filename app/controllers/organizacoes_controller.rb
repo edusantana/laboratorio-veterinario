@@ -1,11 +1,17 @@
 class OrganizacoesController < ApplicationController
 
+  before_action :get_clinica
+
   def show
-    if @org.clinica
-      get_clinica
-      render "clinicas/show", :layout => "clinica"
+    if @org
+      if @org.clinica
+        get_clinica
+        render "clinicas/show", :layout => "clinica"
+      else
+        render "laboratorios/show"
+      end
     else
-      render "laboratorios/show"
+      render :disponivel
     end
   end
 

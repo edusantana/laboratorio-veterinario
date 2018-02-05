@@ -1,4 +1,4 @@
-class LaboratoriosController < ApplicationController
+class LaboratoriosController < OrganizacoesController
   def show
     unless @lab
       #@subdomain = request.subdomain

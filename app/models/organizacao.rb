@@ -6,9 +6,11 @@ class Organizacao < ApplicationRecord
 
   def Organizacao.criar_clinica_demo
 
-    org = Organizacao.where(subdomain: 'demo').take
+    org = Organizacao.where(subdomain: 'clinica').take
 
     if org
+      org.clinica.destroy if org.clinica
+      
       # destroy organizacao
       org.destroy
     end

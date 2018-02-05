@@ -1,0 +1,48 @@
+<h2>Novo Paciente</h2>
+<%= form_for [familia, paciente], url: add_paciente_familia_path(familia) do |f| %>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+    <%= f.label :nome, 'Nome' %><br />
+    <%= f.text_field :nome, placeholder: 'Nome do paciente', class: 'form-control' %>
+    </div>
+    <div class="form-group col-md-auto">
+      <%= f.label :sexo, 'Sexo' %><br />
+      <%= f.radio_button(:sexo, 'feminino') %>
+      <%= f.label :sexo_feminino, 'Feminino' %>
+      <%= f.radio_button(:sexo, 'masculino') %>
+      <%= f.label :sexo_masculino, 'Masculino' %>
+    </div>
+    <div class="form-group col-md-auto">
+      <%= f.label(:data_nascimento) %><br />
+      <%= f.date_field(:data_nascimento) %>
+    </div>
+
+
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-sm-5">
+      <%= f.text_field :especie, id: :exame_requisicao_especie, placeholder: 'Espécie do paciente', class: 'form-control', list: 'especies' %>
+      <datalist id="especies">
+        <option value="Aves">
+        <option value="Bovina">
+        <option value="Canina">
+        <option value="Caprina">
+        <option value="Equina">
+        <option value="Felina">
+        <option value="Ouvina">
+        <option value="Roedores">
+        <option value="Outras">
+      </datalist>
+    </div>
+    <div class="form-group col-sm-5">
+      <%= f.text_field :raca, id: :exame_requisicao_raca, placeholder: 'Raça do paciente', class: 'form-control' %>
+    </div>
+    <div class="actions form-group col-sm-2">
+      <%= f.submit 'Adicionar paciente', class: "btn btn-primary" %>      
+    </div>
+  </div>
+
+  
+<% end %>

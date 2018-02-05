@@ -16,8 +16,40 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 
    inflect.singular 'organizacoes', 'organizacao'
    inflect.plural 'organizacao', 'organizacoes'
-   
+
+   inflect.singular 'tutores', 'tutor'
+   inflect.plural 'tutor', 'tutores'
+
+   inflect.singular 'familias', 'familia'
+   inflect.plural 'familia', 'familias'
+
 end
+
+
+ActiveSupport::Inflector.inflections('pt') do |inflect|
+
+  inflect.singular 'tutores', 'tutor'
+  inflect.plural 'tutor', 'tutores'
+
+  inflect.singular 'familias', 'familia'
+  inflect.plural 'familia', 'familias'
+
+
+end
+
+
+ActiveSupport::Inflector.inflections('pt-BR') do |inflect|
+
+  inflect.singular 'tutores', 'tutor'
+  inflect.plural 'tutor', 'tutores'
+
+  inflect.singular 'familias', 'familia'
+  inflect.plural 'familia', 'familias'
+
+
+end
+
+
 
 # These inflection rules are supported but not enabled by default:
 # ActiveSupport::Inflector.inflections(:en) do |inflect|

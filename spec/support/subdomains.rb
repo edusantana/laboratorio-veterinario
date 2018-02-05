@@ -19,6 +19,11 @@ def usando_main_domain
   usando_subdomain nil
 end
  
+def visit_clinica
+  usando_subdomain(@clinica.organizacao.subdomain)
+  visit root_path
+end
+
 RSpec.configure do |config|
   usando_main_domain
 end
