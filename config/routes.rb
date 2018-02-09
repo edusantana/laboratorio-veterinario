@@ -22,7 +22,6 @@ Rails.application.routes.draw do
     resources :atendimentos, only: [:edit, :update] do
     end
 
-
     match '/', to: 'organizacoes#show', via: [:get]
 
     match '/iniciando_atendimento', to: 'atendimentos#iniciando', via: [:get], as: :iniciando_atendimento
@@ -33,8 +32,11 @@ Rails.application.routes.draw do
         post 'anexar_resultado', on: :member
         post 'anexar_imagens', on: :member
         resources :exame_resultados, only: [:new, :create]
+        get 'confirmar', on: :collection
       end
       resources :exame_resultados, only: [:show, :edit, :update]
+
+
 
       match '/', to: 'laboratorios#show', via: [:get]
     end

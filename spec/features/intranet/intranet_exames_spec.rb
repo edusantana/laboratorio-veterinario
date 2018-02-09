@@ -7,20 +7,34 @@ RSpec.feature "Intranet Exames", type: :feature do
   end
 
 
-  scenario "Secretario do laboratório confirma recebimento de amostra de exame solicitado" do
-    dado_um_laboratorio_com_funcionarios
-    e_uma_solicitacao_de_exame
-    e_o_secretario_estiver_logado
-    quando_acessar_pagina_inicial_do_laboratorio
-    e_clicar_em_intranet
-    entao_estamos_na_intranet_do_laboratorio
-    quando_clicar_em_solicitacoes_de_exames
-    entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
-    e_posso_ver_os_principais_dados_da_solicitacao
-    quando_clicar_em_confirmar_recebimento_na_solicitacao
-    entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
-    e_posso_ver_o_status_aguardando_resultado
-    e_o_status_da_solicitacao_mudou_para_aguardando_resultado
+  feature "Confirmando recebimento", :wip do
+    background do
+      dado_um_laboratorio_com_funcionarios
+      e_uma_solicitacao_de_exame
+      e_o_secretario_estiver_logado
+      quando_acessar_pagina_inicial_do_laboratorio
+      e_clicar_em_intranet
+      entao_estamos_na_intranet_do_laboratorio
+    end
+
+    scenario "Secretario do laboratório confirma recebimento de amostra de exame solicitado" do
+      quando_clicar_em_solicitacoes_de_exames
+      entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
+      e_posso_ver_os_principais_dados_da_solicitacao
+      quando_clicar_em_confirmar_recebimento_na_solicitacao
+      entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
+      e_posso_ver_o_status_aguardando_resultado
+      e_o_status_da_solicitacao_mudou_para_aguardando_resultado
+    end
+  
+    scenario "Secretario do laboratório confirma recebimento de amostra de exame solicitado (através de item confirmações)" do
+      quando_clicar_em_confirmar_recebimento_de_exames
+      quando_clicar_em_confirmar_recebimento_na_solicitacao
+      entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
+      e_posso_ver_o_status_aguardando_resultado
+      e_o_status_da_solicitacao_mudou_para_aguardando_resultado
+    end
+
   end
 
 
@@ -129,6 +143,10 @@ RSpec.feature "Intranet Exames", type: :feature do
 
   def e_clicar_em_anexar_imagens
     click_on("Anexar imagens")
+  end
+
+  def quando_clicar_em_confirmar_recebimento_de_exames
+    click_on("Confirmar recebimentos de exames")
   end
 
   def quando_clicar_em_confirmar_recebimento_na_solicitacao

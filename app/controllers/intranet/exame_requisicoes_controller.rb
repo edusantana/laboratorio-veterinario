@@ -46,6 +46,11 @@ module Intranet
       @exame_requisicoes = ExameRequisicao.where(laboratorio: @lab).order(:id).reverse_order
     end
 
+    def confirmar
+      @exame_requisicoes = ExameRequisicao.where(laboratorio: @lab, aasm_state: 'aguardando_envio' ).order(:id)
+      render :index
+    end
+
     # PATCH/PUT /exame_requisicoes/1
     def update
       if @exame_requisicao.update(exame_requisicao_params)
