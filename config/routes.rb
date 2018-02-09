@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   namespace :intranet do
     get 'exame_resultados/new'
     get 'exame_resultados/edit'
@@ -9,12 +9,21 @@ Rails.application.routes.draw do
     resources :exame_requisicoes, except: [:destroy] do
       get 'novo_semelhante', on: :member
     end
-    match '/', to: 'organizacoes#show', via: [:get]
-
+    
     resources :familias, only: [:new, :edit] do
       post 'add_tutor', on: :member
       post 'add_paciente', on: :member
     end
+    
+    resources :pacientes, shallow: true do
+      resources :atendimentos
+    end
+
+    resources :atendimentos, only: [:edit, :update] do
+    end
+
+
+    match '/', to: 'organizacoes#show', via: [:get]
 
     match '/iniciando_atendimento', to: 'atendimentos#iniciando', via: [:get], as: :iniciando_atendimento
 

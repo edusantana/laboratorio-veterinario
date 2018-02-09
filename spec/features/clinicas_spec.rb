@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature "Clinicas", type: :feature do
   # pending "add some scenarios (or delete) #{__FILE__}"
 
-  feature "O cadastro do paciente e tutor é realizado em conjunto no início do atendimento", :wip do
+  feature "O cadastro do paciente e tutor são realizados em conjunto no início do atendimento" do
   
     background do
       dado_uma_clinica_demonstrativa_criada
@@ -23,6 +23,7 @@ RSpec.feature "Clinicas", type: :feature do
       e_clicamos_em_adicionar_paciente
       entao_permanecemos_na_pagina_de_cadastro_da_familia
       e_vemos_que_o_paciente_foi_cadastrado
+      e_link_para_iniciar_atendimento_eh_exibido_proximo_ao_nome_do_paciente
     end
 
     scenario "Cadastrando nova família (múltiplos pacientes e tutores)" do
@@ -36,6 +37,13 @@ RSpec.feature "Clinicas", type: :feature do
       quando_preencho_os_dados_dos_pacientes_e_clicamos_em_adicionar_paciente
       entao_permanecemos_na_pagina_de_cadastro_da_familia
       e_vemos_que_os_pacientes_foram_cadastrados
+    end
+
+    scenario "Um atendimento pode ser iniciado através da tela de cadastro/edição da família" do
+      dado_uma_familia_simples_cadastrada
+      e_estamos_na_pagina_de_edicao_da_familia
+      quando_eu_clicar_para_iniciar_o_atendimento_do_paciente
+      entao_vamos_para_pagina_atendimento_novo
     end
     
   end
@@ -126,10 +134,6 @@ RSpec.feature "Clinicas", type: :feature do
     expect(page).to have_content("Layout clínica")
   end
 
-  def dado_uma_clinica_demonstrativa_criada
-    @org = Organizacao.criar_clinica_demo
-    @clinica = @org.clinica
-  end
 
   def e_um_paciente_canino_que_desejamos_cadastrar
     @paciente = build(:paciente, especie: 'canina')
@@ -137,16 +141,6 @@ RSpec.feature "Clinicas", type: :feature do
 
   def e_um_tutor_que_desejamos_cadastrar
     @tutor = build(:tutor)
-  end
-
-  def e_estamos_na_pagina_da_clinica_demo
-    visit_clinica
-  end
-
-  def e_um_veterinario_da_clinica_logado
-    @veterinario = create(:user)
-    @veterinario.add_role(:veterinario, @clinica.organizacao)
-    login(@veterinario)
   end
 
   def e_uma_familia_simples_que_desejamos_cadastrar
@@ -179,6 +173,10 @@ RSpec.feature "Clinicas", type: :feature do
 
   def entao_vamos_para_pagina_inicial_de_atendimento
     expect(page).to have_current_path(iniciando_atendimento_path)
+  end
+
+  def entao_vamos_para_pagina_atendimento_novo
+    expect(page).to have_current_path(new_paciente_atendimento_path(@paciente))
   end
 
   def entao_vamos_para_pagina_de_cadastro_de_nova_familia
@@ -246,8 +244,14 @@ RSpec.feature "Clinicas", type: :feature do
     fill_in('paciente[data_nascimento]', with: @paciente.data_nascimento)
   end
 
-#       e_um_paciente_canino_que_desejamos_cadastrar
-# e_um_tutor_que_desejamos_cadastrar
+  def e_link_para_iniciar_atendimento_eh_exibido_proximo_ao_nome_do_paciente
+    expect(find("#pacientes_cadastrados")).to have_content("Iniciar atendimento")
+  end
+
+  def quando_eu_clicar_para_iniciar_o_atendimento_do_paciente
+    find("#pacientes_cadastrados").find("#new_paciente_atendimento_#{@paciente.id}").click
+  end
+
 
 
 end

@@ -3,7 +3,7 @@ FactoryBot.define do
     nome "MyString"
     sexo {[false,true].sample}
     especie "MyString"
-    data_nascimento "2018-02-01"
+    data_nascimento Time.now
     raca "MyString"
     vivo true
   end

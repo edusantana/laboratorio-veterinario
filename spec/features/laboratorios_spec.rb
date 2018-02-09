@@ -13,6 +13,7 @@ RSpec.feature "Laboratorios", type: :feature do
   end
 
   scenario "Acessando laboratório inexistente" do
+    pending "Passará a ser domínio disponível"
     dado_um_laboratorio_inexistente
     quando_acessar_subdominio_do_laboratorio
     entao_pagina_de_laboratorio_inexistente_eh_exibida

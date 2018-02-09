@@ -1,0 +1,143 @@
+<% p = atendimento.paciente %>
+
+<div id="cabecalho_atendimento" class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><%= p.nome %></h5>
+          <div class="row">
+            <div class='col'>
+              Sexo: <%= p.sexo ? 'Masculino' : 'Feminino' %>
+            </div>
+            <div class='col'>
+              Espécie: <%= p.especie %>
+            </div>
+            <div class='col'>
+              Idade: 
+                <% if p.data_nascimento %>
+                  <%= time_ago_in_words p.data_nascimento %>
+                <% else %>
+                  Não informada
+                <% end %>
+            </div>
+            <div class='col'>
+              Raça: <%= p.raca %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              Tutores: <%= (familia.tutores.map {|t| "#{t.nome}" + (t.telefones.blank?? "" : " (#{t.telefones})" )}).join(', ') %>
+            </div>
+          </div>    
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <%= form_for [paciente, atendimento] do |f| %>
+    <% paciente = atendimento.paciente %>
+
+    <div class="form-group">
+      <h2>Anamnese</h2>
+      <%= f.text_area :anamnese, placeholder: 'Preenchar a anamnese', class: 'form-control', rows: "4" %>
+    </div>
+
+    <div class="form-group">
+      <h2>Exame clínico</h2>
+      <div class="row">
+        <div class="col">
+          <div class="input-group mb-3">
+            <%= f.number_field :peso, class: 'form-control', placeholder:"Peso", step: :any, in: 0.0..200.0 %>
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">kg</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="input-group mb-3">
+            <%= f.number_field :temperatura_retal, class: 'form-control', placeholder:"Temperatura retal", step: :any, in: 0.0..99.0 %>
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">°C</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col">
+          <div class="input-group mb-3">
+            <%= f.number_field :batimentos_cardiaco, class: 'form-control', placeholder:"Batimentos cardiaco", in: 0..100 %>
+            <div class="input-group-append">
+                <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+<span class="input-group-text" id="basic-addon2">/min</span>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-group mb-3">
+            <%= f.number_field :frequencia_respiratoria, class: 'form-control', placeholder:"Frequência respiratória",  in: 0..200 %>
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">/min</span>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+
+      <div class="form-group">
+        <%= f.label :observacoes, "Observações" %>
+        <%= f.text_area :observacoes, class: 'form-control', placeholder:"Observações", rows: 2 %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :achados_clinicos, "Descrição dos achados clínicos" %>
+        <%= f.text_area :achados_clinicos, class: 'form-control', placeholder:"Achados clínicos", rows: 3 %>
+      </div>
+
+    </div>
+
+    <h2>Exames Complementares</h2>
+    <div class="form-group">
+      <%= f.text_area :exames_complementares, placeholder: 'Exames complementares', class: 'form-control', rows: "4" %>
+    </div>
+    
+    <h2>Diagnósticos e terapias prescritas</h2>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Diagnóstico presuntivo</span>
+      </div>
+      <%= f.text_field :diagnostico_presuntivo, class: 'form-control', placeholder:"Diagnóstico presuntivo"%>
+    </div>
+
+    <div class="form-group">
+      <%= f.text_area :terapia_do_presuntivo, placeholder: 'Terapia prescrita devido ao diagnóstico presuntivo', class: 'form-control', rows: "4" %>
+    </div>
+
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Diagnóstico definitivo</span>
+      </div>
+      <%= f.text_field :diagnostico_definitivo, class: 'form-control', placeholder:"Diagnóstico definitivo" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.text_area :terapia_do_definitivo, placeholder: 'Terapia prescrita devido ao diagnóstico definitivo', class: 'form-control', rows: "4" %>
+    </div>
+
+
+    <div class="actions form-group col-sm-2">
+      <%= f.submit 'Salvar', class: "btn btn-primary", accesskey:"s" %>
+    </div>
+
+
+  <% end %>
+
+
+</div>

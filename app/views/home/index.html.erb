@@ -1,32 +1,22 @@
-  <section class="jumbotron text-center" id="capa" style="background-image: url('assets/capa1.jpg');">
-      <h1 class="jumbotron-heading">Estamos construindo o mundo.vet para você veterinário!</h1>
-      <p class="lead text-muted">O sistema on-line que estamos construndo é ideal para quem estiver abrindo um laboratório veterinário ou possuir uma clínica veterinária.</p>
-      <p>
+  <section class="jumbotron text-center" id="capa" style="background-image: url('assets/capa2.jpg');">
+      <h1 class="jumbotron-heading">Sistemas para veterinários</h1>
+<%#      <p class="lead text-muted">O sistema on-line que estamos construndo é ideal para quem estiver abrindo um laboratório veterinário ou possuir uma clínica veterinária.</p> %>
+      <p class="pb-4">
         <a href="#laboratorio" class="btn btn-primary my-2">Laboratório Veterinário</a>
-        <a href="#clinica" class="btn btn-primary my-2">Clínica Veterinária</a>
-        <%= link_to "Minha clínica", root_url(subdomain: 'clinica'), class: 'btn btn-primary my-2' %>
+        <a href="#clinica" class="btn btn-info my-2">Clínica Veterinária</a>
+        <a href="#autonomo" class="btn btn-info my-2">Veterinário autônomo</a>
+<%#
+        <%= link_to "Minha clínica", root_url(subdomain: 'clinica'), class: 'btn btn-primary my-2' % >
         <%= link_to "Criar clínica demonstrativa", criar_clinica_demo_path, class: 'btn btn-primary my-2', id: 'criar_clinica_demo' %>
       </p>
   </section>
 
 <div class="container">
 
-  <h2>Nossos clientes</h2>
-  <ul class="list-group">
-    <% @laboratorios.each do |lab| %>
-      <li class="list-group-item">
-        <%= link_to root_url(subdomain: lab.organizacao.subdomain) do %>
-          <%= image_tag lab.organizacao.dono.gravatar_url(:size => 64) %> 
-          <%= lab.nome %>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
-
   <h2 id="laboratorio">Laboratório veterinário</h2>
   <div>
-    <p>Você está abrindo um laboratório veterinário e precisa de um software para gerenciá-lo, já pesquisou na internet e verificou que existem várias alternativas mas não sabe qual a ideal para você iniciar o seu negócio.<p>
-    <p>Nós estamos oferecendo a você simplicidade e baixo custo, veja as funcionalidades do sistema para laboratório:</p>
+    <p>Você possui ou pretende abrir uma laboratório veterinário? Envia os resultados dos exames para seus clientes por e-mail ou impresso? Utiliza o facebook ou pagou alto por uma página na web para divulgar o seu negócio?<p>
+    <p>Com o mundo.vet você terá um espaço na internet onde seus clientes poderão acessar, solicitar exames e acessar os resultados, tudo on-line. Nós estamos oferecendo simplicidade e baixo custo, veja as funcionalidades do sistema para laboratório:</p>
   </div>
   <h3>Funcionalidades</h3>
   <ul class="list-group mb-3">
@@ -45,7 +35,7 @@
     <li class="list-group-item d-flex justify-content-between lh-condensed">
       <div>
         <h6 class="my-0">Pode ser utilizado com um domínio próprio</h6>
-        <small class="text-muted">Já possui um domínio? Não tem problema, você pode utilizá-lo, nós te ajudamos na configuração.</small>
+        <small class="text-muted">Já possui um domínio? Não tem problema, você pode utilizá-lo, nós te ajudamos na configuração. Exemplo: <strong>acesso.seudominio.com.br</strong></small>
       </div>
     </li>
     <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -62,17 +52,85 @@
     </li>
     <li class="list-group-item d-flex justify-content-between lh-condensed">
       <div>
+        <h6 class="my-0">Diferentes perfis de acesso</h6>
+        <small class="text-muted">Usuários com diferentes permissões de acesso: secretário, técnico e dono.</small>
+      </div>
+    </li>
+<%#    
+    <li class="list-group-item d-flex justify-content-between lh-condensed">
+      <div>
         <h6 class="my-0">Seu cliente terá acesso ao nosso sistema de clínica veterinária</h6>
         <small class="text-muted">Seu cliente ganha acesso ao sistema de clínica veterinária on-line do <strong>mundo.vet</strong>, onde poderá acessar os históricos de exames dos animais ou gerenciar a clínica que possuir.</small>
       </div>
     </li>
+%>    
   </ul>
+  <h3>Problemas com soluções personalizadas</h3>
+  <p>Muitos laboratórios, <strong>no passado</strong>, optavam por contratar soluções personalizadas mas elas tem os seguintes problemas:</p>
+    <%# <p>Nós estamos oferecendo a você simplicidade e baixo custo, veja as funcionalidades do sistema para laboratório:</p> %>
+    <ul>
+      <li>A construção é cara. Contratar uma empresa ou desenvolvedor para criar uma solução personalizada é caro.</li>
+      <li>Manter a infraestrtura é caro. Os sistemas personalizados requerem pagar um servidor dedicado exclusico, não há como diluir os custos.</li>
+      <li>O suporte é caro ou inexistente. Alguns anos após a criação do sistema, quem o desenvolveu pode está indisponível para dar suporte. </li>
+      <li>Implementar novas funcionalidades é caro.</li>
+      <li>Problemas de segurança. Todos os sistemas on-line exigem constantes atualizações para evitar invasões, a maioria dos sistemas personalizados ficam parados no tempo.</li>
+    </ul>
+  
+  <h2 id="preco">Preço</h2>
+  <div class="card-deck mb-3 text-center">
+    <div class="card mb-4 box-shadow">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Laboratório veretinário</h4>
+      </div>
+      <div class="card-body">
+        <h1 class="card-title pricing-card-title">R$ 40 <small class="text-muted">/ mês</small></h1>
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>Página personalizada</li>
+          <li>Domínio fácil ou customizado</li>
+          <li>Acesso ao sistema web</li>
+          <li>Segurança</li>
+          <li>Suporte</li>
+        </ul>
+          <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Experimentar
+          </a>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            Por enquanto as solicitações de criação de laboratórios são realizadas por e-mail <span class="badge">eduardo.ufpb+mundovet@gmail.com</span> ou por telefone/whatsapp: <span class="badge">(83) 98108-1977</span>.
+          </div>
+        </div>        
+      </div>
+    </div>
+  </div>
 
+  <h2>Laboratórios clientes</h2>
+  <p>Veja alguns laboratórios que utilizam os nossos serviços: </p>
+  <ul class="list-group mb-3">
+    <% @laboratorios.each do |lab| %>
+      <li class="list-group-item">
+        <%= link_to root_url(subdomain: lab.organizacao.subdomain) do %>
+          <%= image_tag lab.organizacao.dono.gravatar_url(:size => 64) %> 
+          <%= lab.nome %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 
   <h2 id="clinica">Clínica veterinária</h2>
   <div>
-    <p>Estamos construindo um sistema para clínica veterinária e gostaríamos do seu auxílio.<p>
-    <p>Nós estamos oferecendo a você simplicidade e baixo custo, veja as funcionalidades do sistema para laboratório:</p>
+    <p>Estamos construindo um sistema para clínica veterinária, será disponível em breve.<p>
+    <%# <p>Nós estamos oferecendo a você simplicidade e baixo custo, veja as funcionalidades do sistema para laboratório:</p> %>
+  </div>
+
+  <h2 id="autonomo">Veterinário autônomo</h2>
+  <div>
+    <p>O sistema de clínica veterinária, em construção, poderá ser utilizado por veterinários autônomos que trabalham em vários locais e desejam manter registros sobre seus clientes e pacientes.<p>
+    <%# <p>Nós estamos oferecendo a você simplicidade e baixo custo, veja as funcionalidades do sistema para laboratório:</p> %>
+  </div>
+
+  <h2 id="quem-somos">Quem somos</h2>
+  <div>
+    <p>Nós somos uma startup iniciando suas atividades na área de desenvolvimento de sistemas para veterinários. Nós acreditamos que podemos construir uma solução de baixo custo, para atender veterinários aut6onomos, pequenas clínicas e laboratórios veterinários.</p>
   </div>
 
 

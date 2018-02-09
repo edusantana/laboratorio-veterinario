@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180202180929) do
+ActiveRecord::Schema.define(version: 20180207124739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "atendimentos", force: :cascade do |t|
+    t.text "anamnese"
+    t.float "peso"
+    t.float "temperatura_retal"
+    t.float "batimentos_cardiaco"
+    t.float "frequencia_respiratoria"
+    t.text "observacoes"
+    t.text "achados_clinicos"
+    t.text "exames_complementares"
+    t.text "diagnostico_presuntivo"
+    t.string "terapia_do_presuntivo"
+    t.text "diagnostico_definitivo"
+    t.text "terapia_do_definitivo"
+    t.bigint "paciente_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["paciente_id"], name: "index_atendimentos_on_paciente_id"
+  end
 
   create_table "clinicas", force: :cascade do |t|
     t.string "nome"
@@ -196,6 +215,7 @@ ActiveRecord::Schema.define(version: 20180202180929) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "atendimentos", "pacientes"
   add_foreign_key "clinicas", "organizacoes"
   add_foreign_key "exame_anexos", "exame_resultados", column: "resultado_id"
   add_foreign_key "exame_imagens", "exame_resultados", column: "resultado_id"

@@ -2,8 +2,8 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Lab.vet - Sistema de laboratório on-line" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Laboratório para realização de exames veterinário (lab.vet)" %>">
+    <title><%= content_for?(:title) ? yield(:title) : "mundo.vet - Sistemas para laboratórios veterinários on-line" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Laboratórios veterinários - sistemas/software on-line (mundo.vet)" %>">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -13,7 +13,8 @@
   <body>
     
     <header>
-      <%= render 'layouts/login' %>
+      <%= render 'layouts/home-header' %>
+      <%#= render 'layouts/login' %>
     </header>
     <main role="main">
        <%= render 'layouts/messages' %>
