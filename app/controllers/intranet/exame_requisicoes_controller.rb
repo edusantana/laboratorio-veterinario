@@ -3,7 +3,7 @@ module Intranet
   class ExameRequisicoesController < IntranetController
 
     before_action :authenticate_user!
-    before_action :set_exame_requisicao, only: [:show, :edit, :update, :destroy, :receber, :anexar_resultado, :anexar_imagens]    
+    before_action :set_exame_requisicao, only: [:show, :edit, :update, :destroy, :receber, :anexar_resultado, :anexar_imagens, :confirmar_recebimento]    
 
     def edit
     end
@@ -48,7 +48,11 @@ module Intranet
 
     def confirmar
       @exame_requisicoes = ExameRequisicao.where(laboratorio: @lab, aasm_state: 'aguardando_envio' ).order(:id)
-      render :index
+    end
+
+    def confirmar_recebimento
+      @exame_requisicao.confirmar_recebimento!
+      #redirect_to confirmar_intranet_exame_requisicoes_path
     end
 
     # PATCH/PUT /exame_requisicoes/1

@@ -4,6 +4,11 @@ def e_uma_solicitacao_de_exame
   @exame_requisicao = create(:exame_requisicao, laboratorio: @lab)
 end
 
+def e_varias_solicitacoes_de_exame
+  @exame_requisicoes = []
+  20.times {@exame_requisicoes << create(:exame_requisicao, laboratorio: @lab)}
+end
+
 def e_uma_solicitacao_de_exame_com_status_aguardando_resultado
   @exame_requisicao = create(:exame_requisicao_aguardando_resultado, laboratorio: @lab)
 end

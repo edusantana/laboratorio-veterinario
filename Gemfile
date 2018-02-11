@@ -42,7 +42,9 @@ group :development, :test do
   gem 'capybara'
   # pretty prints Ruby objects in full color exposing their internal structure with proper indentation 
   # https://github.com/awesome-print/awesome_print
-  gem "awesome_print" 
+  gem "awesome_print"
+  gem 'selenium-webdriver'
+
 end
 
 group :development do

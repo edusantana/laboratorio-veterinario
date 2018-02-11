@@ -2,7 +2,12 @@
 <%= link_to 'Voltar', intranet_path %>
 
 
-<h1>Requisições de exames</h1>
+
+<h1>Requisições de exames à confirmar</h1>
+
+<div id="quadro"></div>
+
+<%= form_with url: confirmar_intranet_exame_requisicoes_path, method: :patch do |f| %>
 
 <table class="table text-center">
   <thead class="thead-dark">
@@ -28,10 +33,15 @@
         <td><%= link_to exame_requisicao.proprietario, edit_intranet_exame_requisicao_path(exame_requisicao) %></td>
         <td><%= link_to exame_requisicao.nome, edit_intranet_exame_requisicao_path(exame_requisicao) %></td>
         <td id="status<%=exame_requisicao.id%>"><%= t (exame_requisicao.aasm_state) %></td>
-        <td>
-          <%= link_to 'Confirmar recebimento', receber_intranet_exame_requisicao_path(exame_requisicao), id: "confirmar_#{exame_requisicao.id}", class: 'btn btn-outline-primary' if exame_requisicao.may_confirmar_recebimento? %>
+        <td id="acoes<%=exame_requisicao.id%>">
+
+          <%#= button_to 'Confirmar recebimento', confirmar_intranet_exame_requisicao_path(exame_requisicao.id), id: "confirmar_#{exame_requisicao.id}", class: 'btn btn-outline-primary' if exame_requisicao.may_confirmar_recebimento?, value: exame_requisicao.id%>
+          <%= f.button 'Confirmar recebimento', value: exame_requisicao.id, id: "confirmar_#{exame_requisicao.id}", name: "id", class: 'btn btn-primary' %>
+
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<% end %>

@@ -8,32 +8,55 @@ RSpec.feature "Intranet Exames", type: :feature do
 
 
   feature "Confirmando recebimento", :wip do
-    background do
-      dado_um_laboratorio_com_funcionarios
-      e_uma_solicitacao_de_exame
-      e_o_secretario_estiver_logado
-      quando_acessar_pagina_inicial_do_laboratorio
-      e_clicar_em_intranet
-      entao_estamos_na_intranet_do_laboratorio
+    
+    context "de apenas uma requisição" do
+      background do
+        dado_um_laboratorio_com_funcionarios
+        e_uma_solicitacao_de_exame
+        e_o_secretario_estiver_logado
+        quando_acessar_pagina_inicial_do_laboratorio
+        e_clicar_em_intranet
+        entao_estamos_na_intranet_do_laboratorio
+      end
+      scenario "Secretario do laboratório confirma recebimento de amostra de exame solicitado" do
+        quando_clicar_em_solicitacoes_de_exames
+        entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
+        e_posso_ver_os_principais_dados_da_solicitacao
+        quando_clicar_em_confirmar_recebimento_na_solicitacao
+        entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
+        e_o_status_da_solicitacao_mudou_para_aguardando_resultado
+      end
+    
+      scenario "Secretario do laboratório confirma recebimento de amostra de exame solicitado (através de item confirmações)", js: true do
+        # FIXME: update com patch
+        # permace exibindo apenas nao recebidos
+        quando_clicar_em_confirmar_recebimento_de_exames
+        quando_clicar_em_confirmar_recebimento_na_solicitacao
+        entao_estamos_na_pagina_intranet_recebimento_de_solicitacoes
+        e_o_status_da_solicitacao_mudou_para_aguardando_resultado
+      end
     end
 
-    scenario "Secretario do laboratório confirma recebimento de amostra de exame solicitado" do
-      quando_clicar_em_solicitacoes_de_exames
-      entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
-      e_posso_ver_os_principais_dados_da_solicitacao
-      quando_clicar_em_confirmar_recebimento_na_solicitacao
-      entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
-      e_posso_ver_o_status_aguardando_resultado
-      e_o_status_da_solicitacao_mudou_para_aguardando_resultado
+    context "de várias requisições (geralmente chegada do motoboy)", :wip do
+      background do
+        dado_um_laboratorio_com_funcionarios
+        e_varias_solicitacoes_de_exame
+        e_o_secretario_estiver_logado
+        quando_acessar_pagina_inicial_do_laboratorio
+        e_clicar_em_intranet
+        entao_estamos_na_intranet_do_laboratorio
+      end
+
+      scenario "confirmando recebimento de várias requisições sem atualizar a página", js: true do
+        quando_clicar_em_confirmar_recebimento_de_exames
+        entao_estamos_na_pagina_intranet_recebimento_de_solicitacoes
+        quando_clicar_em_confirmar_recebimento_da_metade_das_solicitacoes
+        entao_estamos_na_pagina_intranet_recebimento_de_solicitacoes
+        e_a_metade_recebida_foi_marcada_como_recebida
+        e_a_metade_nao_recebida_permanece_normal
+      end
     end
-  
-    scenario "Secretario do laboratório confirma recebimento de amostra de exame solicitado (através de item confirmações)" do
-      quando_clicar_em_confirmar_recebimento_de_exames
-      quando_clicar_em_confirmar_recebimento_na_solicitacao
-      entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
-      e_posso_ver_o_status_aguardando_resultado
-      e_o_status_da_solicitacao_mudou_para_aguardando_resultado
-    end
+
 
   end
 
@@ -107,6 +130,9 @@ RSpec.feature "Intranet Exames", type: :feature do
     login(@dono)
   end
 
+  def entao_estamos_na_pagina_intranet_recebimento_de_solicitacoes
+    expect(page).to have_current_path(confirmar_intranet_exame_requisicoes_path)
+  end  
 
   def entao_estamos_na_intranet_do_laboratorio
     expect(page).to have_current_path(intranet_path)
@@ -150,8 +176,34 @@ RSpec.feature "Intranet Exames", type: :feature do
   end
 
   def quando_clicar_em_confirmar_recebimento_na_solicitacao
-    #click_on( confirmar_recebimento")
-    find("#exame_requisicao#{@exame_requisicao.id}").find("#confirmar_recebimento").click
+    click_on("confirmar_#{@exame_requisicao.id}")
+    #find("#exame_requisicao#{@exame_requisicao.id}").find("#confirmar_recebimento").click
+  end
+
+  def quando_clicar_em_confirmar_recebimento_da_metade_das_solicitacoes
+    @exame_requisicoes.each do |requisicao|
+      next if requisicao.id.even?
+      click_on("confirmar_#{requisicao.id}") # impares serão confirmados
+    end
+  end
+  def e_a_metade_recebida_foi_marcada_como_recebida
+    @exame_requisicoes.each do |requisicao|
+      if requisicao.id.odd?
+        expect(find("#status#{requisicao.id}")).to have_content("Aguardando resultado")
+        expect(find("#acoes#{requisicao.id}")).to have_content("")
+      end
+    end
+  end
+  def e_a_metade_nao_recebida_permanece_normal
+    @exame_requisicoes.each do |requisicao|
+      if requisicao.id.even?
+        expect(find("#status#{requisicao.id}")).to have_content("Aguardando envio da amostra")
+        expect(find("#acoes#{requisicao.id}")).to have_content("Confirmar recebimento")
+      end
+    end
+  end
+  def e_o_status_da_solicitacao_mudou_para_aguardando_resultado
+    expect(find("#status#{@exame_requisicao.id}")).to have_content("Aguardando resultado")
   end
 
   def e_posso_ver_link_para_baixar_as_imagens
@@ -159,9 +211,6 @@ RSpec.feature "Intranet Exames", type: :feature do
     expect(find("#anexos")).to have_link("resultado-imagem2")
   end
 
-  def e_o_status_da_solicitacao_mudou_para_aguardando_resultado
-    expect(page).to have_content("Aguardando resultado")
-  end
 
 
 end

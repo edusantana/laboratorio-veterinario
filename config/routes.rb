@@ -33,6 +33,7 @@ Rails.application.routes.draw do
         post 'anexar_imagens', on: :member
         resources :exame_resultados, only: [:new, :create]
         get 'confirmar', on: :collection
+        patch 'confirmar', on: :collection, action: :confirmar_recebimento
       end
       resources :exame_resultados, only: [:show, :edit, :update]
 
