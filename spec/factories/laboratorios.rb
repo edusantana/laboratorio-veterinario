@@ -13,8 +13,10 @@ FactoryBot.define do
       after(:create) do |lab|
         secretario = create(:user)
         tecnico = create(:user)
+        dono = create(:user)
         secretario.add_role :secretario, lab.organizacao
         tecnico.add_role :tecnico, lab.organizacao
+        tecnico.add_role :dono, lab.organizacao
       end
     end
 

@@ -22,12 +22,15 @@ require 'rspec/rails'
 #
 # Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
+
 require 'support/factory_bot'
+require "pundit/rspec"
 require 'support/users_helper'
 require 'support/subdomains'
 require 'support/laboratorios_helper'
 require 'support/exames_helper.rb'
 require 'support/clinicas_helper.rb'
+
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.

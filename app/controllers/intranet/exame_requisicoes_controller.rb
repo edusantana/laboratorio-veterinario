@@ -3,12 +3,14 @@ module Intranet
   class ExameRequisicoesController < IntranetController
 
     before_action :authenticate_user!
-    before_action :set_exame_requisicao, only: [:show, :edit, :update, :destroy, :receber, :anexar_resultado, :anexar_imagens, :confirmar_recebimento]    
+    before_action :set_exame_requisicao, only: [:show, :edit, :update, :destroy, :receber, :anexar_resultado, :anexar_imagens, :confirmar_recebimento]
 
     def edit
+      authorize [:intranet, @exame_requisicao]
     end
 
     def anexar_resultado
+      authorize [:intranet, @exame_requisicao], :enviar_resultado?
 
       @exame_requisicao.resultado ||= ExameResultado.create(requisicao: @exame_requisicao, tecnico: current_user)
 
@@ -28,6 +30,8 @@ module Intranet
 
 
     def anexar_imagens
+      authorize [:intranet, @exame_requisicao], :enviar_resultado?
+
       @exame_requisicao.resultado ||= ExameResultado.create(requisicao: @exame_requisicao, tecnico: current_user)
       
       imagem_params.each do |imagem|
@@ -38,25 +42,31 @@ module Intranet
     end
 
     def receber
+      authorize [:intranet, @exame_requisicao], :confirmar_recebimento?
+
       @exame_requisicao.confirmar_recebimento!
       redirect_to intranet_exame_requisicoes_path, notice: "O recebimento foi confirmado."
     end
     
     def index
       @exame_requisicoes = ExameRequisicao.where(laboratorio: @lab).order(:id).reverse_order
+      authorize [:intranet, @lab], :index_requisicoes?
     end
 
     def confirmar
+      authorize [:intranet, @lab], :index_requisicoes?
       @exame_requisicoes = ExameRequisicao.where(laboratorio: @lab, aasm_state: 'aguardando_envio' ).order(:id)
     end
 
     def confirmar_recebimento
+      authorize [:intranet, @exame_requisicao], :confirmar_recebimento?
       @exame_requisicao.confirmar_recebimento!
       #redirect_to confirmar_intranet_exame_requisicoes_path
     end
 
     # PATCH/PUT /exame_requisicoes/1
     def update
+      authorize [:intranet, @exame_requisicao]
       if @exame_requisicao.update(exame_requisicao_params)
         redirect_to @exame_requisicao, notice: 'Exame requisicao was successfully updated.'
       else
