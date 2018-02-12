@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Intranet::ExameRequisicaoPolicy do
     
-  subject { described_class.new(user, requisicao) }
+  subject { described_class.new(user, [:intranet, requisicao]) }
 
 
   let(:lab){create(:laboratorio_com_funcionarios)}
