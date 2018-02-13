@@ -1,24 +1,35 @@
+<div class="container">
   <section class="jumbotron text-center" id="capa" style="background-image: url('assets/capa2.jpg');">
-      <h1 class="jumbotron-heading">Sistemas para veterinários</h1>
+      <h1 class="jumbotron-heading">Sistema para Laboratório Veterinário</h1>
 <%#      <p class="lead text-muted">O sistema on-line que estamos construndo é ideal para quem estiver abrindo um laboratório veterinário ou possuir uma clínica veterinária.</p> %>
       <p>
-        <a href="#laboratorio" class="btn btn-primary my-2">Laboratório Veterinário</a>
-        <a href="#clinica" class="btn btn-info my-2">Clínica Veterinária</a>
+        <a href="#funcionalidades" class="btn btn-primary my-2">Funcionalidades</a>
+        <a href="#demo" class="btn btn-info my-2">Laboratório demonstrativo</a>
+<%#        <a href="#clinica" class="btn btn-info my-2">Clínica Veterinária</a>
         <a href="#autonomo" class="btn btn-info my-2">Veterinário autônomo</a>
-<%#
+
         <%= link_to "Minha clínica", root_url(subdomain: 'clinica'), class: 'btn btn-primary my-2' % >
         <%= link_to "Criar clínica demonstrativa", criar_clinica_demo_path, class: 'btn btn-primary my-2', id: 'criar_clinica_demo' %>
       </p>
   </section>
-
+</div>
 <div class="container">
 
-  <h2 id="laboratorio">Laboratório veterinário</h2>
+  <h2 id="laboratorio">Sistema para Laboratório Veterinário</h2>
   <div>
-    <p>Você possui ou pretende abrir uma laboratório veterinário? Envia os resultados dos exames para seus clientes por e-mail ou impresso? Utiliza o facebook ou pagou alto por uma página na web para divulgar o seu negócio?<p>
-    <p>Com o mundo.vet você terá um espaço na internet onde seus clientes poderão acessar, solicitar exames e acessar os resultados, tudo on-line. Nós estamos oferecendo simplicidade e baixo custo, veja as funcionalidades do sistema para laboratório:</p>
+    <ul>
+      <li>Você possui um laboratório veterinário?</li>
+      <li>Envia os resultados dos exames para seus clientes por e-mail?</li>
+      <li>Utiliza o facebook (ou uma página na web) para divulgar o seu negócio?</li>
+    </ul>
+    <p>Com o mundo.vet você terá um espaço na Web onde seus clientes poderão solicitar os exames e baixar os resultados.</p>
+    <ul>
+      <li>Simplicidade</li>
+      <li>Baixo custo</li>
+    </ul>
   </div>
-  <h3>Funcionalidades</h3>
+  <h3 id="funcionalidades">Funcionalidades</h3>
+  <p>Veja as funcionalidades do sistema para laboratório laboratório veterinário:</p>
   <ul class="list-group mb-3">
     <li class="list-group-item d-flex justify-content-between lh-condensed">
       <div>
@@ -35,13 +46,13 @@
     <li class="list-group-item d-flex justify-content-between lh-condensed">
       <div>
         <h6 class="my-0">Pode ser utilizado com um domínio próprio</h6>
-        <small class="text-muted">Já possui um domínio? Não tem problema, você pode utilizá-lo, nós te ajudamos na configuração. Exemplo: <strong>acesso.seudominio.com.br</strong></small>
+        <small class="text-muted">Já possui um domínio? Não tem problema, você pode utilizá-lo, nós te ajudamos na configuração. Exemplo: <strong>cliente.seudominio.com.br</strong></small>
       </div>
     </li>
     <li class="list-group-item d-flex justify-content-between lh-condensed">
       <div>
         <h6 class="my-0">Anexe PDFs como resultados</h6>
-        <small class="text-muted">Os resultados dos exames serão arquivos PDFs criados por você e anexados ao sistema. Você pode utilizar o próprio Word para escrever o resultado e gerar o seu PDF.</small>
+        <small class="text-muted">Os resultados dos exames serão arquivos PDFs criados por você e anexados ao sistema. Não há telas específicas, você tem liberdade para gerar qualquer PDF com o resultado.</small>
       </div>
     </li>
     <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -56,6 +67,7 @@
         <small class="text-muted">Usuários com diferentes permissões de acesso: secretário, técnico e dono.</small>
       </div>
     </li>
+
 <%#    
     <li class="list-group-item d-flex justify-content-between lh-condensed">
       <div>
@@ -66,7 +78,7 @@
 %>    
   </ul>
   <h3>Problemas com soluções personalizadas</h3>
-  <p>Muitos laboratórios, <strong>no passado</strong>, optavam por contratar soluções personalizadas mas elas tem os seguintes problemas:</p>
+  <p>Muitos laboratórios, <strong>antes do mundo.vet</strong>, optavam por contratar soluções personalizadas, mas elas tem os seguintes problemas:</p>
     <%# <p>Nós estamos oferecendo a você simplicidade e baixo custo, veja as funcionalidades do sistema para laboratório:</p> %>
     <ul>
       <li>A construção é cara. Contratar uma empresa ou desenvolvedor para criar uma solução personalizada é caro.</li>
@@ -75,6 +87,12 @@
       <li>Implementar novas funcionalidades é caro.</li>
       <li>Problemas de segurança. Todos os sistemas on-line exigem constantes atualizações para evitar invasões, a maioria dos sistemas personalizados ficam parados no tempo.</li>
     </ul>
+  <h3 id="demo">Laboratório Demonstrativo</h3>
+    <p>Preparamos uma laboratório demonstrativo, onde você pode conhecer o sistema:<p>
+    <div class="text-center">
+      <%= link_to "Acessar o Laboratório demonstrativo", root_url(subdomain: 'labdemo'), class: 'btn  btn-info my-2' %>
+    </div>
+
   
   <h2 id="preco">Preço</h2>
   <div class="card-deck mb-3 text-center">
@@ -116,21 +134,23 @@
     <% end %>
   </ul>
 
+<%#
   <h2 id="clinica">Clínica veterinária</h2>
   <div>
     <p>Estamos construindo um sistema para clínica veterinária, será disponível em breve.<p>
-    <%# <p>Nós estamos oferecendo a você simplicidade e baixo custo, veja as funcionalidades do sistema para laboratório:</p> %>
+    <%# <p>Nós estamos oferecendo a você simplicidade e baixo custo, veja as funcionalidades do sistema para laboratório:</p>
   </div>
 
   <h2 id="autonomo">Veterinário autônomo</h2>
   <div>
     <p>O sistema de clínica veterinária, em construção, poderá ser utilizado por veterinários autônomos que trabalham em vários locais e desejam manter registros sobre seus clientes e pacientes.<p>
-    <%# <p>Nós estamos oferecendo a você simplicidade e baixo custo, veja as funcionalidades do sistema para laboratório:</p> %>
+    <%# <p>Nós estamos oferecendo a você simplicidade e baixo custo, veja as funcionalidades do sistema para laboratório:</p> 
   </div>
-
+%>
   <h2 id="quem-somos">Quem somos</h2>
   <div>
-    <p>Nós somos uma startup iniciando suas atividades na área de desenvolvimento de sistemas para veterinários. Nós acreditamos que podemos construir uma solução de baixo custo, para atender veterinários aut6onomos, pequenas clínicas e laboratórios veterinários.</p>
+    <p>Nós somos uma startup de desenvolvimento de software para veterinários. Nós acreditamos que podemos construir soluções simples e de baixo custo.</p>
+    <p>Iniciamos nossas atividades produzindo um <strong>sistema para laboratórios veterinários</strong> e em breve lançaremos outro sistema para veterinários gerenciar os atendimentos de pacientes e tutores.</p>
   </div>
 
 
