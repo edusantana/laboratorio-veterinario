@@ -30,7 +30,10 @@ class ExameRequisicoesController < ApplicationController
   end
 
   def index
-    @exame_requisicoes = ExameRequisicao.where(requisitante: current_user).order(:id).reverse_order
+    @exame_requisicoes = ExameRequisicao.where(requisitante: current_user, laboratorio: @lab).order(:id).reverse_order
+
+    # não é necessário authorize, qualquer um pode consultar os seus exames
+    #authorize @lab, :listar_requisicoes?
   end
 
   def create
@@ -38,6 +41,8 @@ class ExameRequisicoesController < ApplicationController
     @exame_requisicao.laboratorio = @lab
     @exame_requisicao.requisitante = current_user
     @exame_requisicao.tipo = ExameTipo.find(params[:exame_requisicao][:tipo_id])
+
+    authorize @exame_requisicao
 
     if @exame_requisicao.save
       redirect_to @exame_requisicao, notice: 'Requisiçao de Exame criada com sucesso.'

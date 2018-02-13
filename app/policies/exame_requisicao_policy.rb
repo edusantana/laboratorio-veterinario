@@ -12,11 +12,16 @@ class ExameRequisicaoPolicy < ApplicationPolicy
     @requisicao = requisicao
   end
 
+  def create?
+    true
+  end
+
   def show?
     @requisicao.requisitante == @user
   end
 
   def update?
+    #byebug
     @requisicao.requisitante == @user && @requisicao.aguardando_envio?
   end
 

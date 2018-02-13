@@ -14,4 +14,9 @@ class LaboratorioPolicy < ApplicationPolicy
   def funcionario?
     @user.has_role?(:dono, @org) || @user.has_role?(:tecnico, @org)  ||  @user.has_role?(:secretario, @org )
   end
+
+  def listar_requisicoes?
+    true # qualquer um pode listar os seus exames em um laboratório
+  end
+
 end

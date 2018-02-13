@@ -11,30 +11,26 @@ describe ExameRequisicaoPolicy do
   let(:secretario){User.with_role(:secretario, lab.organizacao).take}
   let(:tecnico){User.with_role(:tecnico, lab.organizacao).take}
   let(:dono){User.with_role(:dono, lab.organizacao).take}
+  let(:requisitante){requisicao.requisitante}
 
   context 'sendo um cliente da organização do laboratório' do
     let(:user){cliente}
-#    it { is_expected.not_to permit_action(:confirmar_recebimento) }
-#    it { is_expected.not_to permit_action(:enviar_resultado) }
+    it { is_expected.to permit_action(:new) }
+    it { is_expected.to permit_action(:create) }
+    it { is_expected.not_to permit_action(:update) }
   end
 
-  context 'sendo um secretário da organização do laboratório' do
-    let(:user){secretario}
-#    it { is_expected.to permit_action(:confirmar_recebimento) }
-#    it { is_expected.not_to permit_action(:enviar_resultado) }
-  end
+  context 'sendo o requisitante da requisição' do
+    let(:user){requisitante}
+    it { is_expected.to permit_action(:new) }
+    it { is_expected.to permit_action(:create) }
+    it { is_expected.to permit_action(:update) }
 
-  context 'sendo um tecnico da organização do laboratório' do
-    let(:user){tecnico}
-#    it { is_expected.to permit_action(:confirmar_recebimento) }
-#    it { is_expected.to permit_action(:enviar_resultado) }
-  end
+    context "requisição já foi recebida" do
+      let(:requisicao){create(:exame_requisicao_aguardando_resultado, laboratorio: lab)}
+      it { is_expected.not_to permit_action(:update) }
+    end
 
-  context 'sendo um dono da organização do laboratório' do
-    let(:user){dono}
-#    it { is_expected.to permit_action(:confirmar_recebimento) }
-#    it { is_expected.to permit_action(:enviar_resultado) }
   end
-
 
 end
