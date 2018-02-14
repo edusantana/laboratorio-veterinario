@@ -84,9 +84,19 @@
       <li>Problemas de segurança: a maioria dos sistemas personalizados não são atualizados constantemente por isso ficam a mercer de invasões.</li>
     </ul>
   <h3 id="demo">Laboratório Demonstrativo</h3>
-    <p>Preparamos um laboratório demonstrativo, onde você pode conhecer o sistema:<p>
+    <p>Preparamos um laboratório demonstrativo onde você poderá conhecer como o sistema funciona:<p>
     <div class="text-center">
-      <%= link_to "Acessar o Laboratório demonstrativo", root_url(subdomain: 'labdemo'), class: 'btn  btn-info my-2' %>
+      <%= link_to "Acessar o Laboratório demonstrativo como cliente", root_url(subdomain: 'labdemo'), class: 'btn  btn-info my-2' %>
+    </div>
+    <p>Os funcionários do laboratório trabalham na Intranet e necessitam de permissões específicas para acesso. O botão a seguir lhe concederá permissões para acessá-la e anexar resultados das solicitações de exames. </p>
+    <ul>
+      <li>Qualquer usuário poderá solicitar permissões de acesso a Intranet, portanto considere este um ambiente compartilhado entre todos os usuários que desejarem experimentar o sistema.</li>
+      <li>Fique a vontade para realizar quaisquer ações no laboratório demonstrativo.</li>
+      <li>Caso você ainda não tenha uma cadastro, será solicitado que realize-o para receber as permissões.</li>      
+    </ul>
+
+    <div class="text-center">
+      <%= link_to "Conceder permissões e acessar Intranet do laboratório demonstrativo", conceder_permissoes_ao_labdemo_path, class: 'btn  btn-info my-2' %>
     </div>
 
   

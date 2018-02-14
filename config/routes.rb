@@ -46,6 +46,7 @@ Rails.application.routes.draw do
 #  match '/', to: 'exame_requisicao#show', constraints: { subdomain: /.+/ }, via: [:get, :post, :put, :patch, :delete]
 
   match '/criar_clinica_demo', to: 'organizacoes#criar_clinica_demo', via: [:get]
+  match '/conceder_permissoes_ao_labdemo', to: 'organizacoes#conceder_permissoes_ao_labdemo', via: [:get]
   
   devise_for :users
   root to: "home#index"

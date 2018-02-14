@@ -19,6 +19,11 @@ def usando_main_domain
   usando_subdomain nil
 end
  
+def e_estou_na_pagina_inicial_do_mundo_vet
+  usando_main_domain
+  visit root_path
+end
+
 def visit_clinica
   usando_subdomain(@clinica.organizacao.subdomain)
   visit root_path

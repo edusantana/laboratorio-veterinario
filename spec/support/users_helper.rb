@@ -21,3 +21,8 @@ end
 def e_um_veterinario_logado
   dado_um_veterinario_logado
 end
+
+def e_um_usuario_logado_no_mundo_vet
+  usando_main_domain
+  dado_um_veterinario_logado
+end

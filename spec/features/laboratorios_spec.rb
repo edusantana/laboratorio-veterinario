@@ -77,6 +77,16 @@ RSpec.feature "Laboratorios", type: :feature do
     end
   end
 
+  feature "Laboratório demonstrativo", :wip do
+    scenario "Concedendo permissão de técnico ao laboratório demonstrativo a qualquer usuário" do
+      dado_um_laboratorio_demonstrativo
+      e_um_usuario_logado_no_mundo_vet
+      e_estou_na_pagina_inicial_do_mundo_vet
+      quando_eu_clicar_em_conceder_permissoes_de_secretario_e_tecnico
+      entao_estamos_na_intranet_do_laboratorio
+    end
+  end
+
   def entao_pagina_inicial_do_laboratorio_eh_exibida
     expect(page).to have_content(@lab.nome)
   end
@@ -119,5 +129,13 @@ RSpec.feature "Laboratorios", type: :feature do
     end
   end
 
+  def quando_eu_clicar_em_conceder_permissoes_de_secretario_e_tecnico
+    click_on "Conceder permissões e acessar Intranet do laboratório demonstrativo"
+  end
+
+  def dado_um_laboratorio_demonstrativo
+    @org = create(:organizacao, subdomain: 'labdemo')
+    @lab = create(:laboratorio, organizacao: @org)
+  end
 
 end

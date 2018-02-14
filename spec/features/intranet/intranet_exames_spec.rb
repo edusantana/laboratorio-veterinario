@@ -7,7 +7,7 @@ RSpec.feature "Intranet Exames", type: :feature do
   end
 
 
-  feature "Confirmando recebimento", :wip do
+  feature "Confirmando recebimento" do
     
     context "de apenas uma requisição" do
       background do
@@ -37,7 +37,7 @@ RSpec.feature "Intranet Exames", type: :feature do
       end
     end
 
-    context "de várias requisições (geralmente chegada do motoboy)", :wip do
+    context "de várias requisições (geralmente chegada do motoboy)" do
       background do
         dado_um_laboratorio_com_funcionarios
         e_varias_solicitacoes_de_exame
