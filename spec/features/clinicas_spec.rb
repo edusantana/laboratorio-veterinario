@@ -10,7 +10,8 @@ RSpec.feature "Clinicas", type: :feature do
       e_um_veterinario_da_clinica_logado
     end
     
-    scenario "Cadastrando nova família (um paciente e um tutor)" do
+    xscenario "Cadastrando nova família (um paciente e um tutor)" do
+      pending "Features de clínica foram potergadas"
       e_uma_familia_simples_que_desejamos_cadastrar
       e_estamos_na_pagina_da_clinica_demo      
       quando_clicamos_em_cadastrar_nova_familia
@@ -26,7 +27,8 @@ RSpec.feature "Clinicas", type: :feature do
       e_link_para_iniciar_atendimento_eh_exibido_proximo_ao_nome_do_paciente
     end
 
-    scenario "Cadastrando nova família (múltiplos pacientes e tutores)" do
+    xscenario "Cadastrando nova família (múltiplos pacientes e tutores)" do
+      pending "Features de clínica foram potergadas"
       e_uma_familia_composta_que_desejamos_cadastrar
       e_estamos_na_pagina_da_clinica_demo      
       quando_clicamos_em_cadastrar_nova_familia
@@ -39,7 +41,8 @@ RSpec.feature "Clinicas", type: :feature do
       e_vemos_que_os_pacientes_foram_cadastrados
     end
 
-    scenario "Um atendimento pode ser iniciado através da tela de cadastro/edição da família" do
+    xscenario "Um atendimento pode ser iniciado através da tela de cadastro/edição da família" do
+      pending "Features de clínica foram potergadas"
       dado_uma_familia_simples_cadastrada
       e_estamos_na_pagina_de_edicao_da_familia
       quando_eu_clicar_para_iniciar_o_atendimento_do_paciente
@@ -50,6 +53,7 @@ RSpec.feature "Clinicas", type: :feature do
 
   feature "O sistema possui uma clínica demonstrativa", :wipo do
     scenario "que pode ser criada através de um link na página inicial" do
+      pending "Features de clínica foram potergadas"
       dado_um_veterinario_logado
       quando_clicar_em_criar_clinica_demo
       entao_estamos_na_pagina_da_clinica_demo
@@ -58,6 +62,7 @@ RSpec.feature "Clinicas", type: :feature do
       e_estamos_vendo_o_layout_da_pagina_de_clinica
     end
     scenario "que pode ser recriada através de um link na página inicial" do
+      pending "Features de clínica foram potergadas"
       dado_um_veterinario_logado
       e_uma_clinica_demonstrativa_criada
       quando_clicar_em_criar_clinica_demo
@@ -70,6 +75,7 @@ RSpec.feature "Clinicas", type: :feature do
 
   feature "Todo veterinário possui acesso a uma clínica pessoal" do
     scenario "Usuário recém criado acessa clínica pessoal em /clinica" do
+      pending "Features de clínica foram potergadas"
       dado_um_veterinario_logado
       quando_clicar_em_minha_clinica
       entao_estamos_na_pagina_da_clinica_pessoal
@@ -94,6 +100,7 @@ RSpec.feature "Clinicas", type: :feature do
   feature "Aprendendo iniciar consulta de animal já cadastrado" do
     
     background do
+      pending "Features de clínica foram potergadas"
       dado_um_veterinario_logado
       e_clinica_pessoal_criada_com_exemplos
       quando_clicar_em_minha_clinica

@@ -6,39 +6,40 @@ RSpec.feature "Laboratorios", type: :feature do
     usando_main_domain
   end
 
-  scenario "Acessando laboratório através do seu subdomínio" do
-    dado_um_laboratorio
-    quando_acessar_subdominio_do_laboratorio
-    entao_pagina_inicial_do_laboratorio_eh_exibida
-  end
-
-  scenario "Acessando laboratório inexistente" do
-    pending "Passará a ser domínio disponível"
-    dado_um_laboratorio_inexistente
-    quando_acessar_subdominio_do_laboratorio
-    entao_pagina_de_laboratorio_inexistente_eh_exibida
-  end
-
-  scenario "Usuário não autorizado não tem permissão para acessar a intranet" do
-    dado_um_laboratorio
-    e_um_usuario_logado
-    quando_acessar_a_intranet
-    entao_pagina_inicial_do_laboratorio_eh_exibida
-    e_estou_vendo_mensagem_que_nao_tenho_permissao_acessar_intranet
-  end
-
-  scenario "Técnico tem permissão para acessar a intranet" do
-    dado_um_laboratorio_com_funcionarios
-    e_um_tecnico_logado
-    quando_acessar_a_intranet
-    entao_estamos_na_intranet_do_laboratorio
-  end
-
-  scenario "Secretario tem permissão para acessar a intranet" do
-    dado_um_laboratorio_com_funcionarios
-    e_um_secretario_logado
-    quando_acessar_a_intranet
-    entao_estamos_na_intranet_do_laboratorio
+  context "Laboratório normal" do
+    scenario "Acessando laboratório através do seu subdomínio" do
+      dado_um_laboratorio
+      quando_acessar_subdominio_do_laboratorio
+      entao_pagina_inicial_do_laboratorio_eh_exibida
+    end
+  
+    scenario "Acessando laboratório inexistente" do
+      pending "Passará a ser domínio disponível"
+      dado_um_laboratorio_inexistente
+      quando_acessar_subdominio_do_laboratorio
+      entao_pagina_de_laboratorio_inexistente_eh_exibida
+    end
+  
+    scenario "Usuário não autorizado não tem permissão para acessar a intranet" do
+      dado_um_laboratorio
+      e_um_usuario_logado
+      quando_acessar_a_intranet
+      entao_pagina_inicial_do_laboratorio_eh_exibida
+      e_estou_vendo_mensagem_que_nao_tenho_permissao_acessar_intranet
+    end
+    scenario "Técnico tem permissão para acessar a intranet" do
+      dado_um_laboratorio_com_funcionarios
+      e_um_tecnico_logado
+      quando_acessar_a_intranet
+      entao_estamos_na_intranet_do_laboratorio
+    end
+  
+    scenario "Secretario tem permissão para acessar a intranet" do
+      dado_um_laboratorio_com_funcionarios
+      e_um_secretario_logado
+      quando_acessar_a_intranet
+      entao_estamos_na_intranet_do_laboratorio
+    end
   end
 
   feature "Logotipo" do
@@ -77,7 +78,8 @@ RSpec.feature "Laboratorios", type: :feature do
     end
   end
 
-  feature "Laboratório demonstrativo", :wip do
+  
+  feature "Laboratório demonstrativo" do
     scenario "Concedendo permissão de técnico ao laboratório demonstrativo a qualquer usuário" do
       dado_um_laboratorio_demonstrativo
       e_um_usuario_logado_no_mundo_vet
@@ -85,6 +87,54 @@ RSpec.feature "Laboratorios", type: :feature do
       quando_eu_clicar_em_conceder_permissoes_de_secretario_e_tecnico
       entao_estamos_na_intranet_do_laboratorio
     end
+  end
+
+  # Os laboratórios experimentais tem o propósito de
+  # oferecerem uma experiencia agradável de experimentação
+  feature "Laboratório experimental (em avaliacao)" do
+
+    scenario "Criando laboratório, requisição e resultado", experimental: true, wip: true do
+      dado_estou_na_pagina_inicial_do_mundo_vet
+      quando_eu_clicar_em_experimentar_um_laboratorio
+      entao_estamos_na_pagina_de_criar_laboratorio
+      quando_preencher_dados_para_criar_novo_laboratorio
+      e_clicar_em_criar_laboratorio
+      entao_estamos_na_pagina_do_laboratorio
+      e_podemos_ver_mensagem_esse_laboratorio_eh_experimental
+    end
+
+  end
+
+  feature "Criar e experimentar um laboratório", :fantasia do
+    scenario "Criando laboratório, requisição e resultado", js: true do
+      pending "falta implementar"
+      quando_clicar_em_solicitar_exame
+      entao_estamos_na_pagina_para_fazer_login
+      quando_clicar_em_registra_se
+      e_preencher_os_dados_do_usuario
+      quando_clicar_em_registra_se
+      entao_estamos_na_pagina_de_requisicao_de_exame
+      quando_preencher_os_dados_da_requisicao_de_exame
+      e_clicar_no_botao_solicitar_exame
+      entao_estamos_na_pagina_de_vizualizacao_de_exame
+      e_estou_lendo_que_os_funcionarios_trabalham_dentro_da_intranet
+      quando_clicar_em_intranet
+      entao_estamos_na_intranet_do_laboratorio      
+      e_estou_lendo_que_esta_eh_uma_area_restrita_acesso_permintido_no_experimental
+      quando_clicar_em_confirmar_recebimento_de_exames
+      quando_clicar_em_confirmar_recebimento_na_solicitacao
+      entao_estamos_na_pagina_intranet_recebimento_de_solicitacoes
+      e_o_status_da_solicitacao_mudou_para_aguardando_resultado
+      e_estou_lendo_os_resultados_dos_exames_sao_inseridos_pelos_tecnicos_em_outra_tela
+      quando_eu_clicar_em_realizar_exames
+      entao_estamos_na_intranet_de_lista_de_requisicoes_de_exames
+      quando_anexar_um_documento_como_resultado
+      e_clicar_em_anexar_ao_resultado
+      entao_estamos_na_intranet_edicao_do_exame_vendo_os_detalhes_da_requisicao_de_exame
+      e_estamos_vendo_o_status_resultado_disponivel
+      e_posso_ver_link_para_baixar_o_resultado    
+    end
+
   end
 
   def entao_pagina_inicial_do_laboratorio_eh_exibida
@@ -106,6 +156,10 @@ RSpec.feature "Laboratorios", type: :feature do
 
   def entao_estamos_na_intranet_do_laboratorio
     expect(page).to have_current_path(intranet_path)
+  end
+
+  def entao_estamos_na_pagina_de_criar_laboratorio
+    expect(page).to have_current_path(new_laboratorio_path)
   end
 
   def entao_estamos_estamos_vendo_o_logo_do_gravatar_do_dono
@@ -133,9 +187,45 @@ RSpec.feature "Laboratorios", type: :feature do
     click_on "Conceder permissões e acessar Intranet do laboratório demonstrativo"
   end
 
+  def quando_eu_clicar_em_experimentar_um_laboratorio
+    click_on "Criar uma laboratório para experimentar"
+  end
+
   def dado_um_laboratorio_demonstrativo
     @org = create(:organizacao, subdomain: 'labdemo')
     @lab = create(:laboratorio, organizacao: @org)
   end
+
+  def quando_preencher_dados_para_criar_novo_laboratorio
+    @org = build(:organizacao)
+    @lab = build(:laboratorio, organizacao: @org)
+    @unidade = build(:unidade, laboratorio: @lab)
+    @exames = ""
+    6.times {@exames << build(:exame_tipo).nome + "\n"}
+        
+    fill_in 'nome', with: @lab.nome
+    fill_in 'subdomain', with: @org.subdomain
+    fill_in 'telefone', with: @unidade.telefone
+    fill_in 'exames', with: @exames
+  end
+
+  def e_clicar_em_criar_laboratorio
+    click_on "criar_laboratorio"
+
+  end
+  
+  def entao_estamos_na_pagina_do_laboratorio
+    # expect(page).to have_current_path(root_url(subdomain: @org.subdomain))
+
+    # necessário para correção do teste com subdomínio
+    quando_acessar_subdominio_do_laboratorio
+  end
+
+  def e_podemos_ver_mensagem_esse_laboratorio_eh_experimental
+    expect(page).to have_content("Este laboratório encontra-se em modo experimental")
+    expect(page).to have_content("O modo experimental tem o propópsito de agiliar a venda do sistema, proporcionando uma experimentação do sistema guiada.")
+    expect(page).to have_content("No modo experimental os acessos são irrestritos, qualquer usuário possui permissão total sobre o laboratório.")
+  end
+
 
 end

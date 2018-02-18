@@ -9,7 +9,8 @@ RSpec.feature "Atendimentos", type: :feature do
     e_um_atendimento_ficticio
   end
 
-  scenario "Cadastrando um novo atendimento comum" do
+  xscenario "Cadastrando um novo atendimento comum" do
+    pending "Features de clínica foram potergadas"
     dado_estamos_na_pagina_novo_atendimento_paciente
     entao_estou_vendo_cabecalho_do_atendimento
     quando_preencher_a_anamnese

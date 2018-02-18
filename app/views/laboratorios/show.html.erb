@@ -1,10 +1,29 @@
 <!--%= image_tag curent_user.gravatar_url %-->
 <div class="container">
 
+  <% if @lab.organizacao.experimental? %>
+    <div class="alert alert-danger" role="alert">
+      Este laboratório encontra-se em modo experimental
+
+      <a class="alert-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        modo experimental.
+      </a>
+
+      <div class="collapse" id="collapseExample">
+        <ul>
+          <li>O modo experimental tem o propópsito de agiliar a venda do sistema, proporcionando uma experimentação do sistema guiada.</li>
+          <li>No modo experimental os acessos são irrestritos, qualquer usuário possui permissão total sobre o laboratório.</li>
+          <li>O modo experimental termina quando um usuário adquirir o laboratório.</li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
 
 <div class="jumbotron" id="apresentacao_inicial">
-  <h1 class="display-4"><%= @lab.nome %></h1>
-  <p class="lead"><%= @lab.apresentacao %></p>
+  <h1 class="display-5"><%= @lab.nome %></h1>
+  <p class="lead">
+    <%= @lab.apresentacao %>
+  </p>
   <p class="lead">
     <% if current_user.nil? %>
     <hr class="m-y-2">

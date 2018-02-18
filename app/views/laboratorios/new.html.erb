@@ -1,0 +1,44 @@
+<!--%= image_tag curent_user.gravatar_url %-->
+<div class="container">
+<h2>Criando um laboratório experimental</h2>
+<%= form_with url: laboratorios_path, local: true do |f| %>
+
+  <div class="form-group">
+    <label for="nome">Nome</label>
+    <input name="nome" type="text" class="form-control" aria-describedby="nomeAjuda" placeholder="Nome do laboratório, ex: Laboratório Veterinário Santo Antônio" required>
+    <small id="nomeAjuda" class="form-text text-muted">Escolha um nome para o laboratorio experimental.</small>
+  </div>
+
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="exampleInputEmail1">Escolha um endereço para o laboratório experimental:</label>
+      <div class="input-group mb-1">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">http://</span>
+        </div>
+        <input name="subdomain" type="text" class="form-control" placeholder="santoantonio" aria-label="subdominio" aria-describedby="subdomainAjuda" required>
+        <div class="input-group-append">
+          <span class="input-group-text" id="basic-addon2">.mundo.vet</span>
+        </div>
+      </div>
+      <small id="subdomainAjuda" class="form-text text-muted">Esse endereço pode ser modificado depois, podendo inclusive utilizar um domínio próprio.</small>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="telefone">Telefone</label>
+      <input name="telefone" type="tel" class="form-control" aria-describedby="telefoneAjuda" placeholder="(xx) XXXX XXXX">
+      <small id="telefoneAjuda" class="form-text text-muted">Insira os telefones de contato, eles serão apresentados no rodapé da página inicial</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Informe os tipos de exames que seu laboratório realiza:</label>
+    <textarea name="exames" class="form-control" rows="8" aria-describedby="examesAjuda" placeholder="Citopatológico&#x0a;Parasitológico de fezes&#x0a;Urinálise&#x0a;etc"></textarea>
+      <small id="examesAjuda" class="form-text text-muted">Escreva acima os tipos de exames que estarão disponíveis para os clientes solicitarem, se deixado em branco alguns tipos serão criados para promover uma boa experiência de utilização do sistema.</small>
+  </div>
+
+
+  <button type="submit" class="btn btn-primary" id="criar_laboratorio">Criar laboratório experimental</button>
+
+<% end %>
+</div>

@@ -3,7 +3,11 @@
   <footer class="container py-5" id="rodade">
     <div class="row">
       <div class="col-12 col-md">
-        <%= link_to (image_tag @lab.organizacao.dono.gravatar_url(:size => 64)), root_path, class: 'navbar-brand', id: 'minilogo'%>
+        <% if @lab.organizacao.experimental? %>
+          <%= link_to (image_tag "https://s3-sa-east-1.amazonaws.com/mundovet-producao/mundo.vet/assets/logo-mundo.vet.png"), 'http://mundo.vet', class: 'navbar-brand', id: 'logo'%>
+        <% else %>
+          <%= link_to (image_tag @lab.organizacao.dono.gravatar_url(:size => 64)), root_path, class: 'navbar-brand', id: 'minilogo'%>
+        <% end %>
         <ul class="list-unstyled text-small">
           <li><small class="text-muted">&copy; <%= @lab.nome %></small></li>
         </ul>

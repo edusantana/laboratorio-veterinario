@@ -2,7 +2,11 @@
 <nav class="navbar navbar-expand-lg navbar-light rounded border-bottom box-shadow   align-items-center p-3 px-md-4 mb-3">
   <nav class="navbar navbar-light">
     <% if @lab %>
-      <%= link_to (image_tag @lab.organizacao.dono.gravatar_url(:size => 120)), root_path, class: 'navbar-brand', id: 'logo'%>
+      <% if @lab.organizacao.experimental? %>
+        <%= link_to (image_tag "https://s3-sa-east-1.amazonaws.com/mundovet-producao/mundo.vet/assets/logo-mundo.vet.png"), 'http://mundo.vet', class: 'navbar-brand', id: 'logo'%>
+      <% else %>
+        <%= link_to (image_tag @lab.organizacao.dono.gravatar_url(:size => 120)), root_path, class: 'navbar-brand', id: 'logo'%>
+      <% end %>
     <% else %>
       <%= link_to (image_tag "https://s3-sa-east-1.amazonaws.com/mundovet-producao/mundo.vet/assets/logo-mundo.vet.png"), 'http://mundo.vet', class: 'navbar-brand', id: 'logo'%>
     <% end %>

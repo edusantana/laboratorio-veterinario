@@ -37,11 +37,11 @@ Rails.application.routes.draw do
       end
       resources :exame_resultados, only: [:show, :edit, :update]
 
-
-
       match '/', to: 'laboratorios#show', via: [:get]
     end
   end
+
+  resources :laboratorios, only: [:new, :create]
 
 #  match '/', to: 'exame_requisicao#show', constraints: { subdomain: /.+/ }, via: [:get, :post, :put, :patch, :delete]
 

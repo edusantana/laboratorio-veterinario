@@ -1,8 +1,12 @@
 class Organizacao < ApplicationRecord
   resourcify
-  belongs_to :dono, class_name: "User"
+  belongs_to :dono, class_name: "User", optional: true
   has_one :laboratorio
   has_one :clinica
+
+  scope :experimental, -> { where(experimental: true) }
+  scope :nao_experimental, -> { where(experimental: false) }
+
 
   def Organizacao.criar_clinica_demo
 

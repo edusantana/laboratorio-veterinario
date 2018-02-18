@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   layout "mundovet"
 
   def index
-    @laboratorios = Laboratorio.all
+    @experimentais = Organizacao.experimental
+    @nao_experimentais = Organizacao.nao_experimental
   end
 end

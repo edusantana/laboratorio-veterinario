@@ -83,6 +83,14 @@
       <li>Implementar novas funcionalidades exige um grande custo.</li>
       <li>Problemas de segurança: a maioria dos sistemas personalizados não são atualizados constantemente por isso ficam a mercer de invasões.</li>
     </ul>
+
+  <h3 id="experimental">Experimentar o sistema de laboratório do mundo.vet</h3>
+  <p>Ao clicar no botão abaixo, você poderá experimentar o sistema. Clique nele.</p>
+
+    <div class="text-center">
+      <%= link_to "Criar uma laboratório para experimentar", new_laboratorio_path, class: 'btn  btn-info my-2' %>
+    </div>
+
   <h3 id="demo">Laboratório Demonstrativo</h3>
     <p>Preparamos um laboratório demonstrativo onde você poderá conhecer como o sistema funciona:<p>
     <div class="text-center">
@@ -127,10 +135,27 @@
     </div>
   </div>
 
+  <h2>Laboratórios experimentais</h2>
+  <p>Veja alguns laboratórios experimentais que foram criados: </p>
+  <ul class="list-group mb-3">
+    <% @experimentais.each do |org| %>
+      <% next unless org.laboratorio %>    
+      <% lab = org.laboratorio %>
+      <li class="list-group-item">
+        <%= link_to root_url(subdomain: org.subdomain) do %>
+          <%= lab.nome %> - <%= root_url(subdomain: org.subdomain) %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+
   <h2>Laboratórios clientes</h2>
   <p>Veja alguns laboratórios que utilizam os nossos serviços: </p>
   <ul class="list-group mb-3">
-    <% @laboratorios.each do |lab| %>
+    <% @nao_experimentais.each do |org| %>
+      <% next unless org.laboratorio %>
+      <% lab = org.laboratorio %>
       <li class="list-group-item">
         <%= link_to root_url(subdomain: lab.organizacao.subdomain) do %>
           <%= image_tag lab.organizacao.dono.gravatar_url(:size => 64) %> 
