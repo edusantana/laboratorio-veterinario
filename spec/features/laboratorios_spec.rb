@@ -93,7 +93,7 @@ RSpec.feature "Laboratorios", type: :feature do
   # oferecerem uma experiencia agradável de experimentação
   feature "Laboratório experimental (em avaliacao)" do
 
-    scenario "Criando laboratório, requisição e resultado", experimental: true, wip: true do
+    scenario "Criando laboratório, requisição e resultado" do
       dado_estou_na_pagina_inicial_do_mundo_vet
       quando_eu_clicar_em_experimentar_um_laboratorio
       entao_estamos_na_pagina_de_criar_laboratorio

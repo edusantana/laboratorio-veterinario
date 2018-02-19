@@ -7,6 +7,11 @@ def dado_um_laboratorio_inexistente
   @lab = build(:laboratorio)
 end
 
+def dado_um_laboratorio_experimental
+  @org = create(:organizacao_experimental)
+  @lab = create(:laboratorio, organizacao: @org)
+end
+
 def dado_um_laboratorio_com_funcionarios
   @lab = create(:laboratorio_com_funcionarios)
   @dono = User.with_role(:dono, @lab.organizacao).take

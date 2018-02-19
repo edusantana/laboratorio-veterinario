@@ -9,6 +9,10 @@ FactoryBot.define do
     sequence(:apresentacao) {|n| "Texto#{n} de apresentação do laboratório." }
     organizacao
 
+    factory :laboratorio_experimental do
+      organizacao factory: :organizacao_experimental
+    end
+
     factory :laboratorio_com_funcionarios do
       after(:create) do |lab|
         secretario = create(:user)
@@ -16,7 +20,7 @@ FactoryBot.define do
         dono = create(:user)
         secretario.add_role :secretario, lab.organizacao
         tecnico.add_role :tecnico, lab.organizacao
-        tecnico.add_role :dono, lab.organizacao
+        dono.add_role :dono, lab.organizacao
       end
     end
 

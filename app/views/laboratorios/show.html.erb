@@ -2,21 +2,29 @@
 <div class="container">
 
   <% if @lab.organizacao.experimental? %>
-    <div class="alert alert-danger" role="alert">
-      Este laboratório encontra-se em modo experimental
-
-      <a class="alert-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        modo experimental.
-      </a>
-
-      <div class="collapse" id="collapseExample">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <p>Este laboratório encontra-se em modo experimental <strong>modo experimental</strong> (5 minutos são suficientes para conhecer o sistema).</p>
+      <ul>
+        <li>O modo experimental tem o propópsito de apresentar as funcionalidades do sistema e agiliar sua aquisição.</li>
+        <li>No modo experimental os acessos são irrestritos, qualquer usuário possui permissão total sobre o laboratório.</li>
+        <li>O modo experimental termina quando alguém adquirir o laboratório.</li>
+      </ul>
+      <p>Realize os seguintes passos para conhecer o sistema:</p>
+      <div id="passos">
         <ul>
-          <li>O modo experimental tem o propópsito de agiliar a venda do sistema, proporcionando uma experimentação do sistema guiada.</li>
-          <li>No modo experimental os acessos são irrestritos, qualquer usuário possui permissão total sobre o laboratório.</li>
-          <li>O modo experimental termina quando um usuário adquirir o laboratório.</li>
+          <li>Adicione os tipos de exames que seu laboratório realiza</li>
+          <li>Edite a mensagem de apresentação do laboratório</li>
+          <li>Simule um cliente veterinário solicitando um novo exame</li>
+          <li>Edite o telefone do laboratório</li>
+          <li>Edite o endereço do laboratório</li>
         </ul>
       </div>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
+
+
   <% end %>
 
 <div class="jumbotron" id="apresentacao_inicial">
@@ -29,27 +37,62 @@
     <hr class="m-y-2">
     <p>Na primeira solicitação você precisará registra-se no sistema.</p>
     <% end %>
-    <%= link_to('Solicitar exame »', new_exame_requisicao_path, class: "btn btn-primary btn-lg") %>
+    <% if @lab.exame_tipos.empty? %>
+    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Enquanto não houver tipos de exames cadastrados não será possível solicitar exames.">
+      <%= link_to('Solicitar exame »', new_exame_requisicao_path, class: "btn btn-primary btn-lg disabled", id: "botao_solicitar_exame", 'aria-disabled' => "true", :disabled => nil) %>
+    </span>
+
+    <% else %>
+      <%= link_to('Solicitar exame »', new_exame_requisicao_path, class: "btn btn-primary btn-lg", id: "botao_solicitar_exame") %>
+    <% end %>
   </p>
 </div>
 
   <div id="tipos">
-    <h1>Exames disponíveis</h1>
-    <table class="table table-sm table-striped">
-      <thead>
-        <tr>
-          <th>Tipo do exame</th>
-          <th>Valor</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @lab.exame_tipos.each do |tipo| %>
+    <h1>Tipos de exames que realizamos</h1>
+
+    <% exame_tipo = ExameTipo.new(laboratorio: @lab) %>
+
+    <% if policy(exame_tipo).update? %>
+      <div>
+      <p>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Adicionar novo tipo de exame
+        </a>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Button with data-target
+        </button>
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+        </div>
+      </div>
+
+    <% end %>
+
+
+    <% if @lab.exame_tipos.empty? %>
+    <div class="alert alert-danger" role="alert">
+      <p>Nenhum tipo de exame foi cadastrado.</p>
+    </div>
+    <% else %>
+      <table class="table table-sm table-striped">
+        <thead>
           <tr>
-            <td><%= tipo.nome %></td>
-            <td><%= number_to_currency(tipo.valor, unit: "R$", separator: ",")%></td>
+            <th>Tipo do exame</th>
+            <th>Valor</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>    
+        </thead>
+        <tbody>
+          <% @lab.exame_tipos.each do |tipo| %>
+            <tr>
+              <td><%= tipo.nome %></td>
+              <td><%= number_to_currency(tipo.valor, unit: "R$", separator: ",")%></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>    
+    <% end %>
   </div>
 </div>

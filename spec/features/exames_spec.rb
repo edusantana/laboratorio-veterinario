@@ -118,6 +118,33 @@ RSpec.feature "Exames", type: :feature do
     quando_tentar_editar_o_exame
     entao_vemos_uma_mensagem_que_nao_temos_permissao_para_editar_o_exame
   end
+
+  feature "Adicionando tipos de exame" do
+
+    context "Em laboratório experimental" do
+      background do
+        dado_um_laboratorio_experimental
+      end
+      
+      scenario "Sem tipos de exames cadastrados", wip:true, js: true do
+        dado_um_tipo_de_exame_que_desejo_cadastrar
+        quando_acessar_pagina_inicial_do_laboratorio
+        entao_lemos_que_nenhum_tipo_de_exame_foi_cadastrado
+        e_o_botao_solicitar_novo_exame_esta_desabilitado
+        e_lemos_que_o_primeiro_passo_eh_cadastrar_tipos_de_exames
+        quando_clicar_em_adicionar_novo_tipo_de_exame
+        e_preencher_nome_e_valor_do_tipo_de_exame
+        e_clicar_em_adicionar_tipo_de_exame
+        entao_o_novo_tipo_de_exame_foi_adicionado_a_tabela_de_tipos
+
+        
+
+      end
+
+
+
+    end
+  end
   
   def e_o_veterinario_que_solicitou_o_exame_estiver_logado
     @veterinario = @exame_requisicao.requisitante
@@ -260,5 +287,27 @@ RSpec.feature "Exames", type: :feature do
   def e_o_formulario_esta_preenchido_com_os_dados_da_solicitacao_anterior
     #expect(page).to have_field('#exame_requisicao_proprietario', with: @exame_requisicao.proprietario)
     skip "Está funcionando, mas falta implementar teste de verificação"
+  end
+
+  def entao_lemos_que_nenhum_tipo_de_exame_foi_cadastrado
+    expect(page).to have_content("Nenhum tipo de exame foi cadastrado.")
+    # Ainda falta cadastrar os tipos de exames que esse laboratório irá oferecer para seus clientes.
+  end
+
+  def e_o_botao_solicitar_novo_exame_esta_desabilitado
+    #expect(find('#botao_solicitar_exame').enable).to eq(false)
+    find('#botao_solicitar_exame'){|e| e['class'].include?('disabled')}
+  end
+
+  def e_lemos_que_o_primeiro_passo_eh_cadastrar_tipos_de_exames
+    expect(find('#passos')).to have_content("Adicione os tipos de exames que seu laboratório realiza")
+  end
+
+  def dado_um_tipo_de_exame_que_desejo_cadastrar
+    @exame_tipo = build(:exame_tipo, laboratorio: @lab)
+  end
+
+  def quando_clicar_em_adicionar_novo_tipo_de_exame
+    click_on "Adicionar novo tipo de exame"
   end
 end

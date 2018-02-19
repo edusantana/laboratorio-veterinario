@@ -8,6 +8,6 @@ FactoryBot.define do
       experimental {true}
     end
 
-    after(:build) {|org| org.dono.add_role :dono, org}
+    after(:build) {|org| org.dono.add_role(:dono, org) unless org.experimental?}
   end
 end
