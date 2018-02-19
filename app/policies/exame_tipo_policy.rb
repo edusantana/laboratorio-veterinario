@@ -13,10 +13,19 @@ class ExameTipoPolicy < ApplicationPolicy
   end
 
   def create?
-    @org.experimental? || @user && @user.has_role?(:dono, @org)
+    dono_ou_experimental
   end
 
   def update?
+    dono_ou_experimental
+  end
+
+  def destroy?
+    dono_ou_experimental
+  end
+
+  private
+  def dono_ou_experimental
     @org.experimental? || @user && @user.has_role?(:dono, @org)
   end
 

@@ -119,29 +119,31 @@ RSpec.feature "Exames", type: :feature do
     entao_vemos_uma_mensagem_que_nao_temos_permissao_para_editar_o_exame
   end
 
-  feature "Adicionando tipos de exame" do
+  feature "Gerenciando tipos de exame" do
 
-    context "Em laboratório experimental" do
+    context "em laboratório experimental" do
       background do
         dado_um_laboratorio_experimental
       end
       
-      scenario "Sem tipos de exames cadastrados", wip:true, js: true do
+      scenario "sem tipos de exames cadastrados e adicionando novo tipo", exame_tipos:true, js: true do
         dado_um_tipo_de_exame_que_desejo_cadastrar
         quando_acessar_pagina_inicial_do_laboratorio
         entao_lemos_que_nenhum_tipo_de_exame_foi_cadastrado
         e_o_botao_solicitar_novo_exame_esta_desabilitado
         e_lemos_que_o_primeiro_passo_eh_cadastrar_tipos_de_exames
-        quando_clicar_em_adicionar_novo_tipo_de_exame
-        e_preencher_nome_e_valor_do_tipo_de_exame
+        quando_preencher_nome_e_valor_do_tipo_de_exame
         e_clicar_em_adicionar_tipo_de_exame
-        entao_o_novo_tipo_de_exame_foi_adicionado_a_tabela_de_tipos
-
-        
-
+        entao_o_novo_tipo_de_exame_foi_adicionado_a_tabela_de_tipos       
       end
 
-
+      scenario "removendo tipo de exame cadastrado (sem exames realizados)", wip:true, js: true do
+        dado_um_tipo_de_exame
+        quando_acessar_pagina_inicial_do_laboratorio
+        entao_estamos_vendo_o_tipo_de_exame_e_botoes_de_acoes
+        quando_clicar_no_botao_remover_o_tipo_de_exame
+        entao_o_tipo_de_exame_foi_removido
+      end
 
     end
   end
@@ -307,7 +309,33 @@ RSpec.feature "Exames", type: :feature do
     @exame_tipo = build(:exame_tipo, laboratorio: @lab)
   end
 
-  def quando_clicar_em_adicionar_novo_tipo_de_exame
-    click_on "Adicionar novo tipo de exame"
+  def quando_preencher_nome_e_valor_do_tipo_de_exame
+    fill_in 'exame_tipo[nome]', with: @exame_tipo.nome
+    fill_in 'exame_tipo[valor]', with: @exame_tipo.valor
   end
+
+  def e_clicar_em_adicionar_tipo_de_exame
+    click_on 'adicionar_tipo'
+  end
+
+  def entao_o_novo_tipo_de_exame_foi_adicionado_a_tabela_de_tipos
+    expect(find("#tipos")).to have_content(@exame_tipo.nome)
+  end
+
+  def entao_o_tipo_de_exame_foi_removido
+    expect(find("#tipos")).not_to have_content(@exame_tipo.nome)
+  end
+
+  def entao_estamos_vendo_o_tipo_de_exame_e_botoes_de_acoes
+    expect(find("#tipos")).to have_content(@exame_tipo.nome)
+
+    expect(find('#tipos')).to have_button("edit_exame_tipo_#{@exame_tipo.id}")
+    expect(find('#tipos')).to have_button("delete_exame_tipo_#{@exame_tipo.id}")
+
+  end
+
+  def quando_clicar_no_botao_remover_o_tipo_de_exame
+    click_on "delete_exame_tipo_#{@exame_tipo.id}"
+  end
+
 end

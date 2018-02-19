@@ -18,6 +18,7 @@ RSpec.describe ExameTipoPolicy do
       let(:user){nil}
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:create) }
+      it { is_expected.to permit_action(:destroy) }
     end
 
   end

@@ -1,5 +1,9 @@
 # spec/support/exames_helper.rb
 
+def dado_um_tipo_de_exame
+  @exame_tipo = create(:exame_tipo, laboratorio: @lab)
+end
+
 def e_uma_solicitacao_de_exame
   @exame_requisicao = create(:exame_requisicao, laboratorio: @lab)
 end

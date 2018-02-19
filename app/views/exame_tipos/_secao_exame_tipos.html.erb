@@ -1,0 +1,50 @@
+<div id="tipos">
+<h1>Tipos de exames que realizamos</h1>
+<% if lab.exame_tipos.empty? %>
+  <div class="alert alert-danger" role="alert">
+    <p>Nenhum tipo de exame foi cadastrado.</p>
+  </div>
+<% else %>
+  <table class="table table-sm table-striped" id="tabela_tipos">
+    <thead>
+      <tr>
+        <th>Tipo do exame</th>
+        <th>Valor</th>
+        <% if policy(lab).update? %>
+          <th>Ações</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @lab.exame_tipos.each do |tipo| %>
+        <%= render partial: "exame_tipos/exame_tipo_item",  locals: {:tipo => tipo, can_update: policy(lab).update?} %>
+      <% end %>
+    </tbody>
+  </table>    
+<% end %>
+
+<% exame_tipo = ExameTipo.new(laboratorio: lab) %>
+<% if policy(exame_tipo).create? %>
+  <div id="exame_tipo_form">
+    <%= form_with model: exame_tipo do |form| %>
+      <div class="form-row">
+        <div class="col-5">
+          <label class="sr-only" for="inlineFormInputName2">Nome do exame</label>
+          <input type="text" class="form-control mb-2 mr-sm-2 input-xxlarge" id="inlineFormInputName2" placeholder="Nome do exame" name="exame_tipo[nome]" required>
+        </div>
+        <div class="col-3">
+          <div class="input-group mb-2 mr-sm-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">R$</div>
+            </div>
+            <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Valor do exame"  name="exame_tipo[valor]">
+          </div>
+        </div>
+        <div class="col-1">
+          <button type="submit" class="btn btn-primary mb-2" id="adicionar_tipo">Adicionar</button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+</div>

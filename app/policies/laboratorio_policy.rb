@@ -19,4 +19,8 @@ class LaboratorioPolicy < ApplicationPolicy
     true # qualquer um pode listar os seus exames em um laboratório
   end
 
+  def update?
+    @org.experimental? || @user && @user.has_role?(:dono, @org)
+  end
+
 end

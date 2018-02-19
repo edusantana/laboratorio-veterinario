@@ -1,0 +1,16 @@
+<tr>
+  <td><%= tipo.nome %></td>
+  <td><%= number_to_currency(tipo.valor, unit: "R$", separator: ",")%></td>
+  <% if can_update %>
+    <td>
+      <%= form_with model:tipo, :method => :delete do |f| %>
+        <%= f.submit 'Deletar', id: "delete_exame_tipo_#{tipo.id}" %>
+      <% end %>
+
+      <%= form_with model:tipo, :method => :patch do |f| %>
+        <%= f.submit 'Editar', id: "edit_exame_tipo_#{tipo.id}" %>
+      <% end %>
+
+    </td>
+  <% end %>
+</tr>

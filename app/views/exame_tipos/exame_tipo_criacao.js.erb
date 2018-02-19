@@ -1,0 +1,6 @@
+<%# Adicionar o exame criado na tabela %>
+<%# $( "#tipos" ).replaceWith("<%= render partial: "secao_exame_tipos",  locals: {:lab => @lab}  "); %>
+
+$( "#tipos" ).replaceWith(
+  "<%= j render partial: "exame_tipos/secao_exame_tipos",  locals: {:lab => @lab, can_update: true} %>"
+  );

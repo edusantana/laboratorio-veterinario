@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   end
 
   constraints(subdomain: /^(?!mundo).+/) do
+    
+    resources :exame_tipos, except: [:show]
     resources :exame_requisicoes, except: [:destroy] do
       get 'novo_semelhante', on: :member
     end
@@ -42,6 +44,7 @@ Rails.application.routes.draw do
   end
 
   resources :laboratorios, only: [:new, :create]
+
 
 #  match '/', to: 'exame_requisicao#show', constraints: { subdomain: /.+/ }, via: [:get, :post, :put, :patch, :delete]
 
