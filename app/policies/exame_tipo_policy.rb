@@ -23,6 +23,12 @@ class ExameTipoPolicy < ApplicationPolicy
   def destroy?
     dono_ou_experimental
   end
+  def edit_mode?
+    dono_ou_experimental
+  end
+  def leave_edit?
+    dono_ou_experimental
+  end
 
   private
   def dono_ou_experimental

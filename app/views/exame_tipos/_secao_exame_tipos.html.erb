@@ -1,5 +1,10 @@
 <div id="tipos">
 <h1>Tipos de exames que realizamos</h1>
+<% if lab.organizacao.experimental? && edit_mode%>
+  <div class="alert alert-danger" role="alert">
+    Enquanto estiver no modo experimental todos os usuários possuem permissões para editar.
+  </div>
+<% end %>
 <% if lab.exame_tipos.empty? %>
   <div class="alert alert-danger" role="alert">
     <p>Nenhum tipo de exame foi cadastrado.</p>
@@ -10,21 +15,21 @@
       <tr>
         <th>Tipo do exame</th>
         <th>Valor</th>
-        <% if policy(lab).update? %>
+        <% if policy(lab).update? && edit_mode%>
           <th>Ações</th>
         <% end %>
       </tr>
     </thead>
     <tbody>
       <% @lab.exame_tipos.each do |tipo| %>
-        <%= render partial: "exame_tipos/exame_tipo_item",  locals: {:tipo => tipo, can_update: policy(lab).update?} %>
+        <%= render partial: "exame_tipos/exame_tipo_item",  locals: {:tipo => tipo, can_update: policy(lab).update?, edit_mode: edit_mode} %>
       <% end %>
     </tbody>
   </table>    
 <% end %>
 
 <% exame_tipo = ExameTipo.new(laboratorio: lab) %>
-<% if policy(exame_tipo).create? %>
+<% if policy(exame_tipo).create? && edit_mode%>
   <div id="exame_tipo_form">
     <%= form_with model: exame_tipo do |form| %>
       <div class="form-row">
@@ -37,7 +42,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text">R$</div>
             </div>
-            <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Valor do exame"  name="exame_tipo[valor]">
+            <input type="number" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Valor do exame"  name="exame_tipo[valor]">
           </div>
         </div>
         <div class="col-1">
@@ -47,4 +52,17 @@
     <% end %>
   </div>
 <% end %>
+
+<% if policy(exame_tipo).create? %>
+  <% if edit_mode %>
+    <%= form_with url:leave_edit_exame_tipos_path do |f|%>
+      <%= f.submit 'Fechar edição', class:"btn btn-outline-primary", id: "hide_edit_exame_tipos" %>
+    <% end %>
+  <% else %>
+    <%= form_with url:edit_mode_exame_tipos_path do |f| %>
+      <%= f.submit 'Editar', class:"btn btn-outline-primary", id: "show_edit_exame_tipos" %>
+    <% end %>
+  <% end %>
+<% end %>
+
 </div>

@@ -19,6 +19,8 @@ RSpec.describe ExameTipoPolicy do
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:create) }
       it { is_expected.to permit_action(:destroy) }
+      it { is_expected.to permit_action(:edit_mode) }
+      it { is_expected.to permit_action(:leave_edit) }
     end
 
   end
@@ -55,8 +57,10 @@ RSpec.describe ExameTipoPolicy do
       let(:user){dono}
       it { is_expected.to permit_action(:update) }
       it { is_expected.to permit_action(:create) }
+      it { is_expected.to permit_action(:destroy) }
+      it { is_expected.to permit_action(:edit_mode) }
+      it { is_expected.to permit_action(:leave_edit) }
     end
-
 
   end
 

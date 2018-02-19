@@ -7,7 +7,10 @@ Rails.application.routes.draw do
 
   constraints(subdomain: /^(?!mundo).+/) do
     
-    resources :exame_tipos, except: [:show]
+    resources :exame_tipos, except: [:show] do
+      post 'edit_mode', on: :collection
+      post 'leave_edit', on: :collection
+    end
     resources :exame_requisicoes, except: [:destroy] do
       get 'novo_semelhante', on: :member
     end
@@ -22,11 +25,14 @@ Rails.application.routes.draw do
     end
 
     resources :atendimentos, only: [:edit, :update] do
+      
     end
 
     match '/', to: 'organizacoes#show', via: [:get]
 
     match '/iniciando_atendimento', to: 'atendimentos#iniciando', via: [:get], as: :iniciando_atendimento
+
+
 
     namespace :intranet do
       resources :exame_requisicoes, except: [:new, :create, :show, :destroy] do

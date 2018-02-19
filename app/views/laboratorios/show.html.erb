@@ -9,16 +9,15 @@
         <li>No modo experimental os acessos são irrestritos, qualquer usuário possui permissão total sobre o laboratório.</li>
         <li>O modo experimental termina quando alguém adquirir o laboratório.</li>
       </ul>
-      <p>Realize os seguintes passos para conhecer o sistema:</p>
-      <div id="passos">
-        <ul>
-          <li>Adicione os tipos de exames que seu laboratório realiza</li>
-          <li>Edite a mensagem de apresentação do laboratório</li>
-          <li>Simule um cliente veterinário solicitando um novo exame</li>
-          <li>Edite o telefone do laboratório</li>
-          <li>Edite o endereço do laboratório</li>
-        </ul>
-      </div>
+      <p><strong>Você é o proprietário do laboratório</strong>? Realize os seguintes passos para conhecer o sistema:</p>
+      <ul id="passos">
+        <li>Adicione os tipos de exames que seu laboratório realiza</li>
+        <!--li>Edite a mensagem de apresentação do laboratório</li-->
+        <li>Simule um cliente veterinário solicitando um novo exame</li>
+        <!--li>Edite o telefone do laboratório</li-->
+        <!--li>Edite o endereço do laboratório</li-->
+      </ul>
+      <p><strong>Você um cliente</strong>? Solicite um novo exame e conte ao proprietário como foi sua experiência com a utilização do sitema.</p>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -48,6 +47,6 @@
   </p>
 </div>
 
-  <%= render partial: "exame_tipos/secao_exame_tipos",  locals: {:lab => @lab, can_update: policy(@lab).update?} %>
+  <%= render partial: "exame_tipos/secao_exame_tipos",  locals: {:lab => @lab, can_update: policy(@lab).update?, edit_mode: false} %>
 
 </div>
