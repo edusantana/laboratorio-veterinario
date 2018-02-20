@@ -1,5 +1,18 @@
 <div class="container">
 
+  <% if @lab.organizacao.experimental? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <p>Este laboratório encontra-se em <strong>modo experimental</strong>. Agora que você criou uma solicitação de exame você pode tomar um dos seguintes passos:</p>
+      <p><strong>Você é um funcionário do laboratório</strong>? Acesse a Intranet acima para confirmar o recebimento ou enviar o resultado do exame.</p>
+      <p><strong>Você um cliente</strong>? Entregue a coleta ao laboratório e depois consulte o resultado clicando em Resultados acima.</p>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+
+  <% end %>
+
 <% if @exame_requisicao.resultado %>
 <h1>Resultado</h1>
 

@@ -251,7 +251,7 @@ RSpec.feature "Laboratorios", type: :feature do
   end
 
   def e_podemos_ver_mensagem_esse_laboratorio_eh_experimental
-    expect(page).to have_content("Este laboratório encontra-se em modo experimental")
+    expect(page).to have_content("Este laboratório encontra-se no modo experimental")
     expect(page).to have_content("O modo experimental tem o propópsito de apresentar as funcionalidades do sistema e agiliar sua aquisição.")
     expect(page).to have_content("No modo experimental os acessos são irrestritos, qualquer usuário possui permissão total sobre o laboratório.")
   end

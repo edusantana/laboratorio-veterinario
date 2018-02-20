@@ -12,7 +12,7 @@ class LaboratorioPolicy < ApplicationPolicy
   end
   
   def funcionario?
-    @user.has_role?(:dono, @org) || @user.has_role?(:tecnico, @org)  ||  @user.has_role?(:secretario, @org )
+    experimental? || @user.has_role?(:dono, @org) || @user.has_role?(:tecnico, @org)  ||  @user.has_role?(:secretario, @org )
   end
 
   def listar_requisicoes?
@@ -20,7 +20,11 @@ class LaboratorioPolicy < ApplicationPolicy
   end
 
   def update?
-    @org.experimental? || @user && @user.has_role?(:dono, @org)
+    experimental? || @user && @user.has_role?(:dono, @org)
+  end
+
+  def experimental?
+    @org.experimental?
   end
 
 end

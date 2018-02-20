@@ -13,23 +13,27 @@ module Intranet
     end
     
     def funcionario?
-      secretario? || tecnico? || dono?
+      experimental? || secretario? || tecnico? || dono?
     end
 
     def secretario?
-      @user.has_role?(:secretario, @lab.organizacao)
+      experimental? ||@user.has_role?(:secretario, @lab.organizacao)
     end
 
     def tecnico?
-      @user.has_role?(:tecnico, @lab.organizacao)
+      experimental? ||@user.has_role?(:tecnico, @lab.organizacao)
     end
 
     def dono?
-      @user.has_role?(:dono, @lab.organizacao)
+      experimental? ||@user.has_role?(:dono, @lab.organizacao)
     end
 
     def index_requisicoes?
       funcionario?
+    end
+    
+    def experimental?
+      @org.experimental?
     end
 
   end
