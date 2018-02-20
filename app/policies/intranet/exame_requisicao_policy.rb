@@ -33,15 +33,19 @@ module Intranet
     private
     
     def secretario?
-      @user.has_role?(:secretario, @requisicao.laboratorio.organizacao)
+      experimental? || @user.has_role?(:secretario, @requisicao.laboratorio.organizacao)
     end
 
     def tecnico?
-      @user.has_role?(:tecnico, @requisicao.laboratorio.organizacao)
+      experimental? || @user.has_role?(:tecnico, @requisicao.laboratorio.organizacao)
     end
 
     def dono?
-      @user.has_role?(:dono, @requisicao.laboratorio.organizacao)
+      experimental? || @user.has_role?(:dono, @requisicao.laboratorio.organizacao)
+    end
+
+    def experimental?
+      @requisicao.laboratorio.organizacao.experimental?
     end
 
   end

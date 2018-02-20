@@ -26,7 +26,7 @@
     </div>
     <div class="form-group col-md-6">
       <label for="telefone">Telefone</label>
-      <input name="telefone" type="tel" class="form-control" aria-describedby="telefoneAjuda" placeholder="(xx) XXXX XXXX">
+      <input name="unidade[telefone]" type="tel" class="form-control" aria-describedby="telefoneAjuda" placeholder="(xx) XXXX XXXX">
       <small id="telefoneAjuda" class="form-text text-muted">Insira os telefones de contato, eles serão apresentados no rodapé da página inicial</small>
     </div>
   </div>
@@ -37,8 +37,32 @@
       <small id="examesAjuda" class="form-text text-muted">Escreva acima os tipos de exames que estarão disponíveis para os clientes solicitarem, se deixado em branco alguns tipos serão criados para promover uma boa experiência de utilização do sistema.</small>
   </div>
 
+<p>
+  <button class="btn btn-outline-secundary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Dados complementares
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    <div class="form-group">
+      <label for="bairro">Bairro:</label>
+      <input type="text" name="unidade[nome]" class="form-control" placeholder="Nome do bairro"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="endereco">Endereço completo:</label>
+      <input type="text" name="unidade[endereco]" class="form-control" placeholder="Endereço completo"></textarea>
+      <small id="apresentacaoAjuda" class="form-text text-muted">Criamos um link para o google maps com o endereço que você fornecer.</small>
+    </div>
+    <div class="form-group">
+      <label for="apresentacao">Mensagem de apresentação do laboratórios:</label>
+      <textarea name="apresentacao" class="form-control" rows="2" aria-describedby="apresentacaoAjuda" placeholder="Somos uma referência de qualidade na região que atuamos."></textarea>
+    </div>
 
-  <button type="submit" class="btn btn-primary" id="criar_laboratorio">Criar laboratório experimental</button>
+  </div>
+</div>  
+
+
+  <button type="submit" class="btn btn-primary mt-3 mb-3" id="criar_laboratorio">Criar laboratório experimental</button>
 
 <% end %>
 </div>

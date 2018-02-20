@@ -28,9 +28,27 @@
 
 <div class="jumbotron" id="apresentacao_inicial">
   <h1 class="display-5"><%= @lab.nome %></h1>
-  <p class="lead">
-    <%= @lab.apresentacao %>
-  </p>
+  <div id="apresentacao">
+    <p class="lead">
+      <span id="texto_de_apresentacao"><%= @lab.apresentacao %></span>
+        <% if policy(@lab).update? %>
+        <a id="edit_apresentacao" class="btn btn-outline-primary btn-sm" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Editar texto de apresentação
+        </a>
+        <% end %>
+    </p>
+    <% if policy(@lab).update? %>    
+      <div class="collapse mb-5" id="collapseExample">
+        <%= form_with model: Laboratorio.new, url: update_apresentacao_path, method: :patch do |f| %>
+        <div class="form-group">
+          <label for="apresentacao_input">Escreva um novo texto para a apresentação do laboratório:</label>
+          <textarea name="laboratorio[apresentacao]" class="form-control" id="apresentacao_input" rows="2" placeholder="Novo texto de apresentação"><%=@lab.apresentacao%></textarea>
+        </div>
+          <%= f.submit 'Atualizar', id: 'atualizar_apresentacao', class: 'btn btn-primary bt-sm' %>
+        <% end %>
+      </div>      
+    <% end %>
+  </div>
   <p class="lead">
     <% if current_user.nil? %>
     <hr class="m-y-2">

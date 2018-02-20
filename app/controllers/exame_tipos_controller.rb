@@ -37,10 +37,18 @@ class ExameTiposController < ApplicationController
   def destroy
     @exame_tipo = ExameTipo.find(params[:id])
     authorize @exame_tipo
-    @edit_mode = true
-    if @exame_tipo.destroy
+
+    begin
+      if @exame_tipo.laboratorio.organizacao.experimental?
+        @exame_tipo.requisicoes.each {|req| req.destroy}
+      end
+      @exame_tipo.destroy
+      @edit_mode = true
       render :exame_tipo_criacao
+    rescue ActiveRecord::InvalidForeignKey => error
+      render :exeme_tipo_destroy_error, locals: {exame_tipo: @exame_tipo, error: error}
     end
+
   end
 
   private

@@ -93,14 +93,26 @@ RSpec.feature "Laboratorios", type: :feature do
   # oferecerem uma experiencia agradável de experimentação
   feature "Laboratório experimental (em avaliacao)" do
 
-    scenario "Criando laboratório, requisição e resultado" do
+    scenario "Criando laboratório, requisição e resultado", :wip do
       dado_estou_na_pagina_inicial_do_mundo_vet
       quando_eu_clicar_em_experimentar_um_laboratorio
       entao_estamos_na_pagina_de_criar_laboratorio
       quando_preencher_dados_para_criar_novo_laboratorio
+      e_clicar_em_dados_complementares
+      quando_preencher_os_dados_complementares
       e_clicar_em_criar_laboratorio
       entao_estamos_na_pagina_do_laboratorio
       e_podemos_ver_mensagem_esse_laboratorio_eh_experimental
+      e_podemos_ver_os_dados_utilizados_na_criacao_do_laboratorio
+    end
+
+    scenario "Editando texto de apresentação", js: true do
+      dado_um_laboratorio_experimental
+      quando_acessar_subdominio_do_laboratorio
+      e_clicar_em_editar_texto_de_apresentacao
+      e_preencher_um_novo_texto_de_apresentacao
+      e_clicar_em_atualizar_apresentacao
+      entao_estamos_vendo_o_novo_texto_de_apresentacao
     end
 
   end
@@ -188,7 +200,7 @@ RSpec.feature "Laboratorios", type: :feature do
   end
 
   def quando_eu_clicar_em_experimentar_um_laboratorio
-    click_on "Criar uma laboratório para experimentar"
+    click_on "Criar um laboratório para experimentar"
   end
 
   def dado_um_laboratorio_demonstrativo
@@ -205,8 +217,25 @@ RSpec.feature "Laboratorios", type: :feature do
         
     fill_in 'nome', with: @lab.nome
     fill_in 'subdomain', with: @org.subdomain
-    fill_in 'telefone', with: @unidade.telefone
+    fill_in 'unidade[telefone]', with: @unidade.telefone
     fill_in 'exames', with: @exames
+  end
+  
+  def quando_preencher_os_dados_complementares
+    fill_in 'unidade[nome]', with: @unidade.nome
+    fill_in 'unidade[endereco]', with: @unidade.endereco
+    fill_in 'apresentacao', with: @lab.apresentacao
+  end
+
+  def e_podemos_ver_os_dados_utilizados_na_criacao_do_laboratorio
+    expect(page).to have_content @lab.nome
+    expect(page).to have_content @unidade.telefone
+    expect(page).to have_content @unidade.endereco
+    expect(page).to have_content @unidade.nome
+    @exames.each_line do |exame_nome|
+      expect(page).to have_content exame_nome
+    end
+    expect(page).to have_content @lab.apresentacao
   end
 
   def e_clicar_em_criar_laboratorio
@@ -227,5 +256,25 @@ RSpec.feature "Laboratorios", type: :feature do
     expect(page).to have_content("No modo experimental os acessos são irrestritos, qualquer usuário possui permissão total sobre o laboratório.")
   end
 
+  def e_clicar_em_editar_texto_de_apresentacao
+    click_on "edit_apresentacao"
+  end
+
+  def e_preencher_um_novo_texto_de_apresentacao
+    @apresentacao = build(:laboratorio).apresentacao
+    fill_in 'laboratorio[apresentacao]', with: @apresentacao
+  end
+
+  def e_clicar_em_atualizar_apresentacao
+    click_on "atualizar_apresentacao"
+  end
+
+  def entao_estamos_vendo_o_novo_texto_de_apresentacao
+    expect(find('#texto_de_apresentacao')).to have_content(@apresentacao)
+  end
+
+  def e_clicar_em_dados_complementares
+    click_on "Dados complementares"
+  end
 
 end

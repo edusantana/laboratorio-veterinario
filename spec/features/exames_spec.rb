@@ -126,7 +126,7 @@ RSpec.feature "Exames", type: :feature do
         dado_um_laboratorio_experimental
       end
       
-      scenario "sem tipos de exames cadastrados e adicionando novo tipo", exame_tipos:true, js: true, wip:true do
+      scenario "sem tipos de exames cadastrados e adicionando novo tipo", exame_tipos:true, js: true do
         dado_um_tipo_de_exame_que_desejo_cadastrar
         quando_acessar_pagina_inicial_do_laboratorio
         entao_lemos_que_nenhum_tipo_de_exame_foi_cadastrado
@@ -138,7 +138,7 @@ RSpec.feature "Exames", type: :feature do
         entao_o_novo_tipo_de_exame_foi_adicionado_a_tabela_de_tipos       
       end
 
-      scenario "removendo tipo de exame cadastrado (sem exames realizados)", wip:true, js: true do
+      scenario "removendo tipo de exame cadastrado (sem exames realizados)", js: true do
         dado_um_tipo_de_exame
         quando_acessar_pagina_inicial_do_laboratorio
         quando_clicar_em_editar_tipos_de_exames
@@ -147,9 +147,24 @@ RSpec.feature "Exames", type: :feature do
         entao_o_tipo_de_exame_foi_removido
       end
 
+      scenario "removendo tipo de exame cadastrado (com exames realizados)", js: true do
+        dado_uma_solicitacao_com_resultado
+        quando_acessar_pagina_inicial_do_laboratorio
+        quando_clicar_em_editar_tipos_de_exames
+
+        entao_estamos_vendo_o_tipo_de_exame_e_botoes_de_acoes
+        quando_clicar_no_botao_remover_o_tipo_de_exame
+        entao_o_tipo_de_exame_nao_foi_removido
+      end
+
     end
   end
   
+  def dado_uma_solicitacao_com_resultado
+    @exame_tipo = create(:exame_tipo, laboratorio: @lab)
+    @exame_requisicao = create(:exame_requisicao_com_resultado_disponivel, laboratorio: @lab, tipo: @exame_tipo)
+  end
+
   def e_o_veterinario_que_solicitou_o_exame_estiver_logado
     @veterinario = @exame_requisicao.requisitante
     usando_labdomain(@lab)
@@ -326,6 +341,10 @@ RSpec.feature "Exames", type: :feature do
 
   def entao_o_tipo_de_exame_foi_removido
     expect(find("#tipos")).not_to have_content(@exame_tipo.nome)
+  end
+  def entao_o_tipo_de_exame_nao_foi_removido
+    expect(find("#tipos")).to have_content(@exame_tipo.nome)
+    expect(find("#tipos")).to have_content("Contate o suporte")
   end
 
   def entao_estamos_vendo_o_tipo_de_exame_e_botoes_de_acoes

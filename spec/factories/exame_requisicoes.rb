@@ -9,6 +9,8 @@ FactoryBot.define do
     laboratorio
     association :tipo, factory: :exame_tipo
 
+    # after(:build) { |requisicao| requisicao.tipo.laboratorio =  requisicao.laboratorio}
+
     factory :exame_requisicao_aguardando_resultado do
       after(:build) { |requisicao| requisicao.confirmar_recebimento }
     end

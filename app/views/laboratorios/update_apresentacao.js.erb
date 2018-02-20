@@ -1,0 +1,6 @@
+<%# Adicionar o exame criado na tabela %>
+<%# $( "#tipos" ).replaceWith("<%= render partial: "secao_exame_tipos",  locals: {:lab => @lab}  "); %>
+
+$( "#texto_de_apresentacao" ).replaceWith(
+  "<span id='texto_de_apresentacao'><%= j @lab.apresentacao %></span>"
+  );

@@ -17,7 +17,14 @@
         <ul class="list-unstyled text-small">
           <% @lab.unidades.each do |unidade| %>
             <li><span class="text-muted"><%= unidade.nome %></span></li>
-            <li><small><%= link_to(unidade.endereco, "https://www.google.com.br/maps/place/#{unidade.endereco}") %>. Telefone: <%= unidade.telefone %></small></li>
+              <li>
+                <small>
+                  <% if unidade.endereco %>
+                    <%= link_to(unidade.endereco, "https://www.google.com.br/maps/place/#{unidade.endereco}") %>. 
+                  <% end %>
+                  Telefone: <%= unidade.telefone %>
+                </small>
+              </li>
           <% end %>
         </ul>
       </div>

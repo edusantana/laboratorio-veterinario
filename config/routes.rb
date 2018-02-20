@@ -24,9 +24,10 @@ Rails.application.routes.draw do
       resources :atendimentos
     end
 
-    resources :atendimentos, only: [:edit, :update] do
-      
+    resources :atendimentos, only: [:edit, :update] do      
     end
+
+    patch 'update_apresentacao', controller: 'laboratorios'
 
     match '/', to: 'organizacoes#show', via: [:get]
 
