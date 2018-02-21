@@ -52,14 +52,7 @@
     <hr class="m-y-2">
     <p>Na primeira solicitação você precisará registra-se no sistema.</p>
     <% end %>
-    <% if @lab.exame_tipos.empty? %>
-    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Enquanto não houver tipos de exames cadastrados não será possível solicitar exames.">
-      <%= link_to('Solicitar exame »', new_exame_requisicao_path, class: "btn btn-primary btn-lg disabled", id: "botao_solicitar_exame", 'aria-disabled' => "true", :disabled => nil) %>
-    </span>
-
-    <% else %>
-      <%= link_to('Solicitar exame »', new_exame_requisicao_path, class: "btn btn-primary btn-lg", id: "botao_solicitar_exame") %>
-    <% end %>
+    <%= link_to('Solicitar exame »', new_exame_requisicao_path, class: "btn btn-primary btn-lg", id: "botao_solicitar_exame") %>
   </p>
 </div>
 

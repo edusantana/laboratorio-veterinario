@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-12 col-md">
         <% if @lab.organizacao.experimental? %>
-          <%= link_to (image_tag "https://s3-sa-east-1.amazonaws.com/mundovet-producao/mundo.vet/assets/logo-mundo.vet.png"), 'http://mundo.vet', class: 'navbar-brand', id: 'logo'%>
+          <%= link_to (image_tag "https://s3-sa-east-1.amazonaws.com/mundovet-producao/mundo.vet/assets/seu-logo.png"), 'http://mundo.vet', class: 'navbar-brand', id: 'logo'%>
         <% else %>
           <%= link_to (image_tag @lab.organizacao.dono.gravatar_url(:size => 64)), root_path, class: 'navbar-brand', id: 'minilogo'%>
         <% end %>

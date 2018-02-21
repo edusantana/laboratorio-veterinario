@@ -126,11 +126,10 @@ RSpec.feature "Exames", type: :feature do
         dado_um_laboratorio_experimental
       end
       
-      scenario "sem tipos de exames cadastrados e adicionando novo tipo", exame_tipos:true, js: true do
+      scenario "sem tipos de exames cadastrados e adicionando novo tipo", exame_tipos:true, js: true, wip: true do
         dado_um_tipo_de_exame_que_desejo_cadastrar
         quando_acessar_pagina_inicial_do_laboratorio
         entao_lemos_que_nenhum_tipo_de_exame_foi_cadastrado
-        e_o_botao_solicitar_novo_exame_esta_desabilitado
         e_lemos_que_o_primeiro_passo_eh_cadastrar_tipos_de_exames
         quando_clicar_em_editar_tipos_de_exames
         quando_preencher_nome_e_valor_do_tipo_de_exame
@@ -311,11 +310,6 @@ RSpec.feature "Exames", type: :feature do
   def entao_lemos_que_nenhum_tipo_de_exame_foi_cadastrado
     expect(page).to have_content("Nenhum tipo de exame foi cadastrado.")
     # Ainda falta cadastrar os tipos de exames que esse laboratório irá oferecer para seus clientes.
-  end
-
-  def e_o_botao_solicitar_novo_exame_esta_desabilitado
-    #expect(find('#botao_solicitar_exame').enable).to eq(false)
-    find('#botao_solicitar_exame'){|e| e['class'].include?('disabled')}
   end
 
   def e_lemos_que_o_primeiro_passo_eh_cadastrar_tipos_de_exames
