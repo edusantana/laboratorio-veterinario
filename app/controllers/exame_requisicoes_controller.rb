@@ -13,6 +13,8 @@ class ExameRequisicoesController < ApplicationController
   end
 
   def new
+    redirect_to root_url(subdomain: @lab.organizacao.subdomain), alert: "Enquanto não houve tipos de exames cadastrados nesse laboratório não será possível solicitar novos exames." if @lab.exame_tipos.empty?
+
     if current_user.nome.blank? || current_user.cpf.blank? || current_user.crmv.blank? || current_user.endereco.blank? || current_user.telefone.blank?
       redirect_to edit_user_registration_path, alert: "Atualize o perfil completo para poder solicitar exames."
     else

@@ -58,8 +58,14 @@ def quando_acessar_pagina_inicial_do_laboratorio
   quando_acessar_subdominio_do_laboratorio
 end
 
+
+
 # CLICAR EM   CLICAR EM   CLICAR EM   CLICAR EM  
 
 def e_clicar_em_intranet
   click_on("Intranet")
+end
+
+def entao_estamos_na_pagina_inicial_do_laboratorio
+  expect(page).to have_current_path(root_path)
 end

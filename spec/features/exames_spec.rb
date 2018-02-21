@@ -22,6 +22,17 @@ RSpec.feature "Exames", type: :feature do
     #e_endereco_telefone_horario_recebimento_eh_exibido
   end
 
+  context "sem tipos de exames cadastrados", :wip do
+    scenario "Veterinário solicitando um exame" do
+      dado_um_laboratorio
+      e_um_veterinario_logado
+      quando_acessar_pagina_inicial_do_laboratorio
+      e_clicar_em_solicitar_exame
+      entao_estamos_na_pagina_inicial_do_laboratorio
+      e_vemos_mensagem_nao_eh_possivel_solicitar_exames
+    end
+  end
+
   scenario "Veterinário solicitando exame com base nos dados de outra requisição" do
     dado_um_laboratorio
     e_uma_solicitacao_de_exame
@@ -126,7 +137,7 @@ RSpec.feature "Exames", type: :feature do
         dado_um_laboratorio_experimental
       end
       
-      scenario "sem tipos de exames cadastrados e adicionando novo tipo", exame_tipos:true, js: true, wip: true do
+      scenario "sem tipos de exames cadastrados e adicionando novo tipo", exame_tipos:true, js: true do
         dado_um_tipo_de_exame_que_desejo_cadastrar
         quando_acessar_pagina_inicial_do_laboratorio
         entao_lemos_que_nenhum_tipo_de_exame_foi_cadastrado
@@ -355,6 +366,10 @@ RSpec.feature "Exames", type: :feature do
 
   def quando_clicar_em_editar_tipos_de_exames
     click_on "show_edit_exame_tipos"
+  end
+
+  def e_vemos_mensagem_nao_eh_possivel_solicitar_exames
+    expect(page).to have_content("Enquanto não houve tipos de exames cadastrados nesse laboratório não será possível solicitar novos exames.")
   end
 
 end
