@@ -137,7 +137,7 @@ RSpec.feature "Exames", type: :feature do
         dado_um_laboratorio_experimental
       end
       
-      scenario "sem tipos de exames cadastrados e adicionando novo tipo", exame_tipos:true, js: true do
+      scenario "sem tipos de exames cadastrados e adicionando novo tipo", exame_tipos:true, js: true, wip:true do
         dado_um_tipo_de_exame_que_desejo_cadastrar
         quando_acessar_pagina_inicial_do_laboratorio
         entao_lemos_que_nenhum_tipo_de_exame_foi_cadastrado
@@ -319,7 +319,7 @@ RSpec.feature "Exames", type: :feature do
   end
 
   def entao_lemos_que_nenhum_tipo_de_exame_foi_cadastrado
-    expect(page).to have_content("Nenhum tipo de exame foi cadastrado.")
+    expect(page).to have_content("Nenhum tipo de exame foi cadastrado. Enquanto não houver tipos de exames cadastrados nesse laboratório seus clientes não poderão solicitar exames.")
     # Ainda falta cadastrar os tipos de exames que esse laboratório irá oferecer para seus clientes.
   end
 
@@ -369,7 +369,7 @@ RSpec.feature "Exames", type: :feature do
   end
 
   def e_vemos_mensagem_nao_eh_possivel_solicitar_exames
-    expect(page).to have_content("Enquanto não houve tipos de exames cadastrados nesse laboratório não será possível solicitar novos exames.")
+    expect(page).to have_content("Enquanto não houver tipos de exames cadastrados nesse laboratório não será possível solicitar novos exames.")
   end
 
 end

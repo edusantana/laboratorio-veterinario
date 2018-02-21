@@ -7,7 +7,7 @@
 <% end %>
 <% if lab.exame_tipos.empty? %>
   <div class="alert alert-danger" role="alert">
-    <p>Nenhum tipo de exame foi cadastrado.</p>
+    <p>Nenhum tipo de exame foi cadastrado. Enquanto não houver tipos de exames cadastrados nesse laboratório seus clientes não poderão solicitar exames.</p>
   </div>
 <% else %>
   <table class="table table-sm table-striped" id="tabela_tipos">
